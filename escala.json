@@ -105,19 +105,19 @@
     },
     {
       "data": "2026-10-11",
-      "tecnicoId": "tmur8p0j5"
-    },
-    {
-      "data": "2026-10-12",
       "tecnicoId": "t5"
     },
     {
-      "data": "2026-10-17",
+      "data": "2026-10-12",
       "tecnicoId": "t8"
     },
     {
-      "data": "2026-10-18",
+      "data": "2026-10-17",
       "tecnicoId": "t6"
+    },
+    {
+      "data": "2026-10-18",
+      "tecnicoId": "tmur8p0j5"
     },
     {
       "data": "2026-10-24",
@@ -132,5 +132,5 @@
       "tecnicoId": "t4"
     }
   ],
-  "atualizadoEm": "2026-10-02T17:43:07.023Z"
+  "atualizadoEm": "2026-10-02T18:07:35.394Z"
 }
