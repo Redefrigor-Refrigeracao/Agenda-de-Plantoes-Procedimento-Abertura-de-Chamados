@@ -9,7 +9,9 @@ Site com o técnico de plantão do dia, a agenda de plantões e o passo a passo 
 | `index.html` | Página pública (clientes) |
 | `admin.html` | Painel para editar a escala (acesso restrito) |
 | `escala.json` | Dados: técnicos, plantões e configurações |
-| `assets/` | Estilo e funções compartilhadas |
+| `logo-redefrigor.png`, `logo-auvodesk.png` | Logos |
+
+Todos esses arquivos precisam ficar **na raiz** do repositório, lado a lado.
 
 ## Como editar a escala
 
