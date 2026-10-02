@@ -93,11 +93,11 @@
     },
     {
       "data": "2026-10-03",
-      "tecnicoId": "t6"
+      "tecnicoId": "t2"
     },
     {
       "data": "2026-10-04",
-      "tecnicoId": "t2"
+      "tecnicoId": "t6"
     },
     {
       "data": "2026-10-10",
@@ -132,5 +132,5 @@
       "tecnicoId": "t4"
     }
   ],
-  "atualizadoEm": "2026-10-02T18:07:35.394Z"
+  "atualizadoEm": "2026-10-02T19:08:24.890Z"
 }
