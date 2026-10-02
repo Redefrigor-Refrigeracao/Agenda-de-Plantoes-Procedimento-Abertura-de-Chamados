@@ -418,11 +418,90 @@ dialog::backdrop { background: rgba(11,37,69,.45); }
   .tec-linha .avatar { display: none; }
   .tec-fim { grid-column: 1 / -1; justify-content: space-between; }
 }
+.topo-info { display: flex; align-items: center; gap: 8px; }
+.txt-curto { display: none; }
+.cal-ini { display: none; }
+
+.mes-titulo { font: 700 1rem/1.2 var(--fonte-titulo); margin: 24px 0 10px; }
+.mes-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 8px; }
+.mes-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-sm);
+  background: #fff;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.mes-item:hover { border-color: var(--azul); }
+.mes-item.passado { opacity: .55; }
+.mes-data {
+  width: 44px;
+  flex: none;
+  text-align: center;
+  border-radius: 10px;
+  background: var(--verde-claro);
+  color: var(--verde-escuro);
+  font-size: .7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 6px 0;
+  line-height: 1.1;
+}
+.mes-data b { display: block; font: 800 1.15rem/1 var(--fonte-titulo); }
+.mes-nomes { flex: 1; font-weight: 600; font-size: .9rem; line-height: 1.35; }
+.mes-editar { font-size: .8rem; font-weight: 600; color: var(--azul); }
+
 @media (max-width: 760px) {
   .tec-linha { grid-template-columns: 1fr; }
   .linha { grid-template-columns: 1fr; }
-  .barra-acoes { width: 100%; }
-  .barra-acoes .btn { flex: 1; }
+  .btn { white-space: normal; text-align: center; line-height: 1.25; }
+
+  .badge-admin { margin-left: 8px; }
+  .txt-longo { display: none; }
+  .txt-curto { display: inline; }
+
+  .barra { margin-top: 16px; }
+  .barra h1 { font-size: 1.3rem; }
+
+  /* Ações fixas no rodapé da tela, sempre ao alcance do polegar */
+  .barra-acoes {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    background: #fff;
+    border-top: 1px solid var(--borda);
+    box-shadow: 0 -4px 16px rgba(11, 37, 69, .08);
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    gap: 8px;
+  }
+  .barra-acoes .pendente { width: 100%; text-align: center; padding: 4px 12px; }
+  .barra-acoes .btn { flex: 1; padding: 12px 10px; }
+  #telaPainel { padding-bottom: 96px; }
+  .toast { bottom: 96px; }
+
+  /* Calendário compacto: iniciais no lugar do nome */
+  .cal-dia { min-height: 52px; align-items: center; gap: 3px; padding: 4px 2px; }
+  .cal-tec { display: none; }
+  .cal-ini {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--verde);
+    color: #fff;
+    font: 700 .62rem/1 var(--fonte);
+  }
+  .cal-dia.fora .cal-ini { background: #9CCB9E; }
+  .abas-admin button { padding: 12px; flex: 1; }
 }
 </style>
 </head>
@@ -435,8 +514,8 @@ dialog::backdrop { background: rgba(11,37,69,.45); }
       <span class="badge-admin">Painel</span>
     </div>
     <div class="topo-info">
-      <a href="./" target="_blank" rel="noopener">Ver página pública</a>
-      <button class="btn btn-contorno btn-sm" id="btnSair" hidden style="margin-left:8px">Sair</button>
+      <a href="./" target="_blank" rel="noopener"><span class="txt-longo">Ver página pública</span><span class="txt-curto">Ver site</span></a>
+      <button class="btn btn-contorno btn-sm" id="btnSair" hidden>Sair</button>
     </div>
   </div>
 </header>
@@ -514,7 +593,9 @@ dialog::backdrop { background: rgba(11,37,69,.45); }
         </div>
       </div>
       <div class="cal-grade" id="calGrade"></div>
-      <p class="cal-dica">Clique em um dia para escolher o técnico de plantão. Depois clique em <b>Publicar alterações</b>.</p>
+      <p class="cal-dica">Toque em um dia para escolher o técnico de plantão. Depois toque em <b>Publicar alterações</b>.</p>
+      <h4 class="mes-titulo">Plantões do mês</h4>
+      <div class="mes-lista" id="mesLista"></div>
     </div>
 
     <div id="abaTecnicos" class="card" hidden>
@@ -810,9 +891,22 @@ function renderCalendario() {
     if (lista.length) cls.push('tem');
     html += `<button type="button" class="${cls.join(' ')}" ${c.doMes ? `data-dia="${c.iso}"` : 'tabindex="-1" disabled'}>
       <span class="num">${c.dia}</span>
-      ${lista.map(p => `<span class="cal-tec">${escapeHtml(p.tecnico.nome)}</span>`).join('')}
+      ${lista.map(p => `<span class="cal-tec">${escapeHtml(p.tecnico.nome)}</span><span class="cal-ini" title="${escapeHtml(p.tecnico.nome)}">${escapeHtml(iniciais(p.tecnico.nome))}</span>`).join('')}
     </button>`;
   });
+
+  // Lista do mês: no celular é onde os nomes aparecem por completo
+  const doMes = Object.keys(porData).filter(iso => iso.startsWith(`${ano}-${String(mes + 1).padStart(2, '0')}`)).sort();
+  $('mesLista').innerHTML = doMes.length
+    ? doMes.map(iso => {
+        const d = dataDeISO(iso);
+        return `<button type="button" class="mes-item ${iso < hoje ? 'passado' : ''}" data-dia="${iso}">
+          <span class="mes-data"><b>${d.getDate()}</b>${DIAS_CURTOS[d.getDay()]}</span>
+          <span class="mes-nomes">${porData[iso].map(p => escapeHtml(p.tecnico.nome)).join('<br>')}</span>
+          <span class="mes-editar">Editar</span>
+        </button>`;
+      }).join('')
+    : '<p class="cal-dica" style="margin:0">Nenhum plantão neste mês ainda.</p>';
   $('calGrade').innerHTML = html;
 }
 
@@ -1022,10 +1116,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   $('calAnterior').addEventListener('click', () => { mesCal.setMonth(mesCal.getMonth() - 1); renderCalendario(); });
   $('calProximo').addEventListener('click', () => { mesCal.setMonth(mesCal.getMonth() + 1); renderCalendario(); });
   $('calHoje').addEventListener('click', () => { mesCal = new Date(); mesCal.setDate(1); renderCalendario(); });
-  $('calGrade').addEventListener('click', e => {
+  ['calGrade', 'mesLista'].forEach(id => $(id).addEventListener('click', e => {
     const b = e.target.closest('[data-dia]');
     if (b) abrirDia(b.dataset.dia);
-  });
+  }));
   $('dlgDia').addEventListener('close', () => {
     if ($('dlgDia').returnValue === 'ok') confirmarDia();
   });
