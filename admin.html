@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel de Plantões | REDEFRIGOR</title>
+<meta name="theme-color" content="#0057A8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+.badge-admin {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: var(--azul-claro);
+  color: var(--azul);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+.topo-esq { display: flex; align-items: center; }
+
+/* Login */
+.login {
+  max-width: 480px;
+  margin: 48px auto;
+}
+.login h1 { font-size: 1.5rem; font-weight: 800; margin-bottom: 6px; }
+.login > p { color: var(--texto-suave); margin: 0 0 20px; }
+
+.campo { display: grid; gap: 6px; margin-bottom: 14px; }
+.campo label { font-size: .85rem; font-weight: 600; }
+.campo small { color: var(--texto-suave); font-size: .8rem; }
+input[type="text"], input[type="password"], input[type="tel"], input[type="url"], input[type="time"], select {
+  width: 100%;
+  font: 500 .95rem/1.2 var(--fonte);
+  color: var(--texto);
+  padding: 11px 14px;
+  border-radius: var(--raio-sm);
+  border: 1.5px solid var(--borda);
+  background: #fff;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+input:focus, select:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(0,87,168,.15); }
+.linha { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.check { display: flex; align-items: center; gap: 8px; font-size: .9rem; margin: 4px 0 18px; }
+.ajuda {
+  margin-top: 20px;
+  font-size: .85rem;
+  color: var(--texto-suave);
+  background: var(--fundo);
+  border-radius: var(--raio-sm);
+  padding: 14px 16px;
+}
+.ajuda ol { margin: 6px 0 0; padding-left: 18px; }
+.ajuda li { margin: 3px 0; }
+.erro-msg { color: #B71C1C; font-size: .875rem; margin: -4px 0 12px; min-height: 1em; }
+
+/* Painel */
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0 16px;
+}
+.barra h1 { font-size: 1.5rem; font-weight: 800; }
+.barra-acoes { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pendente {
+  font-size: .85rem;
+  font-weight: 600;
+  color: #B26A00;
+  background: #FFF4E0;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.abas-admin {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--borda);
+  margin-bottom: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.abas-admin button {
+  border: 0;
+  background: transparent;
+  padding: 12px 16px;
+  font: 600 .95rem/1 var(--fonte);
+  color: var(--texto-suave);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+}
+.abas-admin button[aria-selected="true"] { color: var(--azul); border-bottom-color: var(--azul); }
+
+.cal-dia { cursor: pointer; font: inherit; color: inherit; }
+.cal-dia:hover { border-color: var(--azul); }
+.cal-dia.fora { cursor: default; }
+.cal-dia.passado:not(.tem) { background: #FAFBFD; }
+.cal-dica { font-size: .85rem; color: var(--texto-suave); margin: 12px 0 0; }
+
+.tec-lista { display: grid; gap: 10px; }
+.tec-linha {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) minmax(0, 190px) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-sm);
+}
+.tec-linha .qtd { font-size: .8rem; color: var(--texto-suave); white-space: nowrap; }
+.tec-fim { display: flex; gap: 8px; align-items: center; }
+
+dialog {
+  border: 0;
+  border-radius: var(--raio);
+  padding: 0;
+  width: min(440px, calc(100% - 32px));
+  box-shadow: var(--sombra-forte);
+  color: var(--texto);
+}
+dialog::backdrop { background: rgba(11,37,69,.45); }
+.dlg-cab { padding: 20px 24px 8px; }
+.dlg-cab h3 { font-size: 1.15rem; }
+.dlg-cab p { margin: 4px 0 0; color: var(--texto-suave); font-size: .9rem; }
+.dlg-corpo { padding: 8px 24px; max-height: 50vh; overflow: auto; display: grid; gap: 6px; }
+.dlg-rodape { padding: 16px 24px 20px; display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+.opcao-tec {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--raio-sm);
+  border: 1.5px solid var(--borda);
+  cursor: pointer;
+}
+.opcao-tec:has(input:checked) { border-color: var(--verde); background: var(--verde-claro); }
+.opcao-tec input { width: 18px; height: 18px; accent-color: var(--verde); }
+.opcao-tec .avatar { width: 34px; height: 34px; font-size: .8rem; }
+.opcao-tec small { display: block; color: var(--texto-suave); }
+
+@media (max-width: 900px) {
+  .tec-linha { grid-template-columns: 1fr 1fr; }
+  .tec-linha .avatar { display: none; }
+  .tec-fim { grid-column: 1 / -1; justify-content: space-between; }
+}
+@media (max-width: 760px) {
+  .tec-linha { grid-template-columns: 1fr; }
+  .linha { grid-template-columns: 1fr; }
+  .barra-acoes { width: 100%; }
+  .barra-acoes .btn { flex: 1; }
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="container">
+    <div class="topo-esq">
+      <a href="./"><img class="topo-logo" src="logo-redefrigor.png" alt="REDEFRIGOR"></a>
+      <span class="badge-admin">Painel</span>
+    </div>
+    <div class="topo-info">
+      <a href="./" target="_blank" rel="noopener">Ver página pública</a>
+      <button class="btn btn-contorno btn-sm" id="btnSair" hidden style="margin-left:8px">Sair</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- Tela de acesso -->
+  <section id="telaLogin" class="card login">
+    <h1>Acesso restrito</h1>
+    <p>Somente quem tem permissão de escrita no repositório do site consegue alterar a escala.</p>
+
+    <form id="formLogin" autocomplete="off">
+      <div class="campo">
+        <label for="repo">Repositório do GitHub</label>
+        <input type="text" id="repo" placeholder="usuario/nome-do-repositorio" required>
+      </div>
+      <div class="linha">
+        <div class="campo">
+          <label for="branch">Branch</label>
+          <input type="text" id="branch" value="main" required>
+        </div>
+        <div class="campo">
+          <label for="arquivo">Arquivo da escala</label>
+          <input type="text" id="arquivo" value="escala.json" required>
+        </div>
+      </div>
+      <div class="campo">
+        <label for="token">Token de acesso do GitHub</label>
+        <input type="password" id="token" placeholder="github_pat_…" required>
+      </div>
+      <label class="check"><input type="checkbox" id="lembrar" checked> Lembrar neste computador</label>
+      <div class="erro-msg" id="erroLogin" role="alert"></div>
+      <button class="btn btn-azul" type="submit" id="btnEntrar" style="width:100%">Entrar</button>
+      <button class="btn btn-contorno" type="button" id="btnLocal" style="width:100%;margin-top:8px" hidden>Testar em modo local (sem salvar no GitHub)</button>
+    </form>
+
+    <div class="ajuda">
+      <strong>Como gerar o token (uma única vez):</strong>
+      <ol>
+        <li>No GitHub, acesse <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Settings → Fine-grained tokens → Generate new token</a>.</li>
+        <li>Em <b>Repository access</b>, escolha <b>Only select repositories</b> e marque o repositório deste site.</li>
+        <li>Em <b>Permissions → Contents</b>, selecione <b>Read and write</b>.</li>
+        <li>Gere o token, copie e cole acima. Não compartilhe com ninguém.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Painel -->
+  <section id="telaPainel" hidden>
+    <div class="barra">
+      <div>
+        <span class="kicker">Gerenciar</span>
+        <h1>Escala de plantões</h1>
+      </div>
+      <div class="barra-acoes">
+        <span class="pendente" id="pendente" hidden>Alterações não publicadas</span>
+        <button class="btn btn-contorno" id="btnBaixar" title="Baixar uma cópia do arquivo escala.json">Baixar cópia</button>
+        <button class="btn btn-verde" id="btnPublicar" disabled>Publicar alterações</button>
+      </div>
+    </div>
+
+    <nav class="abas-admin" role="tablist">
+      <button role="tab" aria-selected="true" data-aba="escala">Escala</button>
+      <button role="tab" aria-selected="false" data-aba="tecnicos">Técnicos</button>
+      <button role="tab" aria-selected="false" data-aba="config">Configurações</button>
+    </nav>
+
+    <div id="abaEscala" class="card">
+      <div class="cal-cab">
+        <h3 id="calTitulo"></h3>
+        <div class="cal-nav">
+          <button class="icon-btn neutro" id="calAnterior" aria-label="Mês anterior"></button>
+          <button class="btn btn-contorno btn-sm" id="calHoje">Hoje</button>
+          <button class="icon-btn neutro" id="calProximo" aria-label="Próximo mês"></button>
+        </div>
+      </div>
+      <div class="cal-grade" id="calGrade"></div>
+      <p class="cal-dica">Clique em um dia para escolher o técnico de plantão. Depois clique em <b>Publicar alterações</b>.</p>
+    </div>
+
+    <div id="abaTecnicos" class="card" hidden>
+      <div class="cal-cab">
+        <h3>Técnicos</h3>
+        <button class="btn btn-azul btn-sm" id="btnNovoTec">+ Adicionar técnico</button>
+      </div>
+      <div class="tec-lista" id="tecLista"></div>
+    </div>
+
+    <div id="abaConfig" class="card" hidden>
+      <h3 style="margin-bottom:16px">Informações exibidas aos clientes</h3>
+      <div class="linha">
+        <div class="campo">
+          <label for="cfgCidade">Cidade</label>
+          <input type="text" id="cfgCidade" data-cfg="cidade">
+        </div>
+        <div class="campo">
+          <label for="cfgSuporte">WhatsApp do suporte</label>
+          <input type="tel" id="cfgSuporte" data-cfg="suporteTelefone" placeholder="(45) 99999-9999">
+        </div>
+      </div>
+      <div class="linha">
+        <div class="campo">
+          <label for="cfgInicio">Início do plantão</label>
+          <input type="time" id="cfgInicio" data-cfg="inicio">
+        </div>
+        <div class="campo">
+          <label for="cfgFim">Fim do plantão</label>
+          <input type="time" id="cfgFim" data-cfg="fim">
+        </div>
+      </div>
+      <div class="campo">
+        <label for="cfgAuvo">Link do Auvodesk</label>
+        <input type="url" id="cfgAuvo" data-cfg="auvodeskUrl">
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlgDia">
+  <form method="dialog">
+    <div class="dlg-cab">
+      <h3 id="dlgTitulo"></h3>
+      <p>Selecione quem fica de plantão neste dia.</p>
+    </div>
+    <div class="dlg-corpo" id="dlgOpcoes"></div>
+    <div class="dlg-rodape">
+      <button class="btn btn-contorno" value="cancelar">Cancelar</button>
+      <button class="btn btn-azul" value="ok" id="dlgOk">Confirmar</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="assets/common.js"></script>
+<script>
+const CHAVE = 'plantao-admin';
+const API = 'https://api.github.com';
+
+let sessao = null;      // { token, repo, branch, arquivo, local }
+let escala = null;      // dados em edição
+let original = '';      // JSON publicado (para detectar alterações)
+let sha = null;         // versão do arquivo no GitHub
+let mesCal = new Date(); mesCal.setDate(1);
+let diaEditando = null;
+
+const $ = id => document.getElementById(id);
+
+function toast(msg, tipo = '') {
+  const t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + tipo;
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => (t.className = 'toast'), 4000);
+}
+
+// ---------- GitHub ----------
+function b64Encode(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+function b64Decode(b64) {
+  const bin = atob(b64.replace(/\s/g, ''));
+  return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
+}
+
+async function gh(caminho, opcoes = {}) {
+  const resp = await fetch(API + caminho, {
+    ...opcoes,
+    headers: {
+      'Accept': 'application/vnd.github+json',
+      'Authorization': 'Bearer ' + sessao.token,
+      'X-GitHub-Api-Version': '2022-11-28',
+      ...(opcoes.headers || {})
+    }
+  });
+  const corpo = await resp.json().catch(() => ({}));
+  if (!resp.ok) {
+    const err = new Error(corpo.message || 'HTTP ' + resp.status);
+    err.status = resp.status;
+    throw err;
+  }
+  return corpo;
+}
+
+async function carregarDoGitHub() {
+  const info = await gh(`/repos/${sessao.repo}`);
+  if (!info.permissions || !info.permissions.push) {
+    throw new Error('Este token não tem permissão de escrita no repositório.');
+  }
+  const arq = await gh(`/repos/${sessao.repo}/contents/${encodeURIComponent(sessao.arquivo)}?ref=${encodeURIComponent(sessao.branch)}`);
+  sha = arq.sha;
+  return JSON.parse(b64Decode(arq.content));
+}
+
+async function publicar() {
+  const btn = $('btnPublicar');
+  btn.disabled = true;
+  btn.textContent = 'Publicando…';
+  try {
+    escala.atualizadoEm = new Date().toISOString();
+    const conteudo = JSON.stringify(escala, null, 2) + '\n';
+    const r = await gh(`/repos/${sessao.repo}/contents/${encodeURIComponent(sessao.arquivo)}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        message: 'Atualiza escala de plantões',
+        content: b64Encode(conteudo),
+        sha,
+        branch: sessao.branch
+      })
+    });
+    sha = r.content.sha;
+    original = estado();
+    toast('Escala publicada! O site atualiza em cerca de 1 minuto.', 'ok');
+  } catch (e) {
+    console.error(e);
+    if (e.status === 409 || e.status === 422) {
+      toast('A escala foi alterada em outro lugar. Recarregue a página e refaça a alteração.', 'erro');
+    } else if (e.status === 401) {
+      toast('Token inválido ou expirado. Entre novamente.', 'erro');
+    } else {
+      toast('Erro ao publicar: ' + e.message, 'erro');
+    }
+  } finally {
+    btn.textContent = 'Publicar alterações';
+    atualizarPendente();
+  }
+}
+
+// ---------- Estado ----------
+function estado() {
+  const { atualizadoEm, ...resto } = escala;
+  return JSON.stringify(resto);
+}
+
+function atualizarPendente() {
+  const sujo = estado() !== original;
+  $('pendente').hidden = !sujo;
+  $('btnPublicar').disabled = !sujo || sessao.local;
+  if (sessao.local) $('btnPublicar').title = 'Modo local: use “Baixar cópia”';
+}
+
+function alterou() {
+  atualizarPendente();
+  renderCalendario();
+  renderTecnicos();
+}
+
+// ---------- Calendário ----------
+function renderCalendario() {
+  const ano = mesCal.getFullYear(), mes = mesCal.getMonth();
+  $('calTitulo').textContent = `${MESES[mes]} ${ano}`;
+  const porData = {};
+  plantoesDetalhados(escala).forEach(p => (porData[p.data] = porData[p.data] || []).push(p));
+  const hoje = hojeISO();
+
+  let html = DIAS_CURTOS.map(d => `<div class="cal-dow">${d}</div>`).join('');
+  semanasDoMes(ano, mes).flat().forEach(c => {
+    const lista = porData[c.iso] || [];
+    const cls = ['cal-dia'];
+    if (!c.doMes) cls.push('fora');
+    if (c.iso === hoje) cls.push('hoje');
+    if (c.iso < hoje) cls.push('passado');
+    if (lista.length) cls.push('tem');
+    html += `<button type="button" class="${cls.join(' ')}" ${c.doMes ? `data-dia="${c.iso}"` : 'tabindex="-1" disabled'}>
+      <span class="num">${c.dia}</span>
+      ${lista.map(p => `<span class="cal-tec">${escapeHtml(p.tecnico.nome)}</span>`).join('')}
+    </button>`;
+  });
+  $('calGrade').innerHTML = html;
+}
+
+function abrirDia(iso) {
+  if (!escala.tecnicos.length) {
+    toast('Cadastre pelo menos um técnico na aba Técnicos.', 'erro');
+    return;
+  }
+  diaEditando = iso;
+  $('dlgTitulo').textContent = formatarDataExtenso(iso);
+  const atuais = new Set(escala.plantoes.filter(p => p.data === iso).map(p => p.tecnicoId));
+  $('dlgOpcoes').innerHTML = escala.tecnicos
+    .slice()
+    .sort((a, b) => a.nome.localeCompare(b.nome))
+    .map(t => `
+      <label class="opcao-tec">
+        <input type="checkbox" value="${escapeHtml(t.id)}" ${atuais.has(t.id) ? 'checked' : ''}>
+        <span class="avatar">${escapeHtml(iniciais(t.nome))}</span>
+        <span>${escapeHtml(t.nome)}<small>${escapeHtml(formatarTelefone(t.telefone))}</small></span>
+      </label>`).join('');
+  $('dlgDia').showModal();
+}
+
+function confirmarDia() {
+  const marcados = [...$('dlgOpcoes').querySelectorAll('input:checked')].map(i => i.value);
+  escala.plantoes = escala.plantoes.filter(p => p.data !== diaEditando);
+  marcados.forEach(id => escala.plantoes.push({ data: diaEditando, tecnicoId: id }));
+  escala.plantoes.sort((a, b) => a.data.localeCompare(b.data));
+  alterou();
+}
+
+// ---------- Técnicos ----------
+function renderTecnicos() {
+  const contagem = {};
+  const hoje = hojeISO();
+  escala.plantoes.filter(p => p.data >= hoje).forEach(p => (contagem[p.tecnicoId] = (contagem[p.tecnicoId] || 0) + 1));
+  const el = $('tecLista');
+  if (!escala.tecnicos.length) {
+    el.innerHTML = '<p style="color:var(--texto-suave);margin:0">Nenhum técnico cadastrado.</p>';
+    return;
+  }
+  // Mantém o foco ao re-renderizar enquanto digita
+  const foco = document.activeElement;
+  const focoId = foco && foco.dataset ? foco.dataset.id + ':' + foco.dataset.campo : null;
+
+  el.innerHTML = escala.tecnicos.map(t => `
+    <div class="tec-linha">
+      <span class="avatar">${escapeHtml(iniciais(t.nome))}</span>
+      <input type="text" value="${escapeHtml(t.nome)}" data-id="${escapeHtml(t.id)}" data-campo="nome" placeholder="Nome do técnico" aria-label="Nome">
+      <input type="tel" value="${escapeHtml(formatarTelefone(t.telefone))}" data-id="${escapeHtml(t.id)}" data-campo="telefone" placeholder="(45) 99999-9999" aria-label="Telefone">
+      <div class="tec-fim">
+        <span class="qtd">${contagem[t.id] || 0} plantão(ões) futuros</span>
+        <button class="btn btn-perigo btn-sm" data-remover="${escapeHtml(t.id)}">Remover</button>
+      </div>
+    </div>`).join('');
+
+  if (focoId) {
+    const [id, campo] = focoId.split(':');
+    const novo = el.querySelector(`[data-id="${CSS.escape(id)}"][data-campo="${campo}"]`);
+    if (novo) { novo.focus(); novo.setSelectionRange(novo.value.length, novo.value.length); }
+  }
+}
+
+function novoTecnico() {
+  const id = 't' + Date.now().toString(36);
+  escala.tecnicos.push({ id, nome: '', telefone: '' });
+  alterou();
+  const input = $('tecLista').querySelector(`[data-id="${id}"][data-campo="nome"]`);
+  if (input) input.focus();
+}
+
+function removerTecnico(id) {
+  const t = escala.tecnicos.find(x => x.id === id);
+  const qtd = escala.plantoes.filter(p => p.tecnicoId === id).length;
+  const msg = qtd
+    ? `Remover ${t.nome || 'este técnico'}? Os ${qtd} plantão(ões) dele também serão removidos da escala.`
+    : `Remover ${t.nome || 'este técnico'}?`;
+  if (!confirm(msg)) return;
+  escala.tecnicos = escala.tecnicos.filter(x => x.id !== id);
+  escala.plantoes = escala.plantoes.filter(p => p.tecnicoId !== id);
+  alterou();
+}
+
+// ---------- Configurações ----------
+function preencherConfig() {
+  document.querySelectorAll('[data-cfg]').forEach(inp => {
+    const v = escala.config[inp.dataset.cfg] || '';
+    inp.value = inp.dataset.cfg === 'suporteTelefone' ? formatarTelefone(v) : v;
+  });
+}
+
+function lerConfig(inp) {
+  const chave = inp.dataset.cfg;
+  escala.config[chave] = chave === 'suporteTelefone' ? normalizarTelefone(inp.value) : inp.value.trim();
+  escala.config.horario = `${escala.config.inicio} às ${escala.config.fim}`;
+  atualizarPendente();
+}
+
+// ---------- Sessão ----------
+function salvarSessao(lembrar) {
+  const dados = JSON.stringify({ token: sessao.token, repo: sessao.repo, branch: sessao.branch, arquivo: sessao.arquivo });
+  try {
+    sessionStorage.setItem(CHAVE, dados);
+    if (lembrar) localStorage.setItem(CHAVE, dados);
+    else localStorage.removeItem(CHAVE);
+  } catch (e) { /* armazenamento indisponível: segue só nesta aba */ }
+}
+
+function lerSessaoSalva() {
+  try {
+    const s = sessionStorage.getItem(CHAVE) || localStorage.getItem(CHAVE);
+    return s ? JSON.parse(s) : null;
+  } catch (e) { return null; }
+}
+
+function sair() {
+  if (estado && escala && estado() !== original && !confirm('Há alterações não publicadas. Sair mesmo assim?')) return;
+  try { localStorage.removeItem(CHAVE); sessionStorage.removeItem(CHAVE); } catch (e) {}
+  escala = null;
+  location.reload();
+}
+
+function abrirPainel(dados) {
+  escala = dados;
+  escala.config = escala.config || {};
+  escala.tecnicos = escala.tecnicos || [];
+  escala.plantoes = escala.plantoes || [];
+  original = estado();
+  $('telaLogin').hidden = true;
+  $('telaPainel').hidden = false;
+  $('btnSair').hidden = false;
+  preencherConfig();
+  renderCalendario();
+  renderTecnicos();
+  atualizarPendente();
+}
+
+async function entrar(dados, lembrar) {
+  sessao = { ...dados, local: false };
+  const conteudo = await carregarDoGitHub();
+  salvarSessao(lembrar);
+  abrirPainel(conteudo);
+}
+
+// Sugere o repositório quando o site está no GitHub Pages (usuario.github.io/repositorio)
+function repoPadrao() {
+  const h = location.hostname;
+  if (h.endsWith('.github.io')) {
+    const dono = h.replace('.github.io', '');
+    const nome = location.pathname.split('/').filter(Boolean)[0];
+    return nome && !nome.endsWith('.html') ? `${dono}/${nome}` : `${dono}/${h}`;
+  }
+  return '';
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  $('calAnterior').innerHTML = ICONES.chevronEsq;
+  $('calProximo').innerHTML = ICONES.chevronDir;
+  $('repo').value = repoPadrao();
+
+  const ehLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+  $('btnLocal').hidden = !ehLocal;
+
+  $('formLogin').addEventListener('submit', async e => {
+    e.preventDefault();
+    $('erroLogin').textContent = '';
+    $('btnEntrar').disabled = true;
+    $('btnEntrar').textContent = 'Verificando…';
+    try {
+      await entrar({
+        token: $('token').value.trim(),
+        repo: $('repo').value.trim().replace(/^https?:\/\/github\.com\//, '').replace(/\/$/, ''),
+        branch: $('branch').value.trim(),
+        arquivo: $('arquivo').value.trim()
+      }, $('lembrar').checked);
+    } catch (err) {
+      console.error(err);
+      $('erroLogin').textContent =
+        err.status === 401 ? 'Token inválido ou expirado.' :
+        err.status === 404 ? 'Repositório ou arquivo não encontrado (ou o token não tem acesso a ele).' :
+        err.message;
+    } finally {
+      $('btnEntrar').disabled = false;
+      $('btnEntrar').textContent = 'Entrar';
+    }
+  });
+
+  $('btnLocal').addEventListener('click', async () => {
+    try {
+      const r = await fetch('escala.json?v=' + Date.now(), { cache: 'no-store' });
+      sessao = { local: true };
+      abrirPainel(await r.json());
+      toast('Modo local: as alterações não são publicadas. Use “Baixar cópia”.');
+    } catch (e) {
+      $('erroLogin').textContent = 'Não foi possível ler o escala.json local.';
+    }
+  });
+
+  // Painel
+  document.querySelectorAll('.abas-admin button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.abas-admin button').forEach(x => x.setAttribute('aria-selected', x === b));
+    $('abaEscala').hidden = b.dataset.aba !== 'escala';
+    $('abaTecnicos').hidden = b.dataset.aba !== 'tecnicos';
+    $('abaConfig').hidden = b.dataset.aba !== 'config';
+  }));
+
+  $('calAnterior').addEventListener('click', () => { mesCal.setMonth(mesCal.getMonth() - 1); renderCalendario(); });
+  $('calProximo').addEventListener('click', () => { mesCal.setMonth(mesCal.getMonth() + 1); renderCalendario(); });
+  $('calHoje').addEventListener('click', () => { mesCal = new Date(); mesCal.setDate(1); renderCalendario(); });
+  $('calGrade').addEventListener('click', e => {
+    const b = e.target.closest('[data-dia]');
+    if (b) abrirDia(b.dataset.dia);
+  });
+  $('dlgDia').addEventListener('close', () => {
+    if ($('dlgDia').returnValue === 'ok') confirmarDia();
+  });
+
+  $('btnNovoTec').addEventListener('click', novoTecnico);
+  $('tecLista').addEventListener('click', e => {
+    const b = e.target.closest('[data-remover]');
+    if (b) removerTecnico(b.dataset.remover);
+  });
+  $('tecLista').addEventListener('input', e => {
+    const inp = e.target;
+    const t = escala.tecnicos.find(x => x.id === inp.dataset.id);
+    if (!t) return;
+    if (inp.dataset.campo === 'nome') t.nome = inp.value;
+    atualizarPendente();
+    renderCalendario();
+  });
+  $('tecLista').addEventListener('change', e => {
+    const inp = e.target;
+    const t = escala.tecnicos.find(x => x.id === inp.dataset.id);
+    if (!t) return;
+    if (inp.dataset.campo === 'telefone') t.telefone = normalizarTelefone(inp.value);
+    if (inp.dataset.campo === 'nome') t.nome = inp.value.trim();
+    alterou();
+  });
+
+  document.querySelectorAll('[data-cfg]').forEach(inp => inp.addEventListener('change', () => lerConfig(inp)));
+
+  $('btnPublicar').addEventListener('click', () => {
+    const semNome = escala.tecnicos.find(t => !t.nome.trim() || !soDigitos(t.telefone));
+    if (semNome) {
+      toast('Preencha nome e telefone de todos os técnicos antes de publicar.', 'erro');
+      return;
+    }
+    publicar();
+  });
+
+  $('btnBaixar').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(escala, null, 2) + '\n'], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'escala.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  $('btnSair').addEventListener('click', sair);
+
+  window.addEventListener('beforeunload', e => {
+    if (escala && estado() !== original) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  // Reabre a sessão salva
+  const salva = lerSessaoSalva();
+  if (salva && salva.token) {
+    $('repo').value = salva.repo;
+    $('branch').value = salva.branch;
+    $('arquivo').value = salva.arquivo;
+    try {
+      await entrar(salva, !!localStorage.getItem(CHAVE));
+    } catch (err) {
+      console.error(err);
+      $('erroLogin').textContent = 'Sua sessão expirou. Entre novamente.';
+    }
+  }
+});
+</script>
+</body>
+</html>
