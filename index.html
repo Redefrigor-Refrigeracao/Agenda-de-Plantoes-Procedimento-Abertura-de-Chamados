@@ -873,10 +873,38 @@ function trocarVista(vista) {
   document.getElementById('vistaCalendario').hidden = vista !== 'calendario';
 }
 
-async function carregar() {
+// No GitHub Pages, lê a escala direto do repositório pela API: a alteração feita
+// no painel aparece na hora, sem esperar o Pages republicar o site.
+function urlApiEscala() {
+  const h = location.hostname;
+  const nome = location.pathname.split('/').filter(Boolean)[0];
+  if (!h.endsWith('.github.io') || !nome || nome.endsWith('.html')) return null;
+  return `https://api.github.com/repos/${h.replace('.github.io', '')}/${nome}/contents/escala.json`;
+}
+
+async function buscarEscala() {
+  const api = urlApiEscala();
+  if (api) {
+    try {
+      // no-cache: o navegador revalida com o GitHub a cada visita (resposta 304 quando nada mudou)
+      const r = await fetch(api, { cache: 'no-cache' });
+      if (r.ok) {
+        const arq = await r.json();
+        const bin = atob(arq.content.replace(/\s/g, ''));
+        return JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0))));
+      }
+    } catch (e) {
+      console.warn('API do GitHub indisponível, usando escala.json do site', e);
+    }
+  }
+  // Alternativa: arquivo publicado junto com o site
   const resp = await fetch('escala.json?v=' + Date.now(), { cache: 'no-store' });
   if (!resp.ok) throw new Error('HTTP ' + resp.status);
-  escala = await resp.json();
+  return resp.json();
+}
+
+async function carregar() {
+  escala = await buscarEscala();
   plantoes = plantoesDetalhados(escala);
   const cfg = escala.config;
 

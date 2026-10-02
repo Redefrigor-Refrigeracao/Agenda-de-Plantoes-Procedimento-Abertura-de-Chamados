@@ -757,7 +757,7 @@ async function publicar() {
     });
     sha = r.content.sha;
     original = estado();
-    toast('Escala publicada! O site atualiza em cerca de 1 minuto.', 'ok');
+    toast('Escala publicada! Já aparece para os clientes ao recarregar a página.', 'ok');
   } catch (e) {
     console.error(e);
     if (e.status === 409 || e.status === 422) {

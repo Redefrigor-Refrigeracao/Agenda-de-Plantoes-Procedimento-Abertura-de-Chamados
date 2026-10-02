@@ -15,7 +15,7 @@ Todos esses arquivos precisam ficar **na raiz** do repositório, lado a lado.
 
 ## Como editar a escala
 
-1. Acesse `https://redefrigor-refrigeracao.github.io/Agenda-de-Plantoes-Procedimento-Abertura-de-Chamados/admin.html`.
+1. Acesse `https://<seu-usuario>.github.io/<repositorio>/admin.html`.
 2. Na primeira vez, gere um token no GitHub:
    - **Settings → Developer settings → Fine-grained tokens → Generate new token**
    - **Repository access:** *Only select repositories* → este repositório
