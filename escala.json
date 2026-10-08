@@ -1,0 +1,136 @@
+{
+  "config": {
+    "cidade": "Cascavel",
+    "horario": "08:00 às 20:00",
+    "inicio": "08:00",
+    "fim": "20:00",
+    "suporteTelefone": "+55 45 99825-0339",
+    "auvodeskUrl": "https://redefrigor.auvo.com.br/Login#signin"
+  },
+  "tecnicos": [
+    {
+      "id": "mux0azlarfi2m",
+      "nome": "Alex Sandro",
+      "telefone": "+55 45 99830-0315"
+    },
+    {
+      "id": "mux0azladzieb",
+      "nome": "Cristian Voltolini",
+      "telefone": "+55 45 99815-9554"
+    },
+    {
+      "id": "mux0azlalkf60",
+      "nome": "Fabrício Machado",
+      "telefone": "+55 45 99815-9553"
+    },
+    {
+      "id": "mux0azlak1p6l",
+      "nome": "Gustavo Pilch",
+      "telefone": "+55 45 99846-0016"
+    },
+    {
+      "id": "mux0azlajgi4a",
+      "nome": "Junior Ribeiro",
+      "telefone": "+55 45 99922-0029"
+    },
+    {
+      "id": "mux0azlatkeon",
+      "nome": "Marlon Voltolini",
+      "telefone": "+55 45 99980-0261"
+    },
+    {
+      "id": "mux0azla0y495",
+      "nome": "Matheus Bernardo",
+      "telefone": "+55 45 99980-0115"
+    },
+    {
+      "id": "mux0azlac78t6",
+      "nome": "Matheus Gonçalves",
+      "telefone": "+55 45 99973-0262"
+    },
+    {
+      "id": "mux0azlafslf0",
+      "nome": "Tiago Pilch",
+      "telefone": "+55 45 99800-0846"
+    }
+  ],
+  "plantoes": [
+    {
+      "data": "2026-09-05",
+      "tecnicoId": "mux0azlalkf60"
+    },
+    {
+      "data": "2026-09-06",
+      "tecnicoId": "mux0azlajgi4a"
+    },
+    {
+      "data": "2026-09-07",
+      "tecnicoId": "mux0azladzieb"
+    },
+    {
+      "data": "2026-09-12",
+      "tecnicoId": "mux0azlarfi2m"
+    },
+    {
+      "data": "2026-09-13",
+      "tecnicoId": "mux0azladzieb"
+    },
+    {
+      "data": "2026-09-19",
+      "tecnicoId": "mux0azla0y495"
+    },
+    {
+      "data": "2026-09-20",
+      "tecnicoId": "mux0azlak1p6l"
+    },
+    {
+      "data": "2026-09-26",
+      "tecnicoId": "mux0azlatkeon"
+    },
+    {
+      "data": "2026-09-27",
+      "tecnicoId": "mux0azlac78t6"
+    },
+    {
+      "data": "2026-10-03",
+      "tecnicoId": "mux0azlajgi4a"
+    },
+    {
+      "data": "2026-10-04",
+      "tecnicoId": "mux0azlak1p6l"
+    },
+    {
+      "data": "2026-10-10",
+      "tecnicoId": "mux0azlalkf60"
+    },
+    {
+      "data": "2026-10-11",
+      "tecnicoId": "mux0azla0y495"
+    },
+    {
+      "data": "2026-10-12",
+      "tecnicoId": "mux0azlac78t6"
+    },
+    {
+      "data": "2026-10-17",
+      "tecnicoId": "mux0azlak1p6l"
+    },
+    {
+      "data": "2026-10-18",
+      "tecnicoId": "mux0azlafslf0"
+    },
+    {
+      "data": "2026-10-24",
+      "tecnicoId": "mux0azlafslf0"
+    },
+    {
+      "data": "2026-10-25",
+      "tecnicoId": "mux0azlatkeon"
+    },
+    {
+      "data": "2026-10-31",
+      "tecnicoId": "mux0azlarfi2m"
+    }
+  ],
+  "atualizadoEm": "2026-10-08T12:15:40.518Z"
+}

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plantão Técnico | REDEFRIGOR</title>
+<meta name="description" content="Técnico de plantão REDEFRIGOR e como abrir um chamado no Auvodesk.">
+<meta name="theme-color" content="#0057A8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/* Identidade visual REDEFRIGOR */
+:root {
+  --azul: #0057A8;
+  --azul-escuro: #003D78;
+  --azul-noite: #0B2545;
+  --azul-claro: #E8F1FB;
+  --verde: #28A42C;
+  --verde-escuro: #1E8A22;
+  --verde-claro: #E7F6E8;
+  --whatsapp: #25D366;
+  --roxo-auvo: #6D26C6;
+  --roxo-claro: #F2EAFC;
+
+  --texto: #0B2545;
+  --texto-suave: #5B6B82;
+  --borda: #E1E7EF;
+  --fundo: #F4F7FB;
+  --card: #FFFFFF;
+
+  --raio: 16px;
+  --raio-sm: 10px;
+  --sombra: 0 1px 2px rgba(11, 37, 69, .06), 0 4px 16px rgba(11, 37, 69, .06);
+  --sombra-forte: 0 10px 40px rgba(0, 61, 120, .25);
+
+  --fonte-titulo: 'Montserrat', system-ui, sans-serif;
+  --fonte: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  color: var(--texto);
+  background: var(--fundo);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--azul); }
+
+img { max-width: 100%; }
+
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Cabeçalho */
+.topo {
+  background: var(--card);
+  border-bottom: 1px solid var(--borda);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topo .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 68px;
+}
+.topo-logo { height: 30px; width: auto; display: block; }
+.topo-info {
+  font-size: .875rem;
+  color: var(--texto-suave);
+  text-align: right;
+}
+.topo-info strong { color: var(--texto); font-weight: 600; }
+
+/* Botões */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font: 600 .95rem/1 var(--fonte);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  white-space: nowrap;
+}
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn:active { transform: scale(.98); }
+.btn:focus-visible, .icon-btn:focus-visible { outline: 3px solid rgba(40, 164, 44, .5); outline-offset: 2px; }
+.btn-branco { background: #fff; color: var(--azul-escuro); }
+.btn-branco:hover { box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.btn-whats { background: var(--whatsapp); color: #fff; }
+.btn-whats:hover { background: #1fbd59; }
+.btn-azul { background: var(--azul); color: #fff; }
+.btn-azul:hover { background: var(--azul-escuro); }
+.btn-verde { background: var(--verde); color: #fff; }
+.btn-verde:hover { background: var(--verde-escuro); }
+.btn-roxo { background: var(--roxo-auvo); color: #fff; }
+.btn-roxo:hover { background: #5a1ea8; }
+.btn-contorno { background: transparent; color: var(--azul); box-shadow: inset 0 0 0 1.5px var(--borda); }
+.btn-contorno:hover { box-shadow: inset 0 0 0 1.5px var(--azul); }
+.btn-perigo { background: transparent; color: #C62828; box-shadow: inset 0 0 0 1.5px #F2C4C4; }
+.btn-perigo:hover { background: #FDECEC; }
+.btn-sm { padding: 8px 14px; font-size: .85rem; }
+.btn[disabled] { opacity: .55; cursor: not-allowed; }
+
+.icon-btn {
+  width: 40px; height: 40px;
+  display: inline-grid; place-items: center;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .15s ease;
+  flex: none;
+}
+.icon-btn svg { width: 18px; height: 18px; }
+.icon-btn.tel { background: var(--azul-claro); color: var(--azul); }
+.icon-btn.tel:hover { background: #d4e5f8; }
+.icon-btn.wa { background: #E3F9EB; color: #128C4A; }
+.icon-btn.wa:hover { background: #cdf3da; }
+.icon-btn.neutro { background: var(--fundo); color: var(--texto); }
+.icon-btn.neutro:hover { background: var(--borda); }
+
+/* Cartões e seções */
+.card {
+  background: var(--card);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 24px;
+}
+.secao { margin-top: 40px; }
+.secao-cab {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.secao-cab h2 { font-size: 1.35rem; font-weight: 800; color: var(--azul-noite); }
+.secao-cab p { margin: 4px 0 0; color: var(--texto-suave); font-size: .95rem; }
+.kicker {
+  font: 700 .75rem/1 var(--fonte);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--verde);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--azul-claro);
+  color: var(--azul);
+  font: 700 .95rem/1 var(--fonte-titulo);
+  flex: none;
+}
+
+/* Calendário */
+.cal-cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.cal-cab h3 { font-size: 1.1rem; font-weight: 700; }
+.cal-nav { display: flex; gap: 6px; }
+.cal-grade {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.cal-dow {
+  text-align: center;
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--texto-suave);
+  text-transform: uppercase;
+  padding: 4px 0;
+}
+.cal-dia {
+  min-height: 84px;
+  border-radius: var(--raio-sm);
+  border: 1px solid var(--borda);
+  background: #fff;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: .8rem;
+  text-align: left;
+  min-width: 0;
+}
+.cal-dia .num { font-weight: 600; color: var(--texto-suave); font-size: .8rem; }
+.cal-dia.fora { background: transparent; border-style: dashed; opacity: .45; }
+.cal-dia.hoje { border-color: var(--azul); box-shadow: inset 0 0 0 1px var(--azul); }
+.cal-dia.hoje .num { color: var(--azul); }
+.cal-dia.tem { background: var(--verde-claro); border-color: #BFE5C1; }
+.cal-tec {
+  font-weight: 600;
+  color: var(--verde-escuro);
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+/* Avisos */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(calc(100% + 40px));
+  visibility: hidden;
+  background: var(--azul-noite);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: .9rem;
+  box-shadow: var(--sombra-forte);
+  transition: transform .25s ease;
+  z-index: 100;
+  max-width: calc(100% - 32px);
+  text-align: center;
+}
+.toast.show { transform: translateX(-50%) translateY(0); visibility: visible; }
+.toast.erro { background: #B71C1C; }
+.toast.ok { background: var(--verde-escuro); }
+
+.rodape {
+  margin-top: 56px;
+  padding: 24px 0 32px;
+  border-top: 1px solid var(--borda);
+  color: var(--texto-suave);
+  font-size: .85rem;
+}
+.rodape .container { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 640px) {
+  .card { padding: 18px; }
+  .topo-logo { height: 24px; }
+  .cal-grade { gap: 3px; }
+  .cal-dia { min-height: 58px; padding: 4px; font-size: .68rem; }
+  .cal-dia .num { font-size: .72rem; }
+  .cal-dow { font-size: .65rem; }
+}
+</style>
+<style>
+/* Destaque: plantão de hoje */
+.hero {
+  position: relative;
+  overflow: hidden;
+  margin-top: 24px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--azul) 0%, var(--azul-escuro) 70%, var(--azul-noite) 100%);
+  color: #fff;
+  padding: 32px;
+  box-shadow: var(--sombra-forte);
+}
+.hero::after {
+  /* referência ao "O" verde da marca */
+  content: '';
+  position: absolute;
+  right: -90px;
+  top: -90px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 44px solid rgba(40, 164, 44, .35);
+  pointer-events: none;
+}
+.hero > * { position: relative; z-index: 1; }
+.hero-rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.8);
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 600;
+  background: rgba(255,255,255,.14);
+  color: #fff;
+  margin-top: 14px;
+}
+.status::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #FFC94D;
+}
+.status.ativo::before { background: #5BE36A; box-shadow: 0 0 0 0 rgba(91,227,106,.7); animation: pulso 2s infinite; }
+@keyframes pulso {
+  70% { box-shadow: 0 0 0 10px rgba(91,227,106,0); }
+  100% { box-shadow: 0 0 0 0 rgba(91,227,106,0); }
+}
+@media (prefers-reduced-motion: reduce) { .status.ativo::before { animation: none; } }
+.hero-tecnicos { display: grid; gap: 20px; margin-top: 18px; }
+.hero-tec { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.hero-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--azul);
+  display: grid; place-items: center;
+  font: 800 1.5rem/1 var(--fonte-titulo);
+  flex: none;
+  box-shadow: 0 0 0 4px rgba(40,164,44,.85);
+}
+.hero-nome { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; }
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin-top: 6px;
+  color: rgba(255,255,255,.85);
+  font-size: .95rem;
+}
+.hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-meta svg { width: 16px; height: 16px; }
+.hero-acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.hero-acoes .btn { padding: 14px 22px; font-size: 1rem; }
+.hero-vazio h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; margin-top: 10px; }
+.hero-vazio p { margin: 10px 0 0; color: rgba(255,255,255,.85); max-width: 560px; }
+.hero-proximo {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+.hero-proximo small { display: block; color: rgba(255,255,255,.75); font-size: .78rem; }
+
+/* Próximos plantões */
+.lista-proximos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 12px;
+}
+.plantao-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 14px 16px;
+}
+.data-badge {
+  width: 56px;
+  flex: none;
+  text-align: center;
+  border-radius: 12px;
+  background: var(--azul-claro);
+  color: var(--azul);
+  padding: 8px 0 6px;
+}
+.data-badge .d { font: 800 1.35rem/1 var(--fonte-titulo); display: block; }
+.data-badge .m { font-size: .7rem; font-weight: 700; letter-spacing: .06em; }
+.plantao-item .info { flex: 1; min-width: 0; }
+.plantao-item .nome { font-weight: 700; line-height: 1.3; overflow-wrap: anywhere; }
+.plantao-item .sub { font-size: .85rem; color: var(--texto-suave); line-height: 1.35; }
+.plantao-item .acoes { display: flex; gap: 6px; }
+
+.vazio {
+  text-align: center;
+  color: var(--texto-suave);
+  padding: 28px 16px;
+  background: var(--card);
+  border-radius: var(--raio);
+  border: 1px dashed var(--borda);
+}
+
+.abas {
+  display: inline-flex;
+  background: #E6ECF4;
+  padding: 4px;
+  border-radius: 999px;
+}
+.abas button {
+  border: 0;
+  background: transparent;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font: 600 .875rem/1 var(--fonte);
+  color: var(--texto-suave);
+  cursor: pointer;
+}
+.abas button[aria-selected="true"] { background: #fff; color: var(--azul); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+.cal-dia.tem { cursor: pointer; }
+.cal-dia.tem:hover { border-color: var(--verde); }
+.cal-dia.sel { box-shadow: inset 0 0 0 2px var(--verde); }
+.cal-detalhe { margin-top: 14px; }
+
+/* Como abrir chamado */
+.auvo {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.auvo-lado {
+  background: var(--roxo-claro);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+/* O PNG tem muita margem branca: recorta só o selo da marca */
+.auvo-logo {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1255 / 245;
+  background: url('logo-auvodesk.png') no-repeat 46.3% 48.6% / 159.4% auto;
+  border-radius: 999px;
+}
+.auvo-lado p { margin: 0; font-size: .9rem; color: #4A2A80; }
+.auvo-passos {
+  list-style: none;
+  margin: 0;
+  padding: 28px;
+  counter-reset: passo;
+  display: grid;
+  gap: 16px;
+}
+.auvo-passos li {
+  counter-increment: passo;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.auvo-passos li::before {
+  content: counter(passo);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--azul);
+  color: #fff;
+  display: grid; place-items: center;
+  font: 700 .95rem/1 var(--fonte-titulo);
+}
+.auvo-passos strong { display: block; font-size: 1rem; }
+.auvo-passos span { color: var(--texto-suave); font-size: .9rem; }
+
+.avisos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.aviso {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  border-radius: var(--raio);
+  background: var(--card);
+  box-shadow: var(--sombra);
+}
+.aviso .ico {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  flex: none;
+}
+.aviso .ico svg { width: 20px; height: 20px; }
+.aviso.urgente .ico { background: #FFF1E0; color: #D9730D; }
+.aviso.ajuda .ico { background: var(--verde-claro); color: var(--verde-escuro); }
+.aviso strong { display: block; margin-bottom: 2px; }
+.aviso p { margin: 0; font-size: .9rem; color: var(--texto-suave); }
+
+.carregando { padding: 48px 0; text-align: center; color: rgba(255,255,255,.8); }
+
+@media (max-width: 760px) {
+  .hero { padding: 24px 20px; border-radius: 20px; margin-top: 16px; }
+  .hero::after { width: 200px; height: 200px; border-width: 30px; right: -70px; top: -70px; }
+  .hero-avatar { width: 56px; height: 56px; font-size: 1.15rem; }
+  .hero-acoes .btn { flex: 1 1 100%; }
+  .auvo { grid-template-columns: 1fr; }
+  .auvo-lado { padding: 22px; }
+  .auvo-passos { padding: 22px; }
+  .avisos { grid-template-columns: 1fr; }
+  .topo-info .extenso { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="container">
+    <img class="topo-logo" src="logo-redefrigor.png" alt="REDEFRIGOR">
+    <div class="topo-info">
+      <span class="extenso">Hoje é </span><strong id="hojeTexto"></strong>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero" id="hero" aria-live="polite">
+    <div class="carregando">Carregando escala…</div>
+  </section>
+
+  <section class="secao" aria-labelledby="tituloEscala">
+    <div class="secao-cab">
+      <div>
+        <span class="kicker">Escala</span>
+        <h2 id="tituloEscala">Agenda de plantões</h2>
+        <p id="subtituloEscala"></p>
+      </div>
+      <div class="abas" role="tablist">
+        <button role="tab" aria-selected="true" data-vista="lista">Próximos</button>
+        <button role="tab" aria-selected="false" data-vista="calendario">Calendário</button>
+      </div>
+    </div>
+
+    <div id="vistaLista"></div>
+
+    <div id="vistaCalendario" class="card" hidden>
+      <div class="cal-cab">
+        <h3 id="calTitulo"></h3>
+        <div class="cal-nav">
+          <button class="icon-btn neutro" id="calAnterior" aria-label="Mês anterior"></button>
+          <button class="btn btn-contorno btn-sm" id="calHoje">Hoje</button>
+          <button class="icon-btn neutro" id="calProximo" aria-label="Próximo mês"></button>
+        </div>
+      </div>
+      <div class="cal-grade" id="calGrade"></div>
+      <div class="cal-detalhe" id="calDetalhe"></div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="tituloChamado">
+    <div class="secao-cab">
+      <div>
+        <span class="kicker">Suporte</span>
+        <h2 id="tituloChamado">Como abrir um chamado</h2>
+        <p>Pelo aplicativo Auvodesk, em poucos passos.</p>
+      </div>
+    </div>
+
+    <div class="card auvo">
+      <div class="auvo-lado">
+        <div class="auvo-logo" role="img" aria-label="Auvodesk"></div>
+        <p>Use seu usuário e senha de cliente para acessar.</p>
+        <a class="btn btn-roxo" id="auvoLink" href="https://redefrigor.auvo.com.br/Login#signin" target="_blank" rel="noopener">
+          Acessar o Auvodesk <span id="icoExterno"></span>
+        </a>
+      </div>
+      <ol class="auvo-passos">
+        <li><div><strong>Faça login</strong><span>Clique em “Acessar o Auvodesk” e entre com seu usuário e senha.</span></div></li>
+        <li><div><strong>Clique em “Nova solicitação”</strong><span>O botão fica na tela inicial do aplicativo.</span></div></li>
+        <li><div><strong>Selecione o equipamento</strong><span>Escolha o equipamento que está com problema.</span></div></li>
+        <li><div><strong>Descreva o problema</strong><span>Seja objetivo. Ex.: “câmara frigorífica com alta temperatura”, “alarme no rack”.</span></div></li>
+        <li><div><strong>Anexe fotos ou vídeos e envie</strong><span>Clique em <b>Salvar/Enviar</b> para registrar o chamado.</span></div></li>
+      </ol>
+    </div>
+
+    <div class="avisos">
+      <div class="aviso urgente">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></div>
+        <div>
+          <strong>Extrema urgência?</strong>
+          <p>Abra o chamado e ligue também para o técnico de plantão do dia.</p>
+        </div>
+      </div>
+      <div class="aviso ajuda">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+        <div>
+          <strong>Não sabe seu acesso?</strong>
+          <p>Fale com a gente no WhatsApp <a id="suporteLink" href="#" target="_blank" rel="noopener"><strong id="suporteNumero"></strong></a> (exceto fins de semana).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="container">
+    <span>© <span id="ano"></span> REDEFRIGOR · Refrigeração comercial e industrial</span>
+    <span id="atualizado"></span>
+  </div>
+</footer>
+
+<script>
+// Utilitários compartilhados entre a página pública (index.html) e o painel (admin.html)
+
+const DIAS_SEMANA = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+const DIAS_CURTOS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+const MESES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+const MESES_CURTOS = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
+
+function isoDe(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function hojeISO() {
+  return isoDe(new Date());
+}
+
+function dataDeISO(iso) {
+  return new Date(iso + 'T00:00:00');
+}
+
+function formatarDataBr(iso) {
+  const [y, m, d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+function formatarDataExtenso(iso) {
+  const d = dataDeISO(iso);
+  return `${DIAS_SEMANA[d.getDay()]}, ${d.getDate()} de ${MESES[d.getMonth()].toLowerCase()}`;
+}
+
+function soDigitos(tel) {
+  return (tel || '').replace(/\D/g, '');
+}
+
+function formatarTelefone(tel) {
+  const digits = soDigitos(tel);
+  if (digits.length >= 12) {
+    const ddd = digits.slice(2, 4);
+    const num = digits.slice(4);
+    return `(${ddd}) ${num.slice(0, num.length - 4)}-${num.slice(-4)}`;
+  }
+  return tel || '';
+}
+
+// Normaliza o telefone para +55 DD NNNNN-NNNN (aceita digitação livre)
+function normalizarTelefone(tel) {
+  let d = soDigitos(tel);
+  if (!d) return '';
+  if (d.length <= 11) d = '55' + d;
+  const ddd = d.slice(2, 4);
+  const num = d.slice(4);
+  return `+${d.slice(0, 2)} ${ddd} ${num.slice(0, num.length - 4)}-${num.slice(-4)}`;
+}
+
+function linkWhatsApp(tel) {
+  return `https://wa.me/${soDigitos(tel)}`;
+}
+
+function escapeHtml(str) {
+  return String(str ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function iniciais(nome) {
+  const partes = (nome || '').trim().split(/\s+/);
+  return ((partes[0] || '')[0] || '').concat((partes.length > 1 ? partes[partes.length - 1][0] : '') || '').toUpperCase();
+}
+
+// Junta plantões com os dados do técnico e ordena por data
+function plantoesDetalhados(escala) {
+  const porId = Object.fromEntries((escala.tecnicos || []).map(t => [t.id, t]));
+  return (escala.plantoes || [])
+    .map(p => ({ ...p, tecnico: porId[p.tecnicoId] }))
+    .filter(p => p.tecnico)
+    .sort((a, b) => a.data.localeCompare(b.data) || a.tecnico.nome.localeCompare(b.tecnico.nome));
+}
+
+// Matriz de semanas (domingo a sábado) para o calendário de um mês
+function semanasDoMes(ano, mes) {
+  const primeiro = new Date(ano, mes, 1);
+  const inicio = new Date(ano, mes, 1 - primeiro.getDay());
+  const semanas = [];
+  const cursor = new Date(inicio);
+  do {
+    const semana = [];
+    for (let i = 0; i < 7; i++) {
+      semana.push({ iso: isoDe(cursor), dia: cursor.getDate(), doMes: cursor.getMonth() === mes });
+      cursor.setDate(cursor.getDate() + 1);
+    }
+    semanas.push(semana);
+  } while (cursor.getMonth() === mes);
+  return semanas;
+}
+
+const ICONES = {
+  telefone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  whatsapp: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.32l-.34-.2-3.57.94.95-3.48-.22-.36a9.43 9.43 0 0 1-1.44-5.02c0-5.21 4.24-9.45 9.46-9.45a9.4 9.4 0 0 1 6.68 2.77 9.39 9.39 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.45 9.45zm8.04-17.49A11.3 11.3 0 0 0 12.05.67C5.78.67.68 5.77.68 12.04c0 2 .52 3.96 1.52 5.68L.58 23.6l6.02-1.58a11.33 11.33 0 0 0 5.44 1.39h.01c6.27 0 11.37-5.1 11.37-11.37 0-3.04-1.18-5.9-3.33-8.04z"/></svg>',
+  chevronEsq: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>',
+  chevronDir: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>',
+  relogio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',
+  local: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
+  externo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>'
+};
+</script>
+<script>
+let escala = null;
+let plantoes = [];
+let mesCal = new Date();
+mesCal.setDate(1);
+let diaSelecionado = null;
+
+function minutos(hhmm) {
+  const [h, m] = (hhmm || '00:00').split(':').map(Number);
+  return h * 60 + m;
+}
+
+function statusHoje(cfg) {
+  const agora = new Date();
+  const min = agora.getHours() * 60 + agora.getMinutes();
+  const ini = minutos(cfg.inicio), fim = minutos(cfg.fim);
+  if (min < ini) return { classe: '', texto: `Plantão começa às ${cfg.inicio}` };
+  if (min >= fim) return { classe: '', texto: `Plantão encerrado às ${cfg.fim}` };
+  return { classe: 'ativo', texto: `Em atendimento agora · até ${cfg.fim}` };
+}
+
+function botoesContato(tec, grande) {
+  const tel = escapeHtml(tec.telefone);
+  if (grande) {
+    return `
+      <a class="btn btn-branco" href="tel:+${soDigitos(tec.telefone)}">${ICONES.telefone} Ligar ${escapeHtml(formatarTelefone(tec.telefone))}</a>
+      <a class="btn btn-whats" href="${linkWhatsApp(tec.telefone)}" target="_blank" rel="noopener">${ICONES.whatsapp} WhatsApp</a>`;
+  }
+  return `
+    <a class="icon-btn tel" href="tel:+${soDigitos(tec.telefone)}" aria-label="Ligar para ${escapeHtml(tec.nome)}" title="${tel}">${ICONES.telefone}</a>
+    <a class="icon-btn wa" href="${linkWhatsApp(tec.telefone)}" target="_blank" rel="noopener" aria-label="WhatsApp de ${escapeHtml(tec.nome)}">${ICONES.whatsapp}</a>`;
+}
+
+function renderHero() {
+  const hero = document.getElementById('hero');
+  const cfg = escala.config;
+  const hoje = hojeISO();
+  const deHoje = plantoes.filter(p => p.data === hoje);
+
+  if (deHoje.length) {
+    const st = statusHoje(cfg);
+    hero.innerHTML = `
+      <span class="hero-rotulo">Técnico de plantão hoje</span>
+      <div><span class="status ${st.classe}">${st.texto}</span></div>
+      <div class="hero-tecnicos">
+        ${deHoje.map(p => `
+          <div>
+            <div class="hero-tec">
+              <div class="hero-avatar">${escapeHtml(iniciais(p.tecnico.nome))}</div>
+              <div>
+                <h1 class="hero-nome">${escapeHtml(p.tecnico.nome)}</h1>
+                <div class="hero-meta">
+                  <span>${ICONES.local} ${escapeHtml(cfg.cidade)}</span>
+                  <span>${ICONES.relogio} ${escapeHtml(cfg.horario)}</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-acoes">${botoesContato(p.tecnico, true)}</div>
+          </div>`).join('')}
+      </div>`;
+    return;
+  }
+
+  const proximo = plantoes.find(p => p.data > hoje);
+  hero.innerHTML = `
+    <div class="hero-vazio">
+      <span class="hero-rotulo">Plantão técnico</span>
+      <h1>Hoje não há plantão escalado</h1>
+      <p>Abra seu chamado normalmente pelo Auvodesk. Nossa equipe atende em horário comercial.</p>
+      ${proximo ? `
+        <div class="hero-proximo">
+          ${ICONES.relogio.replace('<svg', '<svg width="22" height="22"')}
+          <div>
+            <small>Próximo plantão</small>
+            <strong>${escapeHtml(formatarDataExtenso(proximo.data))} · ${escapeHtml(proximo.tecnico.nome)}</strong>
+          </div>
+        </div>` : ''}
+      <div class="hero-acoes">
+        <a class="btn btn-branco" href="${escapeHtml(cfg.auvodeskUrl)}" target="_blank" rel="noopener">Abrir chamado no Auvodesk ${ICONES.externo}</a>
+      </div>
+    </div>`;
+}
+
+function itemPlantao(p) {
+  const d = dataDeISO(p.data);
+  const ehHoje = p.data === hojeISO();
+  return `
+    <div class="plantao-item">
+      <div class="data-badge" ${ehHoje ? 'style="background:var(--verde);color:#fff"' : ''}>
+        <span class="d">${d.getDate()}</span>
+        <span class="m">${MESES_CURTOS[d.getMonth()]}</span>
+      </div>
+      <div class="info">
+        <div class="nome">${escapeHtml(p.tecnico.nome)}</div>
+        <div class="sub">${ehHoje ? '<b style="color:var(--verde-escuro)">Hoje</b> · ' : ''}${DIAS_SEMANA[d.getDay()]}</div>
+        <div class="sub">${escapeHtml(formatarTelefone(p.tecnico.telefone))}</div>
+      </div>
+      <div class="acoes">${botoesContato(p.tecnico, false)}</div>
+    </div>`;
+}
+
+function renderLista() {
+  const el = document.getElementById('vistaLista');
+  const hoje = hojeISO();
+  const futuros = plantoes.filter(p => p.data >= hoje).slice(0, 12);
+  el.innerHTML = futuros.length
+    ? `<div class="lista-proximos">${futuros.map(itemPlantao).join('')}</div>`
+    : `<div class="vazio">Nenhum plantão futuro cadastrado no momento.</div>`;
+}
+
+function renderCalendario() {
+  const ano = mesCal.getFullYear(), mes = mesCal.getMonth();
+  document.getElementById('calTitulo').textContent = `${MESES[mes]} ${ano}`;
+  const porData = {};
+  plantoes.forEach(p => (porData[p.data] = porData[p.data] || []).push(p));
+  const hoje = hojeISO();
+
+  let html = DIAS_CURTOS.map(d => `<div class="cal-dow">${d}</div>`).join('');
+  semanasDoMes(ano, mes).flat().forEach(c => {
+    const lista = porData[c.iso] || [];
+    const classes = ['cal-dia'];
+    if (!c.doMes) classes.push('fora');
+    if (c.iso === hoje) classes.push('hoje');
+    if (lista.length) classes.push('tem');
+    if (c.iso === diaSelecionado) classes.push('sel');
+    const tag = lista.length ? 'button' : 'div';
+    html += `<${tag} class="${classes.join(' ')}" ${lista.length ? `data-dia="${c.iso}" type="button" aria-label="${formatarDataExtenso(c.iso)}: ${escapeHtml(lista.map(p => p.tecnico.nome).join(', '))}"` : ''}>
+      <span class="num">${c.dia}</span>
+      ${lista.map(p => `<span class="cal-tec">${escapeHtml(p.tecnico.nome)}</span>`).join('')}
+    </${tag}>`;
+  });
+  document.getElementById('calGrade').innerHTML = html;
+
+  const det = document.getElementById('calDetalhe');
+  const sel = diaSelecionado && porData[diaSelecionado];
+  det.innerHTML = sel
+    ? `<div class="lista-proximos">${sel.map(itemPlantao).join('')}</div>`
+    : `<p style="margin:0;color:var(--texto-suave);font-size:.875rem">Toque em um dia destacado para ver o contato do técnico.</p>`;
+}
+
+function trocarVista(vista) {
+  document.querySelectorAll('.abas button').forEach(b => b.setAttribute('aria-selected', b.dataset.vista === vista));
+  document.getElementById('vistaLista').hidden = vista !== 'lista';
+  document.getElementById('vistaCalendario').hidden = vista !== 'calendario';
+}
+
+// No GitHub Pages, lê a escala direto do repositório pela API: a alteração feita
+// no painel aparece na hora, sem esperar o Pages republicar o site.
+function urlApiEscala() {
+  const h = location.hostname;
+  const nome = location.pathname.split('/').filter(Boolean)[0];
+  if (!h.endsWith('.github.io') || !nome || nome.endsWith('.html')) return null;
+  return `https://api.github.com/repos/${h.replace('.github.io', '')}/${nome}/contents/escala.json`;
+}
+
+async function buscarEscala() {
+  const api = urlApiEscala();
+  if (api) {
+    try {
+      // no-cache: o navegador revalida com o GitHub a cada visita (resposta 304 quando nada mudou)
+      const r = await fetch(api, { cache: 'no-cache' });
+      if (r.ok) {
+        const arq = await r.json();
+        const bin = atob(arq.content.replace(/\s/g, ''));
+        return JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0))));
+      }
+    } catch (e) {
+      console.warn('API do GitHub indisponível, usando escala.json do site', e);
+    }
+  }
+  // Alternativa: arquivo publicado junto com o site
+  const resp = await fetch('escala.json?v=' + Date.now(), { cache: 'no-store' });
+  if (!resp.ok) throw new Error('HTTP ' + resp.status);
+  return resp.json();
+}
+
+async function carregar() {
+  escala = await buscarEscala();
+  plantoes = plantoesDetalhados(escala);
+  const cfg = escala.config;
+
+  document.getElementById('subtituloEscala').textContent = `${cfg.cidade} · ${cfg.horario}`;
+  document.getElementById('auvoLink').href = cfg.auvodeskUrl;
+  document.getElementById('suporteNumero').textContent = formatarTelefone(cfg.suporteTelefone);
+  document.getElementById('suporteLink').href = linkWhatsApp(cfg.suporteTelefone);
+  if (escala.atualizadoEm) {
+    document.getElementById('atualizado').textContent = 'Escala atualizada em ' + new Date(escala.atualizadoEm).toLocaleDateString('pt-BR');
+  }
+
+  renderHero();
+  renderLista();
+  renderCalendario();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const hoje = new Date();
+  document.getElementById('hojeTexto').textContent = formatarDataExtenso(hojeISO());
+  document.getElementById('ano').textContent = hoje.getFullYear();
+  document.getElementById('icoExterno').outerHTML = ICONES.externo;
+  document.getElementById('calAnterior').innerHTML = ICONES.chevronEsq;
+  document.getElementById('calProximo').innerHTML = ICONES.chevronDir;
+
+  document.querySelectorAll('.abas button').forEach(b => b.addEventListener('click', () => trocarVista(b.dataset.vista)));
+  document.getElementById('calAnterior').addEventListener('click', () => { mesCal.setMonth(mesCal.getMonth() - 1); renderCalendario(); });
+  document.getElementById('calProximo').addEventListener('click', () => { mesCal.setMonth(mesCal.getMonth() + 1); renderCalendario(); });
+  document.getElementById('calHoje').addEventListener('click', () => { mesCal = new Date(); mesCal.setDate(1); renderCalendario(); });
+  document.getElementById('calGrade').addEventListener('click', e => {
+    const b = e.target.closest('[data-dia]');
+    if (!b) return;
+    diaSelecionado = b.dataset.dia === diaSelecionado ? null : b.dataset.dia;
+    renderCalendario();
+  });
+
+  carregar().catch(err => {
+    console.error(err);
+    document.getElementById('hero').innerHTML = `
+      <div class="hero-vazio">
+        <h1>Não foi possível carregar a escala</h1>
+        <p>Tente atualizar a página em alguns instantes.</p>
+      </div>`;
+  });
+
+  // Atualiza o status "em atendimento" sem precisar recarregar
+  setInterval(() => { if (escala) renderHero(); }, 60000);
+});
+</script>
+</body>
+</html>
