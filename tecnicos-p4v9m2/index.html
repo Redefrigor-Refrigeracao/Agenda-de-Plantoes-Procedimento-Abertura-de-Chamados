@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="versao-agenda" content="2026-10-08T13:13:16.960Z">
+<meta name="versao-agenda" content="2026-10-08T13:24:18.133Z">
 <meta name="theme-color" content="#003E78">
 <title>Minha Agenda | Redefrigor</title>
 <style>
@@ -133,12 +133,6 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 16px calc(32px + env(safe
 .pl-acoes a { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--azul-claro); color: var(--navy); }
 .pl-acoes a.wa { background: #E3F9EB; color: #128C4A; }
 .pl-acoes svg { width: 17px; height: 17px; }
-.form-cod { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
-.form-cod input { font: bold 22px ui-monospace, Consolas, monospace; letter-spacing: .12em; text-align: center; text-transform: uppercase; padding: 14px; border: 2px solid #D5DCE4; border-radius: 12px; }
-.form-cod input:focus { outline: none; border-color: var(--verde); }
-.form-cod button { font: inherit; font-weight: bold; font-size: 16px; padding: 14px; border: 0; border-radius: 12px; background: var(--verde); color: #fff; cursor: pointer; }
-.form-cod button:disabled { opacity: .6; }
-.erro-cod { color: #C62828; font-weight: bold; margin: 12px 0 0; }
 .link-site { display: block; text-align: center; background: #fff; border-radius: 12px; box-shadow: var(--sombra); padding: 12px; font-weight: bold; text-decoration: none; margin-top: 6px; }
 </style>
 </head>
@@ -187,51 +181,6 @@ let dados = null, eu = null, semana = segundaDe(hoje());
 let plantao = null, aba = 'agenda'; // escala do site de plantões (mesmo repositório)
 try { eu = localStorage.getItem(CHAVE_EU); } catch (e) { }
 
-// Agenda criptografada: cada técnico tem um pacote que só abre com o código pessoal dele
-const CHAVE_COD = 'agendaTecnico.codigos';
-let bruto = null, aberto = false;
-const normCodigo = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-const bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-const codigosSalvos = () => { try { return JSON.parse(localStorage.getItem(CHAVE_COD) || '{}'); } catch (e) { return {}; } };
-function salvarCodigo(id, cod) { try { const c = codigosSalvos(); if (cod) c[id] = cod; else delete c[id]; localStorage.setItem(CHAVE_COD, JSON.stringify(c)); } catch (e) { } }
-async function abrirPacote(id, codigo) {
-  const p = bruto.pacotes && bruto.pacotes[id];
-  if (!p) throw new Error('sem-pacote');
-  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(normCodigo(codigo)), 'PBKDF2', false, ['deriveKey']);
-  const chave = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: bytes(p.salt), iterations: bruto.kdf.iter, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-  return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes(p.iv) }, chave, bytes(p.dados))));
-}
-// Tenta o código salvo neste aparelho; sem código (ou código trocado), pede para digitar
-async function entrar(rolarHoje) {
-  const salvo = codigosSalvos()[eu];
-  if (salvo) {
-    $('#conteudo').innerHTML = '<div class="carregando">Abrindo sua agenda…</div>';
-    try { dados = await abrirPacote(eu, salvo); aberto = true; render(rolarHoje); return; }
-    catch (e) { salvarCodigo(eu, null); renderCodigo('O código deste aparelho não vale mais. Peça o novo ao administrador.'); return; }
-  }
-  renderCodigo();
-}
-function renderCodigo(erro) {
-  renderQuem();
-  $('#conteudo').innerHTML = `<section class="escolha"><h1>Código de acesso</h1><p>Digite o código pessoal que o administrador enviou para você. Este aparelho vai lembrar dele.</p>
-    <form id="fCod" class="form-cod" autocomplete="off"><input id="cod" type="text" inputmode="text" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX" aria-label="Código de acesso" required>
-    <button type="submit">Abrir minha agenda</button></form>
-    <p class="erro-cod" id="erroCod" ${erro ? '' : 'hidden'}>${esc(erro || '')}</p></section>
-    <p class="rodape">A agenda é protegida: cada código abre só a agenda do próprio técnico.</p>`;
-  $('#cod').focus();
-  $('#fCod').onsubmit = async e => {
-    e.preventDefault();
-    const cod = $('#cod').value, btn = $('#fCod button');
-    if (normCodigo(cod).length < 6) return;
-    btn.disabled = true; btn.textContent = 'Abrindo…';
-    try { dados = await abrirPacote(eu, cod); aberto = true; salvarCodigo(eu, normCodigo(cod)); semana = segundaDe(hoje()); render(true); }
-    catch (err) {
-      btn.disabled = false; btn.textContent = 'Abrir minha agenda';
-      const el = $('#erroCod'); el.hidden = false;
-      el.textContent = err.message === 'sem-pacote' ? 'Sua agenda ainda não foi publicada. Fale com o administrador.' : 'Código incorreto. Confira com o administrador.';
-    }
-  };
-}
 
 // Lê os arquivos direto do repositório (sempre atualizados); se falhar, usa o arquivo publicado no site
 function urlApi(naRaiz, arquivo) {
@@ -287,10 +236,7 @@ function renderQuem() {
   if (!t) { q.hidden = true; return; }
   q.hidden = false;
   q.innerHTML = `<span class="avatar" style="background:${t.cor}">${esc(iniciais(t.nome))}</span><span class="nome">${esc(t.nome)}</span><button type="button" id="trocar">Trocar</button>`;
-  $('#trocar').onclick = () => {
-    if (bruto && bruto.cifrado) { salvarCodigo(eu, null); aberto = false; dados = { tecnicos: bruto.tecnicos }; }
-    eu = null; try { localStorage.removeItem(CHAVE_EU); } catch (e) { } render();
-  };
+  $('#trocar').onclick = () => { eu = null; try { localStorage.removeItem(CHAVE_EU); } catch (e) { } render(); };
 }
 
 function renderEscolha() {
@@ -299,8 +245,7 @@ function renderEscolha() {
     <p class="rodape">Somente leitura · alterações são feitas pelo administrador.</p>`;
   document.querySelectorAll('.lista-tec button').forEach(b => b.onclick = () => {
     eu = b.dataset.id; try { localStorage.setItem(CHAVE_EU, eu); } catch (e) { }
-    semana = segundaDe(hoje());
-    if (bruto && bruto.cifrado) { renderQuem(); entrar(true); } else render(true);
+    semana = segundaDe(hoje()); render(true);
   });
 }
 
@@ -388,7 +333,6 @@ function htmlPlantaoDia(d) {
 function render(rolarHoje) {
   renderQuem();
   if (!eu || !tecnico(eu)) { renderEscolha(); return; }
-  if (bruto && bruto.cifrado && !aberto) { entrar(rolarHoje); return; }
   if (aba === 'plantoes' && plantao) { renderPlantoes(); return; }
   const domingo = dados.config.mostrarDomingo;
   const dias = Array.from({ length: 7 }, (_, i) => addDias(semana, i));
@@ -436,9 +380,7 @@ function render(rolarHoje) {
 // Agenda e escala de plantões carregam juntas; se a escala falhar, a agenda funciona sem a aba Plantões
 Promise.all([carregar(), carregarPlantao()]).then(([d, p]) => {
   if (!d || d.app !== 'agenda-redefrigor-tecnicos') throw new Error('Arquivo de agenda inválido');
-  bruto = d; plantao = p;
-  dados = d.cifrado ? { tecnicos: d.tecnicos } : d; // criptografada: só a lista de nomes até digitar o código
-  render(true);
+  dados = d; plantao = p; render(true);
 }).catch(e => {
   console.error(e);
   $('#conteudo').innerHTML = '<div class="aviso">Não foi possível carregar a agenda.<br>Verifique a internet e tente de novo em instantes.</div>';
