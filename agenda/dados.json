@@ -1,0 +1,98 @@
+{
+ "app": "agenda-redefrigor-tecnicos",
+ "versao": 1,
+ "periodo": {
+  "de": "2026-09-28",
+  "ate": "2026-10-18"
+ },
+ "config": {
+  "mostrarDomingo": false
+ },
+ "tecnicos": [
+  {
+   "id": "mux0azlarfi2m",
+   "nome": "Alex Sandro",
+   "cor": "#0765B9"
+  },
+  {
+   "id": "mux0azladzieb",
+   "nome": "Cristian Voltolini",
+   "cor": "#00A428"
+  },
+  {
+   "id": "mux0azlalkf60",
+   "nome": "Fabrício Machado",
+   "cor": "#E8710A"
+  },
+  {
+   "id": "mux0azlak1p6l",
+   "nome": "Gustavo Pilch",
+   "cor": "#7B4FBF"
+  },
+  {
+   "id": "mux0azlajgi4a",
+   "nome": "Junior Ribeiro",
+   "cor": "#00897B"
+  },
+  {
+   "id": "mux0azlamk4cr",
+   "nome": "Leonardo Alves",
+   "cor": "#C2185B"
+  },
+  {
+   "id": "mux0azlatkeon",
+   "nome": "Marlon Voltolini",
+   "cor": "#003E78"
+  },
+  {
+   "id": "mux0azla0y495",
+   "nome": "Matheus Bernardo",
+   "cor": "#B07D00"
+  },
+  {
+   "id": "mux0azlac78t6",
+   "nome": "Matheus Gonçalves",
+   "cor": "#5D6D7E"
+  },
+  {
+   "id": "mux0azlafslf0",
+   "nome": "Tiago Pilch",
+   "cor": "#6D4C41"
+  }
+ ],
+ "tipos": [
+  {
+   "id": "preventiva",
+   "nome": "Manutenção preventiva",
+   "cor": "#00A428"
+  },
+  {
+   "id": "corretiva",
+   "nome": "Manutenção corretiva",
+   "cor": "#0056A4"
+  },
+  {
+   "id": "troca-oleo",
+   "nome": "Troca de óleo",
+   "cor": "#F3B119"
+  },
+  {
+   "id": "analise-oleo",
+   "nome": "Análise de óleo",
+   "cor": "#003E78"
+  },
+  {
+   "id": "instalacao",
+   "nome": "Instalação",
+   "cor": "#5B8FC9"
+  },
+  {
+   "id": "visita",
+   "nome": "Visita técnica",
+   "cor": "#7A8594"
+  }
+ ],
+ "ausencias": [],
+ "tarefas": [],
+ "publicadoEm": "2026-10-06T18:27:07.231Z"
+}
