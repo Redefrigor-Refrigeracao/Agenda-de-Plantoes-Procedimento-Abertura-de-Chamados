@@ -559,7 +559,7 @@
    "prioridade": "media",
    "tipo": "preventiva",
    "descricao": "Preventiva e limpeza de condensador/evaporador",
-   "veiculo": "",
+   "veiculo": "TEQ3J71",
    "auvo": "",
    "tecnicoIds": [
     "mux0azlalkf60",
@@ -576,6 +576,36 @@
     "endereco": "Irani Supermercados - Floresta - Av. Papagaios, 2100 - Floresta, Cascavel - PR, 85814-760",
     "contato": "",
     "telefone": "45998275253"
+   }
+  },
+  {
+   "data": "2026-10-13",
+   "inicio": "08:00",
+   "fim": "18:00",
+   "trabalho": 390,
+   "desloc": 120,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "mux3gd1z1dv6j",
+   "descricao": "Preventiva Eletrofrio",
+   "veiculo": "TEQ4H88",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlak1p6l",
+    "mux0azla0y495"
+   ],
+   "rdv": {
+    "mux0azlak1p6l": 40,
+    "mux0azla0y495": 80
+   },
+   "cliente": {
+    "nome": "CD Muffato",
+    "loja": "Cascavel",
+    "cidade": "",
+    "endereco": "Avenida Doutor Ezuel Portes",
+    "contato": "",
+    "telefone": ""
    }
   },
   {
@@ -617,7 +647,7 @@
    "prioridade": "media",
    "tipo": "preventiva",
    "descricao": "Preventiva e limpeza de condensador/evaporador",
-   "veiculo": "",
+   "veiculo": "TEQ3J71",
    "auvo": "",
    "tecnicoIds": [
     "mux0azlalkf60",
@@ -634,6 +664,36 @@
     "endereco": "Rua Teodoro Brum, Palotina - PR, 85950-000, Brasil",
     "contato": "",
     "telefone": ""
+   }
+  },
+  {
+   "data": "2026-10-14",
+   "inicio": "07:30",
+   "fim": "18:00",
+   "trabalho": 300,
+   "desloc": 240,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "mux3gd1z1dv6j",
+   "descricao": "Preventiva Eletrofrio",
+   "veiculo": "TEQ4H88",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlak1p6l",
+    "mux0azla0y495"
+   ],
+   "rdv": {
+    "mux0azlak1p6l": 40,
+    "mux0azla0y495": 80
+   },
+   "cliente": {
+    "nome": "Muffato Max Guairá",
+    "loja": "",
+    "cidade": "Guaira/PR",
+    "endereco": "R OSWALDO CRUZ, 1095, PARQUE DO LAGO, GUAIRA, PR, 85.983-071",
+    "contato": "IRMAOS MUFFATO & CIA LTDA",
+    "telefone": "(43) 3371-1700"
    }
   },
   {
@@ -675,7 +735,7 @@
    "prioridade": "media",
    "tipo": "preventiva",
    "descricao": "Preventiva e limpeza de condensador/evaporador",
-   "veiculo": "",
+   "veiculo": "TEQ3J71",
    "auvo": "",
    "tecnicoIds": [
     "mux0azlalkf60",
@@ -733,7 +793,7 @@
    "prioridade": "media",
    "tipo": "preventiva",
    "descricao": "",
-   "veiculo": "",
+   "veiculo": "TEQ3J71",
    "auvo": "",
    "tecnicoIds": [
     "mux0azlalkf60",
@@ -751,7 +811,37 @@
     "contato": "",
     "telefone": "45998275253"
    }
+  },
+  {
+   "data": "2026-10-16",
+   "inicio": "07:30",
+   "fim": "17:45",
+   "trabalho": 435,
+   "desloc": 90,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "veiculo": "TEQ4H88",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlak1p6l",
+    "mux0azla0y495"
+   ],
+   "rdv": {
+    "mux0azlak1p6l": 40,
+    "mux0azla0y495": 80
+   },
+   "cliente": {
+    "nome": "Festval/Beal",
+    "loja": "Tancredo Neves",
+    "cidade": "Cascavel/PR",
+    "endereco": "Avenida Tancredo Neves, Pioneiros Catarinenses, Cascavel - PR, 85805-430, Brasil",
+    "contato": "",
+    "telefone": ""
+   }
   }
  ],
- "publicadoEm": "2026-10-09T18:47:35.408Z"
+ "publicadoEm": "2026-10-09T18:51:39.231Z"
 }
