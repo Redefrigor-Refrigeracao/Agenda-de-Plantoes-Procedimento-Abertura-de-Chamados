@@ -551,20 +551,24 @@
   {
    "data": "2026-10-13",
    "inicio": "08:00",
-   "fim": "13:00",
-   "trabalho": 180,
-   "desloc": 60,
-   "periodo": "Manhã",
+   "fim": "18:00",
+   "trabalho": 420,
+   "desloc": 90,
+   "periodo": "Dia todo",
    "status": "agendada",
    "prioridade": "media",
    "tipo": "preventiva",
-   "descricao": "",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
    "veiculo": "",
    "auvo": "",
    "tecnicoIds": [
-    "mux0azlalkf60"
+    "mux0azlalkf60",
+    "mux0azlajgi4a"
    ],
-   "rdv": {},
+   "rdv": {
+    "mux0azlalkf60": 80,
+    "mux0azlajgi4a": 40
+   },
    "cliente": {
     "nome": "Irani",
     "loja": "Floresta",
@@ -603,6 +607,36 @@
    }
   },
   {
+   "data": "2026-10-14",
+   "inicio": "07:30",
+   "fim": "18:00",
+   "trabalho": 360,
+   "desloc": 180,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "veiculo": "",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlalkf60",
+    "mux0azlajgi4a"
+   ],
+   "rdv": {
+    "mux0azlalkf60": 80,
+    "mux0azlajgi4a": 40
+   },
+   "cliente": {
+    "nome": "C-Vale",
+    "loja": "Palotina",
+    "cidade": "Palotina/PR",
+    "endereco": "Rua Teodoro Brum, Palotina - PR, 85950-000, Brasil",
+    "contato": "",
+    "telefone": ""
+   }
+  },
+  {
    "data": "2026-10-15",
    "inicio": "08:00",
    "fim": "18:00",
@@ -628,6 +662,36 @@
     "endereco": "Av. Barão do Rio Branco, 1537 - Country, Cascavel - PR, 85813-170",
     "contato": "",
     "telefone": "(45)3229-4800"
+   }
+  },
+  {
+   "data": "2026-10-15",
+   "inicio": "08:00",
+   "fim": "18:00",
+   "trabalho": 450,
+   "desloc": 60,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "veiculo": "",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlalkf60",
+    "mux0azlajgi4a"
+   ],
+   "rdv": {
+    "mux0azlalkf60": 80,
+    "mux0azlajgi4a": 40
+   },
+   "cliente": {
+    "nome": "Festval/Beal",
+    "loja": "Erechim",
+    "cidade": "Cascavel/PR",
+    "endereco": "Av. Brasil, Pacaembu, Cascavel-pr",
+    "contato": "",
+    "telefone": "4532258181; 45999411260; 45999791864"
    }
   },
   {
@@ -657,7 +721,37 @@
     "contato": "",
     "telefone": "(45)3229-4800"
    }
+  },
+  {
+   "data": "2026-10-16",
+   "inicio": "07:30",
+   "fim": "17:45",
+   "trabalho": 435,
+   "desloc": 90,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "",
+   "veiculo": "",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlalkf60",
+    "mux0azlajgi4a"
+   ],
+   "rdv": {
+    "mux0azlalkf60": 80,
+    "mux0azlajgi4a": 40
+   },
+   "cliente": {
+    "nome": "Irani",
+    "loja": "Parque Verde",
+    "cidade": "Cascavel/PR",
+    "endereco": "Rua Francisco Bartinik, Recanto Tropical, Cascavel - PR, 85807-140, Brasil",
+    "contato": "",
+    "telefone": "45998275253"
+   }
   }
  ],
- "publicadoEm": "2026-10-09T18:41:12.648Z"
+ "publicadoEm": "2026-10-09T18:47:35.408Z"
 }
