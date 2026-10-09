@@ -107,7 +107,11 @@
    "cor": "#37ff00"
   }
  ],
- "plantaoVeiculos": {},
+ "plantaoVeiculos": {
+  "2026-10-10": "TEQ3J71",
+  "2026-10-11": "TEQ4H88",
+  "2026-10-12": "TJG7H05"
+ },
  "ausencias": [
   {
    "tipo": "ferias",
@@ -517,5 +521,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T17:07:06.720Z"
+ "publicadoEm": "2026-10-09T17:31:32.434Z"
 }
