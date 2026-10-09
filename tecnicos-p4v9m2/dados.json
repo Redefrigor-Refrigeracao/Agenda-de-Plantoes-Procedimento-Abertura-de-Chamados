@@ -639,6 +639,36 @@
    }
   },
   {
+   "data": "2026-10-13",
+   "inicio": "08:00",
+   "fim": "18:00",
+   "trabalho": 390,
+   "desloc": 120,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "veiculo": "TJG7H05",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlac78t6",
+    "mux0azlafslf0"
+   ],
+   "rdv": {
+    "mux0azlac78t6": 40,
+    "mux0azlafslf0": 80
+   },
+   "cliente": {
+    "nome": "Festval/Beal",
+    "loja": "Faculdade",
+    "cidade": "Cascavel/PR",
+    "endereco": "Rua da Imigração, Universitário, Cascavel - PR, 85819-359, Brasil",
+    "contato": "Anderson",
+    "telefone": ""
+   }
+  },
+  {
    "data": "2026-10-14",
    "inicio": "07:30",
    "fim": "18:00",
@@ -684,7 +714,7 @@
     "mux0azlajgi4a"
    ],
    "rdv": {
-    "mux0azlalkf60": 80,
+    "mux0azlalkf60": 180,
     "mux0azlajgi4a": 40
    },
    "cliente": {
@@ -715,7 +745,7 @@
    ],
    "rdv": {
     "mux0azlak1p6l": 40,
-    "mux0azla0y495": 80
+    "mux0azla0y495": 180
    },
    "cliente": {
     "nome": "Irani",
@@ -745,7 +775,7 @@
    ],
    "rdv": {
     "mux0azlamk4cr": 40,
-    "mux0azlatkeon": 80
+    "mux0azlatkeon": 180
    },
    "cliente": {
     "nome": "C-Vale",
@@ -773,7 +803,10 @@
     "mux0azlac78t6",
     "mux0azlafslf0"
    ],
-   "rdv": {},
+   "rdv": {
+    "mux0azlac78t6": 40,
+    "mux0azlafslf0": 80
+   },
    "cliente": {
     "nome": "Irani",
     "loja": "Matriz",
@@ -860,7 +893,7 @@
    ],
    "rdv": {
     "mux0azlak1p6l": 40,
-    "mux0azla0y495": 80
+    "mux0azla0y495": 180
    },
    "cliente": {
     "nome": "Supermercado Líder",
@@ -890,13 +923,43 @@
    ],
    "rdv": {
     "mux0azlamk4cr": 40,
-    "mux0azlatkeon": 80
+    "mux0azlatkeon": 180
    },
    "cliente": {
     "nome": "C-Vale",
     "loja": "Assis Chateaubriand",
     "cidade": "Assis Chateaubriand/PR",
     "endereco": "Assis Chateaubriand - PR, 85935-000, Brasil",
+    "contato": "",
+    "telefone": ""
+   }
+  },
+  {
+   "data": "2026-10-15",
+   "inicio": "08:00",
+   "fim": "18:00",
+   "trabalho": 450,
+   "desloc": 60,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "veiculo": "TJG7H05",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlac78t6",
+    "mux0azlafslf0"
+   ],
+   "rdv": {
+    "mux0azlac78t6": 40,
+    "mux0azlafslf0": 80
+   },
+   "cliente": {
+    "nome": "Festval/Beal",
+    "loja": "Carlos Gomes",
+    "cidade": "Cascavel/PR",
+    "endereco": "Festval Av. Carlos Gomes - Av. Carlos Gomes, 2342 - Maria Luíza, Cascavel - PR, 85807-700",
     "contato": "",
     "telefone": ""
    }
@@ -1018,7 +1081,34 @@
     "contato": "",
     "telefone": ""
    }
+  },
+  {
+   "data": "2026-10-16",
+   "inicio": "07:30",
+   "fim": "17:45",
+   "trabalho": 465,
+   "desloc": 60,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "veiculo": "TJG7H05",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlac78t6",
+    "mux0azlafslf0"
+   ],
+   "rdv": {},
+   "cliente": {
+    "nome": "Festval/Beal",
+    "loja": "Centro",
+    "cidade": "Cascavel/PR",
+    "endereco": "Festval Centro - Av. Brasil, 6676 - Centro, Cascavel - PR, 85806-290",
+    "contato": "",
+    "telefone": ""
+   }
   }
  ],
- "publicadoEm": "2026-10-09T19:24:00.643Z"
+ "publicadoEm": "2026-10-09T19:27:10.134Z"
 }
