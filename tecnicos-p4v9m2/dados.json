@@ -146,6 +146,16 @@
    "todos": true,
    "tecnicoIds": [],
    "obs": "Consciência Negra"
+  },
+  {
+   "tipo": "folga",
+   "inicio": "2026-10-13",
+   "fim": "2026-10-13",
+   "todos": false,
+   "tecnicoIds": [
+    "mux0azlalkf60"
+   ],
+   "obs": "Compensar horas"
   }
  ],
  "tarefas": [
@@ -667,32 +677,6 @@
    }
   },
   {
-   "data": "2026-10-13",
-   "inicio": "08:00",
-   "fim": "18:00",
-   "trabalho": 510,
-   "desloc": 0,
-   "periodo": "Dia todo",
-   "status": "agendada",
-   "prioridade": "media",
-   "tipo": "mux2aar7mwwib",
-   "descricao": "Compensação de horas",
-   "veiculo": "",
-   "auvo": "",
-   "tecnicoIds": [
-    "mux0azlalkf60"
-   ],
-   "rdv": {},
-   "cliente": {
-    "nome": "Sede",
-    "loja": "Redefrigor",
-    "cidade": "Cascavel/PR",
-    "endereco": "Av. Barão do Rio Branco, 1537 - Country, Cascavel - PR, 85813-170",
-    "contato": "",
-    "telefone": "(45)3229-4800"
-   }
-  },
-  {
    "data": "2026-10-14",
    "inicio": "07:30",
    "fim": "18:00",
@@ -1137,5 +1121,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T20:35:07.253Z"
+ "publicadoEm": "2026-10-09T20:37:24.783Z"
 }
