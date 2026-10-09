@@ -562,11 +562,9 @@
    "veiculo": "TEQ3J71",
    "auvo": "",
    "tecnicoIds": [
-    "mux0azlalkf60",
     "mux0azlajgi4a"
    ],
    "rdv": {
-    "mux0azlalkf60": 80,
     "mux0azlajgi4a": 40
    },
    "cliente": {
@@ -1113,5 +1111,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T19:45:32.636Z"
+ "publicadoEm": "2026-10-09T20:22:41.162Z"
 }
