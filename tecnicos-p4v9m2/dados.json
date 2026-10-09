@@ -536,7 +536,9 @@
    "tecnicoIds": [
     "mux0azladzieb"
    ],
-   "rdv": {},
+   "rdv": {
+    "mux0azladzieb": 50
+   },
    "cliente": {
     "nome": "Sede",
     "loja": "Redefrigor",
@@ -562,7 +564,9 @@
    "tecnicoIds": [
     "mux0azladzieb"
    ],
-   "rdv": {},
+   "rdv": {
+    "mux0azladzieb": 50
+   },
    "cliente": {
     "nome": "Sede",
     "loja": "Redefrigor",
@@ -588,7 +592,9 @@
    "tecnicoIds": [
     "mux0azladzieb"
    ],
-   "rdv": {},
+   "rdv": {
+    "mux0azladzieb": 50
+   },
    "cliente": {
     "nome": "Sede",
     "loja": "Redefrigor",
@@ -614,7 +620,9 @@
    "tecnicoIds": [
     "mux0azladzieb"
    ],
-   "rdv": {},
+   "rdv": {
+    "mux0azladzieb": 50
+   },
    "cliente": {
     "nome": "Sede",
     "loja": "Redefrigor",
@@ -625,5 +633,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T17:42:44.533Z"
+ "publicadoEm": "2026-10-09T17:43:47.363Z"
 }
