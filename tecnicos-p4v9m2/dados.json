@@ -531,7 +531,7 @@
    "prioridade": "media",
    "tipo": "mux2aar7mwwib",
    "descricao": "",
-   "veiculo": "",
+   "veiculo": "TEC8C82",
    "auvo": "",
    "tecnicoIds": [
     "mux0azladzieb"
@@ -583,7 +583,7 @@
    "prioridade": "media",
    "tipo": "mux2aar7mwwib",
    "descricao": "",
-   "veiculo": "",
+   "veiculo": "TEC8C82",
    "auvo": "",
    "tecnicoIds": [
     "mux0azladzieb"
@@ -625,5 +625,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T17:41:41.718Z"
+ "publicadoEm": "2026-10-09T17:42:26.048Z"
 }
