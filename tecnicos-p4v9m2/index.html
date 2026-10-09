@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="versao-agenda" content="2026-10-08T13:24:18.133Z">
+<meta name="versao-agenda" content="2026-10-09T17:05:08.429Z">
 <meta name="theme-color" content="#003E78">
 <title>Minha Agenda | Redefrigor</title>
 <style>
@@ -222,6 +222,8 @@ const plantaoNoDia = d => plantoesDetalhados().filter(p => p.data === d);
 const soDigitos = s => String(s || '').replace(/\D/g, '');
 const fmtTel = t => { const d = soDigitos(t); return d.length >= 12 ? `(${d.slice(2, 4)}) ${d.slice(4, d.length - 4)}-${d.slice(-4)}` : t || ''; };
 const horarioPlantao = () => plantao?.config?.horario || '';
+// Carro do plantão: vem da agenda (dados.json), não da escala pública
+const veiculoPlantao = d => (dados && dados.plantaoVeiculos && dados.plantaoVeiculos[d]) || '';
 
 const tecnico = id => dados.tecnicos.find(t => t.id === id);
 const tipo = id => dados.tipos.find(t => t.id === id) || { nome: id, cor: '#7A8594' };
@@ -298,12 +300,12 @@ function renderPlantoes() {
   const horario = horarioPlantao();
   const acoes = t => { const d = soDigitos(t.telefone); return d ? `<a href="tel:+${d}" aria-label="Ligar para ${esc(t.nome)}">${ICO.tel}</a><a class="wa" href="https://wa.me/${d}" target="_blank" rel="noopener" aria-label="WhatsApp de ${esc(t.nome)}">${ICO.whats}</a>` : ''; };
   const item = p => { const d = dataDe(p.data); return `<div class="pl-item ${ehEu(p.tec) ? 'meu' : ''}"><div class="pl-data"><b>${d.getDate()}</b><span>${['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'][d.getMonth()]}</span></div>
-    <div class="pl-info"><b>${esc(p.tec.nome)}${ehEu(p.tec) ? ' (você)' : ''}</b><span>${DIAS[d.getDay()]}${p.data === hj ? ' · hoje' : ''} · ${esc(fmtTel(p.tec.telefone))}</span></div>
+    <div class="pl-info"><b>${esc(p.tec.nome)}${ehEu(p.tec) ? ' (você)' : ''}</b><span>${DIAS[d.getDay()]}${p.data === hj ? ' · hoje' : ''} · ${esc(fmtTel(p.tec.telefone))}${veiculoPlantao(p.data) ? ` · Veículo <b>${esc(veiculoPlantao(p.data))}</b>` : ''}</span></div>
     <div class="pl-acoes">${ehEu(p.tec) ? '' : acoes(p.tec)}</div></div>`; };
   let h = htmlAbas();
   if (deHoje.length) {
     h += deHoje.map(p => { const d = soDigitos(p.tec.telefone); return `<div class="pl-hoje"><small>Plantão hoje${horario ? ' · ' + esc(horario) : ''}</small>
-      <div class="nome">${esc(p.tec.nome)}${ehEu(p.tec) ? ' — é você!' : ''}</div><div class="sub">${esc(plantao.config?.cidade || '')}${d ? ' · ' + esc(fmtTel(p.tec.telefone)) : ''}</div>
+      <div class="nome">${esc(p.tec.nome)}${ehEu(p.tec) ? ' — é você!' : ''}</div><div class="sub">${esc(plantao.config?.cidade || '')}${d ? ' · ' + esc(fmtTel(p.tec.telefone)) : ''}${veiculoPlantao(p.data) ? ' · Veículo ' + esc(veiculoPlantao(p.data)) : ''}</div>
       ${d && !ehEu(p.tec) ? `<div class="acoes"><a href="tel:+${d}">${ICO.tel} Ligar</a><a class="wa" href="https://wa.me/${d}" target="_blank" rel="noopener">${ICO.whats} WhatsApp</a></div>` : ''}</div>`; }).join('');
   } else {
     h += `<div class="aviso" style="margin-bottom:14px">Hoje não há plantão escalado.</div>`;
@@ -324,10 +326,11 @@ function htmlPlantaoDia(d) {
   if (!lista.length) return '';
   const meu = lista.some(p => ehEu(p.tec));
   const outros = lista.filter(p => !ehEu(p.tec)).map(p => p.tec.nome);
-  const horario = horarioPlantao();
+  const horario = horarioPlantao(), veic = veiculoPlantao(d);
+  const detalhes = [horario, meu && outros.length ? 'com ' + outros.join(', ') : '', veic ? 'Veículo ' + veic : ''].filter(Boolean).join(' · ');
   return meu
-    ? `<div class="plantao-dia meu">${ICO.escudo}<span>Você está de plantão${horario ? `<small>${esc(horario)}${outros.length ? ' · com ' + esc(outros.join(', ')) : ''}</small>` : ''}</span></div>`
-    : `<div class="plantao-dia">${ICO.escudo}<span>Plantão: <b>${esc(outros.join(', '))}</b>${horario ? `<small>${esc(horario)}</small>` : ''}</span></div>`;
+    ? `<div class="plantao-dia meu">${ICO.escudo}<span>Você está de plantão${detalhes ? `<small>${esc(detalhes)}</small>` : ''}</span></div>`
+    : `<div class="plantao-dia">${ICO.escudo}<span>Plantão: <b>${esc(outros.join(', '))}</b>${detalhes ? `<small>${esc(detalhes)}</small>` : ''}</span></div>`;
 }
 
 function render(rolarHoje) {
