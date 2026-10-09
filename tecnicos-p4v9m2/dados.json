@@ -146,6 +146,16 @@
    "todos": true,
    "tecnicoIds": [],
    "obs": "Consciência Negra"
+  },
+  {
+   "tipo": "folga",
+   "inicio": "2026-10-13",
+   "fim": "2026-10-13",
+   "todos": false,
+   "tecnicoIds": [
+    "mux0azlalkf60"
+   ],
+   "obs": "Compensação de horas"
   }
  ],
  "tarefas": [
@@ -1111,5 +1121,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T20:22:41.162Z"
+ "publicadoEm": "2026-10-09T20:24:29.242Z"
 }
