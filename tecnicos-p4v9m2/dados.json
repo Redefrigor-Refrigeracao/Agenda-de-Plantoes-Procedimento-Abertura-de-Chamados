@@ -609,6 +609,36 @@
    }
   },
   {
+   "data": "2026-10-13",
+   "inicio": "08:00",
+   "fim": "18:00",
+   "trabalho": 390,
+   "desloc": 120,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "veiculo": "TJP4C34",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlamk4cr",
+    "mux0azlatkeon"
+   ],
+   "rdv": {
+    "mux0azlamk4cr": 40,
+    "mux0azlatkeon": 80
+   },
+   "cliente": {
+    "nome": "Geriba",
+    "loja": "",
+    "cidade": "",
+    "endereco": "Gestlé e Geriba Distb. Nestlé",
+    "contato": "",
+    "telefone": ""
+   }
+  },
+  {
    "data": "2026-10-14",
    "inicio": "07:30",
    "fim": "18:00",
@@ -694,6 +724,36 @@
     "endereco": "AV REPUBLICA ARGENTINA, 4930, PANORAMA, FOZ DO IGUACU, PR, 85.856-578",
     "contato": "GRUPO IRANI LTDA",
     "telefone": "(45) 3333-7000"
+   }
+  },
+  {
+   "data": "2026-10-14",
+   "inicio": "07:30",
+   "fim": "18:00",
+   "trabalho": 330,
+   "desloc": 210,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "veiculo": "TJP4C34",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlamk4cr",
+    "mux0azlatkeon"
+   ],
+   "rdv": {
+    "mux0azlamk4cr": 40,
+    "mux0azlatkeon": 80
+   },
+   "cliente": {
+    "nome": "C-Vale",
+    "loja": "Terra Roxa",
+    "cidade": "",
+    "endereco": "Av Presidente Castelo Branco 312",
+    "contato": "",
+    "telefone": ""
    }
   },
   {
@@ -785,6 +845,36 @@
    }
   },
   {
+   "data": "2026-10-15",
+   "inicio": "08:00",
+   "fim": "18:00",
+   "trabalho": 360,
+   "desloc": 150,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "",
+   "veiculo": "TJP4C34",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlamk4cr",
+    "mux0azlatkeon"
+   ],
+   "rdv": {
+    "mux0azlamk4cr": 40,
+    "mux0azlatkeon": 80
+   },
+   "cliente": {
+    "nome": "C-Vale",
+    "loja": "Assis Chateaubriand",
+    "cidade": "Assis Chateaubriand/PR",
+    "endereco": "Assis Chateaubriand - PR, 85935-000, Brasil",
+    "contato": "",
+    "telefone": ""
+   }
+  },
+  {
    "data": "2026-10-16",
    "inicio": "07:30",
    "fim": "18:00",
@@ -871,7 +961,37 @@
     "contato": "IRMAOS MUFFATO & CIA LTDA",
     "telefone": "(43) 3371-1700"
    }
+  },
+  {
+   "data": "2026-10-16",
+   "inicio": "07:30",
+   "fim": "17:45",
+   "trabalho": 465,
+   "desloc": 60,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "",
+   "veiculo": "TJP4C34",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlamk4cr",
+    "mux0azlatkeon"
+   ],
+   "rdv": {
+    "mux0azlamk4cr": 40,
+    "mux0azlatkeon": 80
+   },
+   "cliente": {
+    "nome": "Irani",
+    "loja": "Portí Cascavel",
+    "cidade": "Cascavel/PR",
+    "endereco": "Brasmadeira, Cascavel - PR, 85814-040, Brasil - A",
+    "contato": "",
+    "telefone": ""
+   }
   }
  ],
- "publicadoEm": "2026-10-09T18:56:12.937Z"
+ "publicadoEm": "2026-10-09T19:06:19.386Z"
 }
