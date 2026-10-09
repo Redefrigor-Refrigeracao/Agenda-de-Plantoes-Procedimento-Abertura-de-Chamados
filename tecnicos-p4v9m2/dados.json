@@ -530,7 +530,7 @@
    "status": "agendada",
    "prioridade": "media",
    "tipo": "mux2aar7mwwib",
-   "descricao": "",
+   "descricao": "Ver com Ricardo/Erik",
    "veiculo": "TEC8C82",
    "auvo": "",
    "tecnicoIds": [
@@ -678,7 +678,7 @@
    "status": "agendada",
    "prioridade": "media",
    "tipo": "mux2aar7mwwib",
-   "descricao": "",
+   "descricao": "Ver com Ricardo/Erik",
    "veiculo": "TEC8C82",
    "auvo": "",
    "tecnicoIds": [
@@ -826,7 +826,7 @@
    "status": "agendada",
    "prioridade": "media",
    "tipo": "mux2aar7mwwib",
-   "descricao": "",
+   "descricao": "Ver com Ricardo/Erik",
    "veiculo": "TEC8C82",
    "auvo": "",
    "tecnicoIds": [
@@ -914,7 +914,7 @@
    "status": "agendada",
    "prioridade": "media",
    "tipo": "preventiva",
-   "descricao": "",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
    "veiculo": "TJP4C34",
    "auvo": "",
    "tecnicoIds": [
@@ -974,7 +974,7 @@
    "status": "agendada",
    "prioridade": "media",
    "tipo": "mux2aar7mwwib",
-   "descricao": "",
+   "descricao": "Ver com Ricardo/Erik",
    "veiculo": "TEC8C82",
    "auvo": "",
    "tecnicoIds": [
@@ -1002,7 +1002,7 @@
    "status": "agendada",
    "prioridade": "media",
    "tipo": "preventiva",
-   "descricao": "",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
    "veiculo": "TEQ3J71",
    "auvo": "",
    "tecnicoIds": [
@@ -1062,7 +1062,7 @@
    "status": "agendada",
    "prioridade": "media",
    "tipo": "preventiva",
-   "descricao": "",
+   "descricao": "Preventiva e limpeza de condensador/evaporador",
    "veiculo": "TJP4C34",
    "auvo": "",
    "tecnicoIds": [
@@ -1113,5 +1113,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T19:41:43.424Z"
+ "publicadoEm": "2026-10-09T19:45:32.636Z"
 }
