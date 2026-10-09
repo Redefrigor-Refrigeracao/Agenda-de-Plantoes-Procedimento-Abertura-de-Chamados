@@ -107,6 +107,7 @@
    "cor": "#37ff00"
   }
  ],
+ "plantaoVeiculos": {},
  "ausencias": [
   {
    "tipo": "ferias",
@@ -516,5 +517,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T10:54:28.678Z"
+ "publicadoEm": "2026-10-09T17:06:38.392Z"
 }
