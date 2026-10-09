@@ -69,7 +69,7 @@
   {
    "id": "corretiva",
    "nome": "Manutenção Corretiva",
-   "cor": "#0056A4"
+   "cor": "#b30000"
   },
   {
    "id": "troca-oleo",
@@ -873,5 +873,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T18:54:58.543Z"
+ "publicadoEm": "2026-10-09T18:56:12.937Z"
 }
