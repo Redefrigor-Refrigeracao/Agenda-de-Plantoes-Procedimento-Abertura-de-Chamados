@@ -670,14 +670,14 @@
    "data": "2026-10-14",
    "inicio": "07:30",
    "fim": "18:00",
-   "trabalho": 300,
-   "desloc": 240,
+   "trabalho": 420,
+   "desloc": 120,
    "periodo": "Dia todo",
    "status": "agendada",
    "prioridade": "media",
    "tipo": "mux3gd1z1dv6j",
    "descricao": "Preventiva Eletrofrio",
-   "veiculo": "TEQ4H88",
+   "veiculo": "",
    "auvo": "",
    "tecnicoIds": [
     "mux0azlak1p6l",
@@ -688,12 +688,12 @@
     "mux0azla0y495": 80
    },
    "cliente": {
-    "nome": "Muffato Max Guairá",
-    "loja": "",
-    "cidade": "Guaira/PR",
-    "endereco": "R OSWALDO CRUZ, 1095, PARQUE DO LAGO, GUAIRA, PR, 85.983-071",
-    "contato": "IRMAOS MUFFATO & CIA LTDA",
-    "telefone": "(43) 3371-1700"
+    "nome": "Irani",
+    "loja": "Portí Foz",
+    "cidade": "Foz do Iguacu/PR",
+    "endereco": "AV REPUBLICA ARGENTINA, 4930, PANORAMA, FOZ DO IGUACU, PR, 85.856-578",
+    "contato": "GRUPO IRANI LTDA",
+    "telefone": "(45) 3333-7000"
    }
   },
   {
@@ -752,6 +752,36 @@
     "endereco": "Av. Brasil, Pacaembu, Cascavel-pr",
     "contato": "",
     "telefone": "4532258181; 45999411260; 45999791864"
+   }
+  },
+  {
+   "data": "2026-10-15",
+   "inicio": "08:00",
+   "fim": "18:00",
+   "trabalho": 390,
+   "desloc": 120,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "corretiva",
+   "descricao": "Instalar compressor 02 rack de resfriados",
+   "veiculo": "",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlak1p6l",
+    "mux0azla0y495"
+   ],
+   "rdv": {
+    "mux0azlak1p6l": 40,
+    "mux0azla0y495": 80
+   },
+   "cliente": {
+    "nome": "Supermercado Líder",
+    "loja": "",
+    "cidade": "Foz do Iguaçu/PR",
+    "endereco": "Rua Lins, Jardim Santa Rosa, Foz do Iguaçu - PR, 85869-270, Brasil",
+    "contato": "",
+    "telefone": "4530271000"
    }
   },
   {
@@ -815,14 +845,14 @@
   {
    "data": "2026-10-16",
    "inicio": "07:30",
-   "fim": "17:45",
-   "trabalho": 435,
-   "desloc": 90,
+   "fim": "18:00",
+   "trabalho": 300,
+   "desloc": 240,
    "periodo": "Dia todo",
    "status": "agendada",
    "prioridade": "media",
-   "tipo": "preventiva",
-   "descricao": "Preventiva e limpeza de condensador/evaporador",
+   "tipo": "mux3gd1z1dv6j",
+   "descricao": "Preventiva Eletrofrio",
    "veiculo": "TEQ4H88",
    "auvo": "",
    "tecnicoIds": [
@@ -834,14 +864,14 @@
     "mux0azla0y495": 80
    },
    "cliente": {
-    "nome": "Festval/Beal",
-    "loja": "Tancredo Neves",
-    "cidade": "Cascavel/PR",
-    "endereco": "Avenida Tancredo Neves, Pioneiros Catarinenses, Cascavel - PR, 85805-430, Brasil",
-    "contato": "",
-    "telefone": ""
+    "nome": "Muffato Max Guairá",
+    "loja": "",
+    "cidade": "Guaira/PR",
+    "endereco": "R OSWALDO CRUZ, 1095, PARQUE DO LAGO, GUAIRA, PR, 85.983-071",
+    "contato": "IRMAOS MUFFATO & CIA LTDA",
+    "telefone": "(43) 3371-1700"
    }
   }
  ],
- "publicadoEm": "2026-10-09T18:51:39.231Z"
+ "publicadoEm": "2026-10-09T18:54:58.543Z"
 }
