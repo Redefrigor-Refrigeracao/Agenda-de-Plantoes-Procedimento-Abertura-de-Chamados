@@ -737,7 +737,7 @@
    "prioridade": "media",
    "tipo": "mux3gd1z1dv6j",
    "descricao": "Preventiva Eletrofrio",
-   "veiculo": "",
+   "veiculo": "TEQ4H88",
    "auvo": "",
    "tecnicoIds": [
     "mux0azlak1p6l",
@@ -885,7 +885,7 @@
    "prioridade": "media",
    "tipo": "corretiva",
    "descricao": "Instalar compressor 02 rack de resfriados",
-   "veiculo": "",
+   "veiculo": "TEQ4H88",
    "auvo": "",
    "tecnicoIds": [
     "mux0azlak1p6l",
@@ -1113,5 +1113,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T19:30:12.133Z"
+ "publicadoEm": "2026-10-09T19:41:43.424Z"
 }
