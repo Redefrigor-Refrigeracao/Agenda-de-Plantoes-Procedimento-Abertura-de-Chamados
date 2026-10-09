@@ -549,6 +549,32 @@
    }
   },
   {
+   "data": "2026-10-13",
+   "inicio": "08:00",
+   "fim": "13:00",
+   "trabalho": 180,
+   "desloc": 60,
+   "periodo": "Manhã",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "preventiva",
+   "descricao": "",
+   "veiculo": "",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azlalkf60"
+   ],
+   "rdv": {},
+   "cliente": {
+    "nome": "Irani",
+    "loja": "Floresta",
+    "cidade": "Cascavel/PR",
+    "endereco": "Irani Supermercados - Floresta - Av. Papagaios, 2100 - Floresta, Cascavel - PR, 85814-760",
+    "contato": "",
+    "telefone": "45998275253"
+   }
+  },
+  {
    "data": "2026-10-14",
    "inicio": "07:30",
    "fim": "18:00",
@@ -633,5 +659,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T17:45:42.538Z"
+ "publicadoEm": "2026-10-09T17:55:46.403Z"
 }
