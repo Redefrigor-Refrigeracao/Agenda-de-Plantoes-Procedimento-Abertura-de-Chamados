@@ -547,6 +547,32 @@
    }
   },
   {
+   "data": "2026-10-14",
+   "inicio": "07:30",
+   "fim": "18:00",
+   "trabalho": 540,
+   "desloc": 0,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "mux2aar7mwwib",
+   "descricao": "",
+   "veiculo": "TEC8C82",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azladzieb"
+   ],
+   "rdv": {},
+   "cliente": {
+    "nome": "Sede",
+    "loja": "Redefrigor",
+    "cidade": "Cascavel/PR",
+    "endereco": "Av. Barão do Rio Branco, 1537 - Country, Cascavel - PR, 85813-170",
+    "contato": "",
+    "telefone": "(45)3229-4800"
+   }
+  },
+  {
    "data": "2026-10-15",
    "inicio": "08:00",
    "fim": "18:00",
@@ -571,7 +597,33 @@
     "contato": "",
     "telefone": "(45)3229-4800"
    }
+  },
+  {
+   "data": "2026-10-16",
+   "inicio": "07:30",
+   "fim": "18:00",
+   "trabalho": 540,
+   "desloc": 0,
+   "periodo": "Dia todo",
+   "status": "agendada",
+   "prioridade": "media",
+   "tipo": "mux2aar7mwwib",
+   "descricao": "",
+   "veiculo": "TEC8C82",
+   "auvo": "",
+   "tecnicoIds": [
+    "mux0azladzieb"
+   ],
+   "rdv": {},
+   "cliente": {
+    "nome": "Sede",
+    "loja": "Redefrigor",
+    "cidade": "Cascavel/PR",
+    "endereco": "Av. Barão do Rio Branco, 1537 - Country, Cascavel - PR, 85813-170",
+    "contato": "",
+    "telefone": "(45)3229-4800"
+   }
   }
  ],
- "publicadoEm": "2026-10-09T17:40:38.870Z"
+ "publicadoEm": "2026-10-09T17:41:41.718Z"
 }
