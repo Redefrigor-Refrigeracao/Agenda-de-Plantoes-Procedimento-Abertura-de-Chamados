@@ -1099,7 +1099,10 @@
     "mux0azlac78t6",
     "mux0azlafslf0"
    ],
-   "rdv": {},
+   "rdv": {
+    "mux0azlac78t6": 40,
+    "mux0azlafslf0": 80
+   },
    "cliente": {
     "nome": "Festval/Beal",
     "loja": "Centro",
@@ -1110,5 +1113,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T19:27:10.134Z"
+ "publicadoEm": "2026-10-09T19:27:25.861Z"
 }
