@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="versao-agenda" content="2026-10-09T18:42:19.413Z">
+<meta name="versao-agenda" content="2026-10-09T19:36:06.863Z">
 <meta name="theme-color" content="#003E78">
 <title>Minha Agenda | Redefrigor</title>
 <style>
@@ -180,6 +180,8 @@ function semanaISO(s) { const d = dataDe(s), t = new Date(Date.UTC(d.getFullYear
 let dados = null, eu = null, semana = segundaDe(hoje());
 let plantao = null, aba = 'agenda'; // escala do site de plantões (mesmo repositório)
 try { eu = localStorage.getItem(CHAVE_EU); } catch (e) { }
+// O navegador não volta para a posição da última visita: a página sempre abre no topo
+try { history.scrollRestoration = 'manual'; } catch (e) { }
 
 
 // Lê os arquivos direto do repositório (sempre atualizados); se falhar, usa o arquivo publicado no site
@@ -247,7 +249,7 @@ function renderEscolha() {
     <p class="rodape">Somente leitura · alterações são feitas pelo administrador.</p>`;
   document.querySelectorAll('.lista-tec button').forEach(b => b.onclick = () => {
     eu = b.dataset.id; try { localStorage.setItem(CHAVE_EU, eu); } catch (e) { }
-    semana = segundaDe(hoje()); render(true);
+    semana = segundaDe(hoje()); render(); scrollTo(0, 0);
   });
 }
 
@@ -288,7 +290,7 @@ function htmlAbas() {
   </div>`;
 }
 function ligarAbas() {
-  document.querySelectorAll('.abas [data-aba]').forEach(b => b.onclick = () => { aba = b.dataset.aba; render(aba === 'agenda'); scrollTo(0, 0); });
+  document.querySelectorAll('.abas [data-aba]').forEach(b => b.onclick = () => { aba = b.dataset.aba; render(); scrollTo(0, 0); });
 }
 
 // Aba Plantões: quem está hoje, meus próximos plantões e a escala completa
@@ -383,7 +385,8 @@ function render(rolarHoje) {
 // Agenda e escala de plantões carregam juntas; se a escala falhar, a agenda funciona sem a aba Plantões
 Promise.all([carregar(), carregarPlantao()]).then(([d, p]) => {
   if (!d || d.app !== 'agenda-redefrigor-tecnicos') throw new Error('Arquivo de agenda inválido');
-  dados = d; plantao = p; render(true);
+  // Abre sempre no topo da página (só o botão "Hoje" rola até o dia de hoje)
+  dados = d; plantao = p; render(); scrollTo(0, 0);
 }).catch(e => {
   console.error(e);
   $('#conteudo').innerHTML = '<div class="aviso">Não foi possível carregar a agenda.<br>Verifique a internet e tente de novo em instantes.</div>';
