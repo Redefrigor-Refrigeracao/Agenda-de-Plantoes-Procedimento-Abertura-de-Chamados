@@ -207,9 +207,9 @@
   },
   {
    "data": "2026-10-07",
-   "inicio": "08:00",
+   "inicio": "07:30",
    "fim": "17:30",
-   "trabalho": 480,
+   "trabalho": 510,
    "desloc": 0,
    "periodo": "Dia todo",
    "status": "agendada",
@@ -659,5 +659,5 @@
    }
   }
  ],
- "publicadoEm": "2026-10-09T17:55:46.403Z"
+ "publicadoEm": "2026-10-09T18:41:12.648Z"
 }
