@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="versao-agenda" content="2026-10-16T14:07:05.275Z">
+<meta name="versao-agenda" content="2026-10-16T14:10:48.325Z">
 <meta name="theme-color" content="#003E78">
 <title>Minha Agenda | Redefrigor</title>
 <style>
@@ -59,7 +59,6 @@ main { max-width: 720px; margin: 0 auto; padding: 14px 16px calc(32px + env(safe
 .aus-folga { background: #E3E8EF; color: #44505F; }
 .aus-ferias { background: #EAE3F7; color: #5B3A9E; }
 .aus-feriado { background: var(--amarelo-claro); color: #7A5600; }
-.aus-deslocamento { background: #DCE7F1; color: #0056A4; }
 
 .tarefa { background: #fff; border-radius: 14px; box-shadow: var(--sombra); padding: 12px 14px; margin-bottom: 8px; border-left: 5px solid var(--cor, var(--azul2)); }
 .tarefa.cancelada { opacity: .6; }
@@ -247,7 +246,7 @@ const ausencia = (tecId, data) => dados.ausencias.find(a => data >= a.inicio && 
 const corTexto = hex => { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; const l = (0.299 * r + 0.587 * g + 0.114 * b) / 255; const f = l > 0.6 ? 0.42 : l > 0.45 ? 0.62 : 0.85; return `rgb(${Math.round(r * f)},${Math.round(g * f)},${Math.round(b * f)})`; };
 const corFundo = hex => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},.16)`; };
 const NOMES_STATUS = { agendada: 'Agendada', andamento: 'Em andamento', concluida: '✓ Concluída', reagendada: 'Reagendada', cancelada: 'Cancelada' };
-const NOMES_AUS = { folga: 'Folga', ferias: 'Férias', feriado: 'Feriado', deslocamento: 'Deslocamento o dia todo' };
+const NOMES_AUS = { folga: 'Folga', ferias: 'Férias', feriado: 'Feriado' };
 
 function renderQuem() {
   const t = eu && tecnico(eu), q = $('#quem');
@@ -274,7 +273,7 @@ function cartao(t) {
   const tel = String(c.telefone || '').split(/[;/]/)[0].replace(/[^\d+]/g, '');
   const mapa = c.endereco ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.endereco)}` : '';
   return `<article class="tarefa ${t.status === 'cancelada' ? 'cancelada' : ''} ${t.prioridade === 'urgente' ? 'urgente' : ''}" style="--cor:${tp.cor}">
-    <div class="t-hora"><span><span class="per">${esc(t.periodo)}</span> · ${t.inicio}–${t.fim}</span><span>${fmtDur(t.trabalho)} h${t.desloc ? ` + ${fmtDur(t.desloc)} desloc.` : ''}</span></div>
+    <div class="t-hora"><span><span class="per">${esc(t.periodo)}</span> · ${t.inicio}–${t.fim}</span><span>${t.deslocDia ? `${fmtDur(t.desloc)} h de deslocamento` : `${fmtDur(t.trabalho)} h${t.desloc ? ` + ${fmtDur(t.desloc)} desloc.` : ''}`}</span></div>
     <div class="cli">${esc(c.nome || '')}</div>
     ${c.loja || c.cidade ? `<div class="loja">${esc([c.loja, c.cidade].filter(Boolean).join(' · '))}</div>` : ''}
     <div class="tags">
