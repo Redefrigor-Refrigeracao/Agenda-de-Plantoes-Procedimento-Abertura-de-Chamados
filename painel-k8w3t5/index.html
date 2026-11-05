@@ -48,6 +48,7 @@ a { color: var(--azul); }
 .abas button svg { width: 16px; height: 16px; }
 .abas button:hover { color: #fff; background: rgba(255,255,255,.08); }
 .abas button[aria-selected="true"] { background: var(--fundo); color: var(--navy); }
+.app-veiculos { display: block; width: 100%; border: 0; background: var(--fundo); }
 
 /* ---------- Faixa de aviso dos dados ---------- */
 .faixa-dados { max-width: 1600px; margin: 12px auto 0; padding: 0 24px; }
@@ -959,7 +960,7 @@ const ui = Object.assign({
   filtros: { tecnico: '', cliente: '', tipo: '', status: '', situacao: '' },
   buscaClientes: '', filtroSituacao: ''
 }, (() => { try { const u = JSON.parse(localStorage.getItem(CHAVE_UI) || '{}'); return { aba: u.aba, visao: u.visao }; } catch (e) { return {}; } })());
-if (!['agenda', 'plantoes', 'clientes', 'tecnicos', 'config'].includes(ui.aba)) ui.aba = 'agenda';
+if (!['agenda', 'plantoes', 'clientes', 'tecnicos', 'config', 'veiculos'].includes(ui.aba)) ui.aba = 'agenda';
 if (!['semana', 'mes', 'dia', 'lista'].includes(ui.visao)) ui.visao = 'semana';
 function salvarUi() { try { localStorage.setItem(CHAVE_UI, JSON.stringify({ aba: ui.aba, visao: ui.visao })); } catch (e) { } }
 
@@ -1170,12 +1171,55 @@ function render() {
   renderFaixaDados();
   $('#pillContexto').textContent = textoContexto();
   const c = $('#conteudo');
+  // Aba "Uso particular": o app de veículos fica num quadro próprio, fora do conteúdo da agenda
+  if (ui.aba === 'veiculos' && !podeVerVeiculos()) ui.aba = 'agenda';
+  c.hidden = ui.aba === 'veiculos';
+  if ($('#appVeiculos')) $('#appVeiculos').hidden = ui.aba !== 'veiculos';
+  if (ui.aba === 'veiculos') { mostrarAppVeiculos(); return; }
   if (HOSPEDADO && !nuvem.ativa) { c.innerHTML = htmlTelaConectar(); return; }
   if (ui.aba === 'agenda') c.innerHTML = htmlAgenda();
   else if (ui.aba === 'clientes') c.innerHTML = htmlClientes();
   else if (ui.aba === 'plantoes') c.innerHTML = htmlPlantoes();
   else if (ui.aba === 'tecnicos') c.innerHTML = htmlTecnicos();
   else c.innerHTML = htmlConfig();
+}
+
+// App de uso particular dos veículos (outro sistema). Só é exibido aqui; a agenda envia a ele SOMENTE o login.
+const URL_APP_VEICULOS = 'https://uso-particular-veiculos.vercel.app/';
+// Só estes logins da agenda veem a aba e entram no app com o mesmo login
+const LOGINS_APP_VEICULOS = ['victor@redefrigor.com.br', 'erik@redefrigor.com.br'];
+function podeVerVeiculos() {
+  try { return LOGINS_APP_VEICULOS.includes(String(sb.sessao?.email || nuvem.email || '').trim().toLowerCase()); } catch (e) { return false; }
+}
+// O app (no quadro) pede o login: o painel responde SOMENTE com o login (tokens), nenhum dado da agenda
+window.addEventListener('message', async e => {
+  const f = document.getElementById('appVeiculos');
+  const origemApp = new URL(URL_APP_VEICULOS).origin;
+  if (!f || e.source !== f.contentWindow || e.origin !== origemApp || e.data?.tipo !== 'veic-pede-login') return;
+  let resposta = { tipo: 'veic-login' };
+  try {
+    if (podeVerVeiculos()) {
+      const token = await tokenValido();
+      if (token && sb.sessao) resposta = { tipo: 'veic-login', access_token: token, refresh_token: sb.sessao.refresh_token, expira: sb.sessao.expira };
+    }
+  } catch (err) { }
+  e.source.postMessage(resposta, origemApp);
+});
+function mostrarAppVeiculos() {
+  let f = $('#appVeiculos');
+  if (!f) {
+    f = document.createElement('iframe');
+    f.id = 'appVeiculos'; f.className = 'app-veiculos'; f.title = 'Uso particular dos veículos';
+    f.allow = 'camera; clipboard-write'; f.referrerPolicy = 'origin'; f.src = URL_APP_VEICULOS;
+    $('#conteudo').after(f);
+    window.addEventListener('resize', ajustarAppVeiculos);
+  }
+  f.hidden = false;
+  requestAnimationFrame(ajustarAppVeiculos);
+}
+function ajustarAppVeiculos() {
+  const f = $('#appVeiculos');
+  if (f && !f.hidden) f.style.height = Math.max(360, window.innerHeight - f.getBoundingClientRect().top - 2) + 'px';
 }
 
 function textoContexto() {
@@ -1185,11 +1229,11 @@ function textoContexto() {
     ? `AGENDA · ${DIAS_CURTOS[diaSemana(ui.dia)]} ${fmtData(ui.dia)}`
     : ui.visao === 'mes' ? `AGENDA · ${MESES[+ui.dia.slice(5, 7) - 1].toUpperCase()} ${ui.dia.slice(0, 4)}`
     : `AGENDA · SEMANA ${semanaISO(ui.semana)} · ${per}`;
-  return { plantoes: 'ESCALA DE PLANTÕES', clientes: 'CADASTRO · CLIENTES', tecnicos: 'CADASTRO · TÉCNICOS', config: 'CONFIGURAÇÕES E DADOS' }[ui.aba];
+  return { plantoes: 'ESCALA DE PLANTÕES', clientes: 'CADASTRO · CLIENTES', tecnicos: 'CADASTRO · TÉCNICOS', config: 'CONFIGURAÇÕES E DADOS', veiculos: 'USO PARTICULAR DOS VEÍCULOS' }[ui.aba];
 }
 
 function renderAbas() {
-  const abas = [['agenda', 'Agenda', ICO.agenda], ['plantoes', 'Plantões', ICO.escudo], ['clientes', 'Clientes', ICO.predio], ['tecnicos', 'Técnicos', ICO.pessoas], ['config', 'Configurações e dados', ICO.engrenagem]];
+  const abas = [['agenda', 'Agenda', ICO.agenda], ['plantoes', 'Plantões', ICO.escudo], ['clientes', 'Clientes', ICO.predio], ['tecnicos', 'Técnicos', ICO.pessoas], ['config', 'Configurações e dados', ICO.engrenagem], ...(podeVerVeiculos() ? [['veiculos', 'Uso particular', ICO.veiculo]] : [])];
   $('#abas').innerHTML = abas.map(([id, nome, ico]) => `<button role="tab" aria-selected="${ui.aba === id}" data-acao="aba" data-aba="${id}">${ico}${nome}</button>`).join('');
 }
 
