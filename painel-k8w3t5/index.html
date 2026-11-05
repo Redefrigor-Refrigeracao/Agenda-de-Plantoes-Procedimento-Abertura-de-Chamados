@@ -651,6 +651,53 @@ table.tab .acoes { white-space: nowrap; text-align: right; }
   .imp-nota { color: #7A8594; font-size: 7pt; margin-top: 4px; }
   .quebra { break-before: page; }
 }
+/* =====================================================================
+   MENU LATERAL (painel) — PC: lateral fixa · tablet: só ícones · celular: botão ☰
+   ===================================================================== */
+@media screen {
+  :root { --lateral: 236px; }
+  body { padding-left: var(--lateral); }
+  .topo { position: fixed; top: 0; left: 0; bottom: 0; width: var(--lateral); z-index: 50; display: flex; flex-direction: column; overflow-x: hidden; overflow-y: auto; background: linear-gradient(180deg, var(--navy) 0%, var(--azul) 100%); }
+  .topo::after { display: none; }   /* o círculo decorativo do topo criaria rolagem no menu */
+  .topo-in { max-width: none; margin: 0; padding: 22px 18px 10px; flex-direction: column; align-items: flex-start; gap: 0; }
+  .topo-logo { height: 26px; max-width: 100%; }
+  .abas { max-width: none; margin: 0; padding: 10px 10px 24px; flex-direction: column; gap: 2px; overflow: visible; }
+  .abas button { width: 100%; justify-content: flex-start; border-radius: 10px; padding: 11px 14px; text-align: left; }
+  .abas button svg { width: 18px; height: 18px; flex: none; }
+  .abas button[aria-selected="true"] { background: #fff; color: var(--navy); box-shadow: 0 2px 10px rgba(0, 20, 50, .18); }
+  .barra-contexto { max-width: 1600px; margin: 0 auto; padding: 14px 24px 0; display: flex; justify-content: flex-end; }
+  .barra-contexto .pill-contexto { background: #fff; color: var(--navy); border: 1px solid var(--borda); box-shadow: var(--sombra); }
+  .btn-menu, .fundo-menu { display: none; }
+  /* aba "Uso particular": o app ocupa toda a área ao lado do menu */
+  body.aba-veiculos .barra-contexto, body.aba-veiculos #faixaDados { display: none; }
+  body.aba-veiculos { overflow: hidden; }
+}
+/* Tablet: trilho estreito, ícone em cima e nome embaixo */
+@media screen and (min-width: 701px) and (max-width: 1100px) {
+  :root { --lateral: 92px; }
+  .topo-in { align-items: center; padding: 18px 8px 8px; }
+  .topo-logo { width: 74px; height: auto; }
+  .abas { padding: 8px 6px 20px; }
+  .abas button { flex-direction: column; justify-content: center; gap: 4px; padding: 10px 4px; font-size: 11px; white-space: normal; text-align: center; line-height: 1.15; }
+  .abas button svg { width: 20px; height: 20px; }
+}
+/* Celular: barra fina no topo e menu que abre por cima */
+@media screen and (max-width: 700px) {
+  body { padding-left: 0; padding-top: 56px; }
+  .topo { bottom: auto; right: 0; width: auto; height: 56px; flex-direction: row; overflow: visible; }
+  .topo::after { display: none; }
+  .topo-in { flex-direction: row; align-items: center; justify-content: flex-start; height: 56px; width: 100%; padding: 0 12px; gap: 10px; }
+  .topo-logo { height: 22px; }
+  .btn-menu { display: inline-grid; place-items: center; width: 44px; height: 44px; margin-left: -6px; border: 0; border-radius: 10px; background: transparent; color: #fff; cursor: pointer; }
+  .btn-menu svg { width: 24px; height: 24px; }
+  .abas { position: fixed; top: 56px; left: 0; bottom: 0; width: min(280px, 84vw); padding: 12px 10px 24px; overflow-y: auto; background: linear-gradient(180deg, var(--navy) 0%, var(--azul) 100%); box-shadow: 8px 0 24px rgba(0, 20, 50, .25); transform: translateX(-105%); transition: transform .2s ease; z-index: 52; }
+  body.menu-aberto .abas { transform: none; }
+  .fundo-menu { position: fixed; inset: 56px 0 0 0; background: rgba(0, 25, 50, .45); z-index: 49; }   /* abaixo do menu (que está dentro do .topo, z-index 50) */
+  body.menu-aberto .fundo-menu { display: block; }
+  body.menu-aberto { overflow: hidden; }
+  .barra-contexto { padding: 12px 16px 0; justify-content: flex-start; }
+}
+
 </style>
 </head>
 <body>
@@ -1175,6 +1222,7 @@ function render() {
   if (ui.aba === 'veiculos' && !podeVerVeiculos()) ui.aba = 'agenda';
   c.hidden = ui.aba === 'veiculos';
   if ($('#appVeiculos')) $('#appVeiculos').hidden = ui.aba !== 'veiculos';
+  document.body.classList.toggle('aba-veiculos', ui.aba === 'veiculos');
   if (ui.aba === 'veiculos') { mostrarAppVeiculos(); return; }
   if (HOSPEDADO && !nuvem.ativa) { c.innerHTML = htmlTelaConectar(); return; }
   if (ui.aba === 'agenda') c.innerHTML = htmlAgenda();
@@ -1205,6 +1253,29 @@ window.addEventListener('message', async e => {
   } catch (err) { }
   e.source.postMessage(resposta, origemApp);
 });
+// Menu lateral: pílula de contexto acima do conteúdo e botão de menu (celular)
+(function menuLateral() {
+  const topoIn = document.querySelector('.topo-in'), pill = document.getElementById('pillContexto'), faixa = document.getElementById('faixaDados');
+  if (!topoIn || !pill || !faixa || document.querySelector('.btn-menu')) return;
+  const barra = document.createElement('div');
+  barra.className = 'barra-contexto';
+  faixa.before(barra);
+  barra.append(pill);
+  const bt = document.createElement('button');
+  bt.type = 'button'; bt.className = 'btn-menu';
+  bt.setAttribute('aria-label', 'Abrir menu'); bt.setAttribute('aria-expanded', 'false'); bt.setAttribute('aria-controls', 'abas');
+  bt.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  topoIn.prepend(bt);
+  const fundo = document.createElement('div');
+  fundo.className = 'fundo-menu';
+  document.body.append(fundo);
+  const abrir = v => { document.body.classList.toggle('menu-aberto', v); bt.setAttribute('aria-expanded', String(v)); bt.setAttribute('aria-label', v ? 'Fechar menu' : 'Abrir menu'); };
+  bt.addEventListener('click', () => abrir(!document.body.classList.contains('menu-aberto')));
+  fundo.addEventListener('click', () => abrir(false));
+  document.getElementById('abas').addEventListener('click', e => { if (e.target.closest('button, a')) abrir(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') abrir(false); });
+})();
+
 function mostrarAppVeiculos() {
   let f = $('#appVeiculos');
   if (!f) {
