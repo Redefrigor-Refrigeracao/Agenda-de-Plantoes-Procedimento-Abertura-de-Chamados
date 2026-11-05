@@ -1329,7 +1329,7 @@ function textoContexto() {
 }
 
 function renderAbas() {
-  const abas = [['agenda', 'Agenda', ICO.agenda], ['plantoes', 'Plantões', ICO.escudo], ['clientes', 'Clientes', ICO.predio], ['tecnicos', 'Técnicos', ICO.pessoas], ['config', 'Configurações e dados', ICO.engrenagem], ...(podeVerVeiculos() ? [['veiculos', 'Uso particular', ICO.veiculo]] : [])];
+  const abas = [['agenda', 'Agenda', ICO.agenda], ['plantoes', 'Plantões', ICO.escudo], ['clientes', 'Clientes', ICO.predio], ['tecnicos', 'Técnicos', ICO.pessoas], ...(podeVerVeiculos() ? [['veiculos', 'Uso particular', ICO.veiculo]] : []), ['config', 'Configurações e dados', ICO.engrenagem]];
   $('#abas').innerHTML = abas.map(([id, nome, ico]) => `<button role="tab" aria-selected="${ui.aba === id}" data-acao="aba" data-aba="${id}" title="${nome}" aria-label="${nome}">${ico}${nome}</button>`).join('');
 }
 
