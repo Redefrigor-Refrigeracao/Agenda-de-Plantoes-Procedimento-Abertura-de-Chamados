@@ -1,8 +1,8 @@
 // Gera o PDF de um relatório do Fechamento mensal com o Chrome (vetorial, igual à impressão do navegador).
 // Recebe { html } e devolve application/pdf. Só para quem está logado na agenda (token do Supabase).
 // A página é desenhada sem JavaScript e sem acesso à internet, exceto as fontes do Google.
-const chromium = require('@sparticuz/chromium');
-const puppeteer = require('puppeteer-core');
+import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
 
 const SB_URL = 'https://zkkblwefgfviapidkvrn.supabase.co';
 const SB_CHAVE = 'sb_publishable_c4yeQniM4ekjBwAkPMzneA_j9VEriB-';
@@ -28,7 +28,7 @@ async function usuarioValido(token) {
   } catch (e) { return false; }
 }
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // a agenda também roda aberta do computador (arquivo mestre): libera outras origens; o acesso depende do token
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type');
@@ -58,4 +58,4 @@ module.exports = async (req, res) => {
   } finally {
     if (pagina) await pagina.close().catch(() => {});
   }
-};
+}

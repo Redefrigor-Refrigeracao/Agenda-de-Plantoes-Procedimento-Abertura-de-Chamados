@@ -1,5 +1,9 @@
 {
   "functions": {
-    "api/pdf.js": { "memory": 1769, "maxDuration": 60 }
+    "api/pdf.js": {
+      "memory": 1769,
+      "maxDuration": 60,
+      "includeFiles": "node_modules/@sparticuz/chromium/bin/**"
+    }
   }
 }
