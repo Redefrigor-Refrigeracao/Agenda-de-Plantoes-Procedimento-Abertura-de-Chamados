@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="versao-agenda" content="2026-11-06T14:58:06.698Z">
+<meta name="versao-agenda" content="2026-11-06T17:02:02.542Z">
 <title>Agenda Semanal | Redefrigor</title>
 <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABC2lDQ1BJQ0MgUHJvZmlsZQAAeJyVkLFOwlAUhr+LJILBOMjAwNCBgUWCDsaBCYaGzRRJKE5tKV2gbW5rfAHZGFjZiItvIK/ghomJg5OPQEh0NtdqysLAmb785885/zkgXgCydRj7sTT0ptYz+9rhJwKhOmA5UcjuEvD9nnjfzti/8gM3coA1UJE9sw+iCBS9hKuK7YQbiu/jMAZxrVjeGC0QA6DqbbG9xU4olX8KNMajO7XrLzcF1+92gBxQJsJAp6nuTyzBI1x9wcEs1ew5LCdQ+ki1ygJOHuB5lWrpT0JLWr9SFsgMh7B5gmMTTl/h6Pb/ETuyqXlldAICPEa4aLTxcaihcUGdcy5/AKbWPz8bOFjoAAAAYFBMVEW4uLgnpCdro3Gf3KV/f39x73FDskSoqHb/AP8zzDPMzMxCqzwAAAAkpCRTqVMA/wAqpioyqDMAfwAvpzAtpy02qDcnsSc+vj46qTpDr0MAqgBDq0NWtVb///8/fz9Hs0d/oYKHAAAAIHRSTlMDDAcEAhBIBQEFBS4A/QcB0W0CjbBR/gQ2RgMoEwEELakLhgYAAAMoSURBVHjalVfXdqMwEBXY3mwZ1GVYkMP//2VGIIMaAs8DOQ7SZcqdRiAT1lN8zkZp3i3CtTKze9Oz/DTJro/4oMLf3YUr8wIY2RkAftwKAQN/dplwQZcDFQDJgCo8qgmoriSKApPHAN8Awn9sAFNE6MRyrAwwwrSbbmDSRQQ9gSwCoGoiPDhB/DtUQrIcAFFjsxU0YHjZE8BYCsDYTSeObxGBFs14arIhkLf+2f2uAUkPzEAEYCEA2p/ddwCOVgMvI8gQoAeVE6f1r9oSJZ5CNjsALSmqfLxR1RIlTOADCVPhxMTuW4BobqA1A9w9wPjipS/QAkN3OoHmMK4AJQOQymHWSJlSwtzQDe4MhoPRnK40zbo+oQR1frHIBoInVSFh0qyFmBIGtPczYWBT9f8V6sZSaaZ3lTD+EiY36VMPqK84X8Ns/yu0q02Yj8ar2hNGeBrfBxyII5+1+Gi82Ryvw5B4T0JFvt3bfoTWnx/QiSGJ03JTEJeG9M3NpwISkAiDLyVcELkFjr/IzmJtMdrXpN2+OhNTC35ZaOA3Q7wyfCoG/yCcO/UU0f7vZfVRbrvf9MoCA82fq9+PLEAmrMFf28I16aPkIYv3BiGMBWAfW4AAronxtx/YpxYgwO9NoaduJfvUgo4EjRyJecEPLC6AJErFGe7nFszRlTiZxTkbsH6EFZqTqNLxczcmFmgSF8TpzIZH0kMUMd1HNqQV0JAYkIM8KwVxBZxI0pWGOkLaBbGgJH35xIbEAlfSYmKe2ZC6AItqWtabKkIC4Mp6ilm3IcmkpbEkrU2feLENFbbY2rLmaqsINBxXFP7M2/tJHEIEurT3dMDQW05LWpIGBv3+FC2OOHbNKFax5NYPKMs5B3CP6WUWG1ANO/36XxL87zw//MxNMs+sNoybogeCgyI9GjTRBno0qQcRGA9HXePm9Pr15+bqbdgmOwJy6Yuf3H9JVhn3bZJhF8b9ZfJQuw3ixP584YhWHl0HKK880dL1qPjwcOkKh2pjK58/Xvu2xRMr1QGLlK0unutI7BZnKoqrrz1bff3y/RqozZfv4dLyvaz/7jldXP9/AOWF1y/D1JejAAAAAElFTkSuQmCC">
 <style>
@@ -3822,6 +3822,7 @@ const F_MESES = ['', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
 /* ---------- utilitários ---------- */
 const fp2 = n => String(n).padStart(2, '0');
 const fHms = s => { s = Math.trunc(s); return `${Math.floor(s / 3600)}:${fp2(Math.floor(s % 3600 / 60))}:${fp2(s % 60)}`; };
+const fPl = (n, um, varios) => `${n} ${n === 1 ? um : varios}`;
 const fHm = s => { s = Math.trunc(s); return `${Math.floor(s / 3600)}:${fp2(Math.floor(s % 3600 / 60))}`; };
 const fPct = (x, d = 1) => (x * 100).toFixed(d).replace('.', ',') + '%';
 const fCurto = rot => { const [m, a] = rot.split('/'); return `${m.slice(0, 3)}/${a}`; };   // "Outubro/26" -> "Out/26"
@@ -4078,7 +4079,7 @@ function fHistoricoSvg(hist) {   // hist: [[rotulo, contratadas, prev, corr]]
   const topo = Math.max(...hist.map(([, con, p, c]) => Math.max(p + c, con))) / 3600;
   const passo = fPassoEixo(topo), ymax = Math.max(2 * passo, Math.ceil(topo / passo) * passo);
   const slot = (W - L - R) / n, bw = Math.min(slot * 0.56, 34), Y = h => T + (1 - h / ymax) * (H - T - B);
-  const s = [`<svg viewBox="0 0 ${W} ${H}" width="100%">`];
+  const s = [`<svg viewBox="0 0 ${W} ${H}" width="100%">`], valores = [];
   for (let h = 0; h <= ymax; h += passo) {
     s.push(`<line x1="${L}" x2="${W - R}" y1="${Y(h).toFixed(1)}" y2="${Y(h).toFixed(1)}" stroke="${FC.GRID}"/>`);
     s.push(`<text x="${L - 6}" y="${(Y(h) + 3).toFixed(1)}" font-size="8.5" fill="${FC.MUTED}" text-anchor="end">${h}h</text>`);
@@ -4094,13 +4095,13 @@ function fHistoricoSvg(hist) {   // hist: [[rotulo, contratadas, prev, corr]]
         + `Q${(x + bw).toFixed(1)},${yc.toFixed(1)} ${(x + bw).toFixed(1)},${(yc + rr).toFixed(1)} V${base.toFixed(1)} Z" fill="${FC.BLUE}" opacity="${op}"/>`);
     }
     const tot = p + c;
-    s.push(`<text x="${(x + bw / 2).toFixed(1)}" y="${(yc - 5).toFixed(1)}" font-size="8" font-weight="${atual ? 700 : 500}" fill="${tot > con ? FC.RED : FC.INK2}" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">${Math.floor(tot / 3600)}h</text>`);
+    valores.push(`<text x="${(x + bw / 2).toFixed(1)}" y="${(yc - 5).toFixed(1)}" font-size="8" font-weight="${atual ? 700 : 500}" fill="${tot > con ? FC.RED : FC.INK2}" stroke="#fff" stroke-width="3" paint-order="stroke" text-anchor="middle">${Math.floor(tot / 3600)}h</text>`);
     s.push(`<text x="${(x + bw / 2).toFixed(1)}" y="${H - 10}" font-size="8.5" fill="${atual ? FC.INK : FC.MUTED}" font-weight="${atual ? 700 : 400}" text-anchor="middle">${fCurto(rot)}</text>`);
   });
   const fr = hist[n - 1][1] / 3600;
   s.push(`<line x1="${L}" x2="${W - R}" y1="${Y(fr).toFixed(1)}" y2="${Y(fr).toFixed(1)}" stroke="${FC.INK}" stroke-width="1.3" stroke-dasharray="5 4"/>`,
     `<text x="${W - R + 6}" y="${(Y(fr) + 3).toFixed(1)}" font-size="9" font-weight="600" fill="${FC.INK}">Franquia</text>`,
-    `<text x="${W - R + 6}" y="${(Y(fr) + 14).toFixed(1)}" font-size="9" fill="${FC.INK2}">${Math.trunc(fr)} h</text></svg>`);
+    `<text x="${W - R + 6}" y="${(Y(fr) + 14).toFixed(1)}" font-size="9" fill="${FC.INK2}">${Math.trunc(fr)} h</text>`, ...valores, '</svg>');   // valores por cima da linha da franquia
   return s.join('');
 }
 const fIcon = (cor, path) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${cor}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
@@ -4157,6 +4158,7 @@ body { margin:0; font-family:'Poppins',Arial,sans-serif; color:${FC.INK}; font-s
 .lgrow em { font-style:normal; color:${FC.MUTED}; font-size:7pt; margin-left:1.5mm; font-weight:400; }
 .lg { font-size:7.5pt; color:${FC.INK2}; margin-left:3.5mm; font-weight:400; }
 .lg i { display:inline-block; width:2.6mm; height:2.6mm; border-radius:.7mm; margin-right:1.2mm; vertical-align:-.2mm; }
+.page.compacta .body { padding-top:3.5mm; } .page.compacta .card { margin-bottom:3mm; padding-top:3.5mm; padding-bottom:3.5mm; }
 .note { font-size:7.2pt; color:${FC.MUTED}; margin-top:1.5mm; line-height:1.45; }
 .stats { display:flex; gap:3mm; margin-top:2mm; }
 .stats div { flex:1; background:#F6F8FA; border-radius:2mm; padding:2mm 3mm; font-size:7.2pt; color:${FC.INK2}; }
@@ -4200,6 +4202,104 @@ table.g { table-layout:fixed; } .g th, .g td { padding-left:1.6mm; padding-right
 function fDoc(titulo, partes) {
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>${esc(titulo)}</title><style>${F_CSS}</style></head><body>`
     + partes.map(p => `<div class="rel" style="--fcor:${p.fcor};--fcor-bg:${p.fcor}14">${p.html}</div>`).join('') + '</body></html>';
+}
+// Ajuste da paginação depois que o documento foi desenhado (doc já carregado, com as fontes):
+// a quantidade de linhas por página é fixa, mas nomes longos quebram linha e cartões extras ocupam espaço.
+// Página que invade o rodapé: primeiro fica mais compacta; se ainda não couber, o que sobra
+// (linhas da tabela ou cartões inteiros) vai para uma página nova logo depois, e a numeração é refeita.
+function fPaginar(doc) {
+  const MM = 96 / 25.4, FOLGA = 2.5 * MM;
+  const estoura = pg => {
+    const body = pg.querySelector(':scope > .body'), foot = pg.querySelector(':scope > .foot');
+    if (!body || !foot) return null;
+    const limite = foot.getBoundingClientRect().top - FOLGA, filhos = [...body.children];
+    const i = filhos.findIndex(e => e.getBoundingClientRect().bottom > limite);
+    return i < 0 ? null : { body, foot, limite, filhos, i };
+  };
+  const novaPagina = (pg, rel) => {
+    const nova = doc.createElement('section'); nova.className = 'page';
+    let cab = rel.querySelector('.head.mini');
+    if (cab) cab = cab.cloneNode(true);
+    else { cab = pg.querySelector(':scope > .head').cloneNode(true); [...cab.children].forEach(c => { if (!c.classList.contains('top')) c.remove(); }); cab.classList.add('mini'); }
+    const corpo = doc.createElement('div'); corpo.className = 'body';
+    nova.append(cab, corpo, pg.querySelector(':scope > .foot').cloneNode(true));
+    return nova;
+  };
+  const nota = () => { const d = doc.createElement('div'); d.className = 'note'; d.textContent = 'Continua na próxima página.'; return d; };
+  for (const rel of doc.querySelectorAll('body > .rel')) {
+    let mudou = false;
+    for (let pg = rel.querySelector('.page'), voltas = 0; pg && voltas < 300; pg = pg.nextElementSibling, voltas++) {
+      let e = estoura(pg); if (!e) continue;
+      pg.classList.add('compacta');
+      e = estoura(pg); if (!e) continue;
+      const { limite, filhos, i } = e, el = filhos[i];
+      // tabela do cartão que estourou: as linhas que passam do limite vão para um cartão igual na página nova
+      const trs = [...el.querySelectorAll('tbody > tr')];
+      let corte = trs.findIndex(tr => tr.getBoundingClientRect().bottom > limite);
+      if (corte < 0) corte = trs.length - 1;   // só o total ou a nota passam do limite: leva a última linha junto
+      const tabela = corte > 0 ? trs[corte].closest('table') : null, tw = tabela && (tabela.closest('.tw') || tabela);
+      let mover;
+      // a página seguinte já continua esta mesma tabela? as linhas entram no começo dela
+      const titulo = x => (x?.querySelector(':scope > .ct')?.textContent || '').replace('(continuação)', '').trim(), cabec = t => t?.querySelector('thead')?.textContent.trim() || '';
+      const prox = pg.nextElementSibling, alvo = prox?.classList.contains('page') ? prox.querySelector(':scope > .body > .card') : null;
+      const tabAlvo = alvo && tabela && titulo(alvo) === titulo(el) && alvo.querySelector('table');
+      if (tw && tw.parentElement === el && tabAlvo && cabec(tabAlvo) === cabec(tabela) && tabAlvo.querySelector('tbody')) {
+        const tbody = trs[corte].parentElement, tbA = tabAlvo.querySelector('tbody'), antigaPrimeira = tbA.firstElementChild;
+        const irmas = [...tbody.children], vao = irmas.slice(irmas.indexOf(trs[corte]));
+        tbA.prepend(...vao);
+        if (!el.querySelector(':scope > .note')?.textContent.includes('Continua')) el.append(nota());
+        const tf = tabela.querySelector('tfoot'); if (tf && !tabAlvo.querySelector('tfoot')) tabAlvo.append(tf);
+        while (el.getBoundingClientRect().bottom > limite && tbody.children.length > 1) tbA.prepend(tbody.lastElementChild);
+        const p1 = tbA.firstElementChild?.cells[0];
+        if (p1 && !p1.textContent.trim()) {
+          const ant = [...tbody.children].reverse().find(tr => tr.cells[0]?.textContent.trim());
+          if (ant && ant.cells.length === tbA.firstElementChild.cells.length) p1.innerHTML = ant.cells[0].innerHTML;
+        }
+        // a antiga primeira linha da continuação repetia o nome do grupo: agora o grupo já vem das linhas de cima
+        const acima = antigaPrimeira?.previousElementSibling, a0 = antigaPrimeira?.cells[0];
+        const agrupa = [...tbody.children, ...tbA.children].some(tr => tr.cells.length > 1 && !tr.cells[0].textContent.trim());
+        if (agrupa && acima && a0 && antigaPrimeira.cells.length === acima.cells.length) {
+          const ultimo = [...tbA.children].slice(0, [...tbA.children].indexOf(antigaPrimeira)).reverse().find(tr => tr.cells[0]?.textContent.trim());
+          if (ultimo && ultimo.cells[0].textContent.trim() === a0.textContent.trim()) a0.textContent = '';
+        }
+        mover = filhos.slice(i + 1);
+        if (mover.length) alvo.after(...mover);
+        mudou = true; continue;
+      }
+      // poucas linhas de um lado ou do outro: melhor levar o cartão inteiro (quando ele não é o primeiro da página)
+      const poucas = i > 0 && (corte < 3 || trs.length - corte < 5);
+      if (tw && tw.parentElement === el && !poucas) {
+        const tbody = trs[corte].parentElement, irmas = [...tbody.children];
+        const copia = el.cloneNode(false), ct = el.querySelector(':scope > .ct');
+        if (ct) { const ct2 = ct.cloneNode(true); if (!ct2.textContent.includes('(continuação)')) ct2.append(' (continuação)'); copia.append(ct2); }
+        const tw2 = tw.cloneNode(true), tab2 = tw2.matches('table') ? tw2 : tw2.querySelector('table');
+        tab2.querySelectorAll('tbody').forEach(tb => tb.replaceChildren());
+        const tb2 = tab2.querySelector('tbody');
+        tb2.append(...irmas.slice(irmas.indexOf(trs[corte])));
+        const tf = tabela.querySelector('tfoot'); tab2.querySelector('tfoot')?.remove(); if (tf) tab2.append(tf);
+        copia.append(tw2);
+        let irmao = tw.nextSibling; while (irmao) { const prox = irmao.nextSibling; copia.append(irmao); irmao = prox; }
+        el.append(nota());
+        // com a nota o cartão cresce: passa mais linhas para a página nova até caber
+        while (el.getBoundingClientRect().bottom > limite && tbody.children.length > 1) tb2.prepend(tbody.lastElementChild);
+        // primeira coluna que só aparece na primeira linha do grupo (ex.: Cliente): repete na página nova
+        const p1 = tb2.firstElementChild?.cells[0];
+        if (p1 && !p1.textContent.trim()) {
+          const ant = [...tbody.children].reverse().find(tr => tr.cells[0]?.textContent.trim());
+          if (ant && ant.cells.length === tb2.firstElementChild.cells.length) p1.innerHTML = ant.cells[0].innerHTML;
+        }
+        mover = [copia, ...filhos.slice(i + 1)];
+      } else if (i > 0) mover = filhos.slice(i);
+      else continue;   // um único bloco maior que a página: não há o que fazer
+      const nova = novaPagina(pg, rel);
+      nova.querySelector('.body').append(...mover);
+      pg.after(nova); mudou = true;
+    }
+    if (mudou) {
+      const pags = [...rel.querySelectorAll('.page')];
+      pags.forEach((p, k) => p.querySelectorAll('.foot span').forEach(s => { if (/^Página \d+ de \d+$/.test(s.textContent)) s.textContent = `Página ${k + 1} de ${pags.length}`; }));
+    }
+  }
 }
 function fFaixa(consumo) {
   const f = consumo > 1 ? 'vermelho' : consumo >= 0.8 ? 'amarelo' : 'verde';
@@ -4264,7 +4364,7 @@ function fCardBotijas(lista) {
     : '<div class="note" style="flex:1;align-self:center">Nenhuma reposição de gás registrada nas tarefas do mês.</div>';
   return `<div class="card"><div class="ct"><span class="bar"></span>Botijas de gás utilizadas no mês</div>
     <div style="display:flex;gap:4.5mm;align-items:flex-start"><div class="kpi" style="min-width:42mm"><div><div class="l">Total no mês</div>
-    <div class="v">${total} <small>botija(s)${gases.length ? ' · ' + gases.map(g => 'R' + g).join(', ') : ''}</small></div></div></div>${detalhe}</div>
+    <div class="v">${total} <small>${total === 1 ? 'botija' : 'botijas'}${gases.length ? ' · ' + gases.map(g => 'R' + g).join(', ') : ''}</small></div></div></div>${detalhe}</div>
     <div class="note">Quantidade informada pelos técnicos no relato das tarefas do Auvo.</div></div>`;
 }
 function fCardCompressores(lista, comLoja = false) {   // itens: [data, qtd, trecho, técnicos, (loja)]
@@ -4318,7 +4418,7 @@ function fRelLoja(ctx, cfg, tarefasLoja) {
   const blocos = [servicos.slice(0, nPag2)];
   for (let i = nPag2; i < servicos.length; i += F_LINHAS_CONT) blocos.push(servicos.slice(i, i + F_LINHAS_CONT));
   const npag = 1 + blocos.length;
-  const notaFora = fora.length ? ` Não incluídos na franquia: ${fora.length} serviço(s) fora do contrato (${[...new Set(fora.map(t => t.tipo))].sort().join(', ')}), somando ${fHms(fSoma(fora, t => t.dur))}.` : '';
+  const notaFora = fora.length ? ` Não incluídos na franquia: ${fPl(fora.length, 'serviço', 'serviços')} fora do contrato (${[...new Set(fora.map(t => t.tipo))].sort().join(', ')}), somando ${fHms(fSoma(fora, t => t.dur))}.` : '';
   const linha = t => `<tr><td>${fDia(t.data)}</td><td class='mut'>${esc(t.cod)}</td><td class='nw'>${esc(t.tec)}</td>`
     + `<td class='nw'><span class='pill ${t.classe === 'Preventiva' ? 'pv' : 'cr'}'>${esc(t.tipo)}</span></td><td class='r b'>${fHms(t.dur)}</td><td class='c ok'>✓ Concluída</td></tr>`;
   const tabela = (rows, ultimo, cont) => `<div class="card" style="padding-bottom:3mm;margin-bottom:0"><div class="ct"><span class="bar"></span>Serviços do contrato${cont ? ' (continuação)' : ''}</div>`
@@ -4337,7 +4437,7 @@ function fRelLoja(ctx, cfg, tarefasLoja) {
   const pag2 = `<section class="page">${mini}<div class="body">
     <div class="card"><div class="ct"><span class="bar"></span>Histórico do contrato<span class="sp"></span>${F_LEG}</div>${fHistoricoSvg(hist)}
       <div class="stats"><div>Média mensal executada<b>${fHm(mediaExec)} h</b></div><div>Meses acima da franquia<b>${mesesAcima} de ${hist.length}</b></div><div>Franquia mensal<b>${fHm(CONTRATADAS)} h</b></div></div>
-      <div class="stats tot"><div>Horas contratadas no contrato<b>${fHm(TOT_CON)} h</b>${desde} a ${ate} · ${nContrato} mês(es)</div>
+      <div class="stats tot"><div>Horas contratadas no contrato<b>${fHm(TOT_CON)} h</b>${desde} a ${ate} · ${fPl(nContrato, 'mês', 'meses')}</div>
         <div>Horas executadas no contrato<b>${fHm(TOT_EXE)} h</b>${fPct(TOT_EXE / TOT_CON)} das contratadas</div>
         <div>${TOT_EXE > TOT_CON ? 'Acima do contratado' : 'Abaixo do contratado'}<b style="color:${TOT_EXE > TOT_CON ? FC.RED : FC.INK}">${TOT_EXE > TOT_CON ? '+' : ''}${fHm(Math.abs(TOT_EXE - TOT_CON))} h</b>soma de todos os meses do contrato</div></div>
     </div>${listaBotijas ? fCardBotijas(listaBotijas) : ''}${listaCompr ? fCardCompressores(listaCompr) : ''}${tabela(blocos[0], blocos.length === 1, false)}</div>${rodape(2)}</section>`;
@@ -4450,7 +4550,7 @@ function fRelGeral(ctx, resumos, cliente = null) {
       <h1>Fechamento Mensal — Todas as Lojas</h1><div class="sub">Controle consolidado das franquias de horas dos contratos de manutenção</div></div>
       <div class="meta" style="grid-template-columns:1fr 1fr 1fr 1fr"><div>Lojas no fechamento<b>${linhas.length}</b></div>
       <div>Franquia total<b>${fHm(T_CON)} h</b></div><div>Executado total<b>${fHm(T_EXE)} h · ${fPct(T_EXE / T_CON, 0)}</b></div>
-      <div>Acima da franquia<b style="color:${acima ? FC.RED : FC.INK}">${acima} loja(s)</b>${atencao} entre 80% e 100%</div></div>
+      <div>Acima da franquia<b style="color:${acima ? FC.RED : FC.INK}">${fPl(acima, 'loja', 'lojas')}</b>${atencao} entre 80% e 100%</div></div>
       <div class="body">${tabela(blocos[0], blocos.length === 1, false)}${botP1 ? cardBot() : ''}</div>${rodape(1)}</section>`;
     let extras = blocos.slice(1).map((b, i) => `${mini}<div class="body">${tabela(b, i === blocos.length - 2, true)}</div>${rodape(i + 2)}</section>`).join('');
     extras += `${mini}<div class="body">${tabelasGrupo()}</div>${rodape(blocos.length + 1)}</section>`;
@@ -4565,7 +4665,7 @@ function fRelAcumulado(ctx, lojas) {
   const rodape = n => `<div class="foot"><span><span class="dot"></span>Dados atualizados em ${emissao} · Fonte: histórico de fechamentos</span><span>Página ${n} de ${npag}</span></div>`;
   const pag1 = `<section class="page"><div class="head"><div class="top"><img src="${LOGO}" alt="Redefrigor">${chip}</div>
     <h1>Fechamento Acumulado — Todos os Meses</h1><div class="sub">Evolução das franquias de horas dos contratos de manutenção</div></div>
-    <div class="meta" style="grid-template-columns:1fr 1fr 1fr 1fr"><div>Período<b>${periodo}</b>${meses.length} mês(es)</div><div>Lojas<b>${dados.size}</b></div>
+    <div class="meta" style="grid-template-columns:1fr 1fr 1fr 1fr"><div>Período<b>${periodo}</b>${fPl(meses.length, 'mês', 'meses')}</div><div>Lojas<b>${dados.size}</b></div>
     <div>Executado no período<b>${fHm(G_EXE)} h · ${fPct(G_EXE / G.con, 0)}</b>de ${fHm(G.con)} h contratadas</div>
     <div>Excedente acumulado<b style="color:${G.exc ? FC.RED : FC.INK}">+${fHm(G.exc)} h</b>${G.acima} de ${G.n} fechamentos acima</div></div>
     <div class="body">${tabMeses}</div>${rodape(1)}</section>`;
@@ -4738,7 +4838,7 @@ async function fProcessar(file) {
     FECH.ocupado = '';
     const ja = FECH.meses.includes(mes.comp);
     const nFin = mes.tarefas.length;
-    if (!await confirmar(`A exportação <b>${esc(file.name)}</b> é de <b>${fNomeMes(mes.comp)}</b>: ${nFin} tarefa(s) finalizada(s) no mês.`
+    if (!await confirmar(`A exportação <b>${esc(file.name)}</b> é de <b>${fNomeMes(mes.comp)}</b>: ${fPl(nFin, 'tarefa finalizada', 'tarefas finalizadas')} no mês.`
       + (ja ? `<br><br>${fNomeMes(mes.comp)} já foi processado. Os relatórios e as horas do mês no histórico serão <b>substituídos</b> por esta exportação.` : '')
       + (fLocal() ? '<br><br><b>Sem login:</b> o resultado fica só nesta aba e não é salvo no banco.' : ''),
       { titulo: 'Processar exportação', ok: ja ? 'Substituir' : 'Processar' })) { render(); return; }
@@ -4749,7 +4849,7 @@ async function fProcessar(file) {
     await fGravar([{ id: 'mes-' + mes.comp, dados: mes }, { id: 'hist-' + mes.comp, dados: { comp: mes.comp, lojas: FECH.hist[mes.comp] } }]);
     if (!ja) FECH.meses = [...FECH.meses, mes.comp].sort();
     FECH.sel = mes.comp; FECH.vista = 'relatorios'; fMudou();
-    toast(`${fNomeMes(mes.comp)} processado: ${calc.relLojas.length} loja(s)` + (fLocal() ? ' (sem salvar)' : ''), 'ok');
+    toast(`${fNomeMes(mes.comp)} processado: ${fPl(calc.relLojas.length, 'loja', 'lojas')}` + (fLocal() ? ' (sem salvar)' : ''), 'ok');
   } catch (e) {
     console.error(e);
     avisar(esc(e.status ? mensagemErroSb(e) : e.message), 'Não foi possível processar');
@@ -4759,7 +4859,7 @@ async function fImportarCadastro(file) {
   try {
     const novo = fCadDePlanilhas(await fLerPlanilha(file));
     novo.opcoes = FECH.cad.opcoes;
-    if (!await confirmar(`Importar <b>${novo.contratos.length} contrato(s)</b>, ${novo.anteriores.length} franquia(s) anterior(es) e ${novo.regras.length} regra(s) de <b>${esc(file.name)}</b>?`
+    if (!await confirmar(`Importar <b>${fPl(novo.contratos.length, 'contrato', 'contratos')}</b>, ${fPl(novo.anteriores.length, 'franquia anterior', 'franquias anteriores')} e ${fPl(novo.regras.length, 'regra', 'regras')} de <b>${esc(file.name)}</b>?`
       + (FECH.cad.contratos.length ? '<br><br>O cadastro atual será <b>substituído</b>.' : ''), { titulo: 'Importar cadastro', ok: 'Importar' })) return;
     FECH.cad = fNormCad(novo); await fGravar([{ id: 'cadastro', dados: FECH.cad }]);
     FECH.cadSujo = false; fMudou(); render(); toast('Cadastro importado', 'ok');
@@ -4770,11 +4870,11 @@ async function fImportarHist(file) {
     const { hist, n } = fHistDeCsv(await lerTextoArquivo(file));
     const meses = Object.keys(hist).sort();
     if (!n) { avisar('Nenhuma linha encontrada no arquivo.'); return; }
-    if (!await confirmar(`Importar <b>${n} linha(s)</b> do histórico (${fCurto(fRotComp(meses[0]))} a ${fCurto(fRotComp(meses[meses.length - 1]))})?<br><br>As lojas e meses do arquivo substituem os que já estão no histórico; os demais ficam como estão.`, { titulo: 'Importar histórico', ok: 'Importar' })) return;
+    if (!await confirmar(`Importar <b>${fPl(n, 'linha', 'linhas')}</b> do histórico (${fCurto(fRotComp(meses[0]))} a ${fCurto(fRotComp(meses[meses.length - 1]))})?<br><br>As lojas e meses do arquivo substituem os que já estão no histórico; os demais ficam como estão.`, { titulo: 'Importar histórico', ok: 'Importar' })) return;
     fOcupado('Salvando o histórico…');
     for (const c of meses) FECH.hist[c] = { ...(FECH.hist[c] || {}), ...hist[c] };
     await fGravar(meses.map(c => ({ id: 'hist-' + c, dados: { comp: c, lojas: FECH.hist[c] } })));
-    fMudou(); toast(`Histórico importado: ${n} linha(s)`, 'ok');
+    fMudou(); toast(`Histórico importado: ${fPl(n, 'linha', 'linhas')}`, 'ok');
   } catch (e) { console.error(e); avisar(esc(e.status ? mensagemErroSb(e) : e.message), 'Não foi possível importar'); }
   finally { fOcupado(''); }
 }
@@ -4819,7 +4919,9 @@ function fVer(ref) {
     corpo: '<iframe class="fc-frame" title="Prévia do relatório"></iframe>',
     botoes: [{ texto: 'Fechar', acao: (w, f) => f() }, { texto: 'Baixar PDF', classe: 'btn-prim', acao: () => fPdf(ref) }]
   });
-  $('.fc-frame', w).srcdoc = fHtmlDoc(d);
+  const fr = $('.fc-frame', w);
+  fr.onload = async () => { try { await Promise.race([fr.contentDocument.fonts.ready, new Promise(r => setTimeout(r, 2500))]); fPaginar(fr.contentDocument); } catch (e) { console.error(e); } };
+  fr.srcdoc = fHtmlDoc(d);
 }
 function fPdf(ref) {
   const d = fDocumento(ref); if (!d) return;
@@ -4832,6 +4934,7 @@ function fPdf(ref) {
   f.onload = async () => {
     try { await Promise.race([f.contentDocument.fonts.ready, new Promise(r => setTimeout(r, 2500))]); } catch (e) { }
     await Promise.all([...f.contentDocument.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+    fPaginar(f.contentDocument);
     const tituloAntes = document.title;
     document.title = d.titulo;   // nome sugerido para o arquivo PDF
     try { f.contentWindow.focus(); f.contentWindow.print(); }
@@ -4840,8 +4943,149 @@ function fPdf(ref) {
   f.srcdoc = fHtmlDoc(d);
 }
 
+/* ---------- salvar todos os PDFs do mês numa pasta do computador (OneDrive) ---------- */
+// mesma organização do fechamento_auvo.py: <pasta>/<AAAA-MM>/<Cliente>/Fechamento_<Cliente>_<Loja>_<AAAA-MM>.pdf
+const FC_LIBS = {
+  html2canvas: ['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', 'sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H'],
+  jspdf: ['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', 'sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk']
+};
+const fPodePasta = () => typeof window.showDirectoryPicker === 'function';
+function fScript(doc, [src, sri]) {
+  return new Promise((ok, falha) => {
+    const s = doc.createElement('script');
+    s.src = src; s.integrity = sri; s.crossOrigin = 'anonymous';
+    s.onload = ok; s.onerror = () => falha(new Error('Não foi possível carregar o gerador de PDF (sem internet?).'));
+    doc.head.append(s);
+  });
+}
+// a pasta escolhida fica guardada neste navegador (IndexedDB), para não perguntar toda vez
+function fIdb(modo, valor) {
+  return new Promise((ok, falha) => {
+    const r = indexedDB.open('fechamento-mensal', 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('cfg');
+    r.onerror = () => falha(r.error);
+    r.onsuccess = () => {
+      const t = r.result.transaction('cfg', modo === 'ler' ? 'readonly' : 'readwrite'), st = t.objectStore('cfg');
+      const q = modo === 'ler' ? st.get('pasta') : modo === 'apagar' ? st.delete('pasta') : st.put(valor, 'pasta');
+      q.onsuccess = () => ok(q.result); q.onerror = () => falha(q.error);
+    };
+  });
+}
+async function fPastaGuardada() {
+  if (FECH.pasta !== undefined) return FECH.pasta;
+  try { FECH.pasta = (await fIdb('ler')) || null; } catch (e) { FECH.pasta = null; }
+  return FECH.pasta;
+}
+async function fEscolherPasta() {
+  try {
+    const h = await window.showDirectoryPicker({ id: 'fechamento-pdfs', mode: 'readwrite', startIn: 'documents' });
+    FECH.pasta = h;
+    try { await fIdb('gravar', h); } catch (e) { console.error(e); }
+    render();
+    return h;
+  } catch (e) {
+    if (e.name !== 'AbortError') avisar(esc(e.message), 'Não foi possível usar a pasta');
+    return null;
+  }
+}
+// arquivos do mês: [subpastas, nome do arquivo, partes do relatório, repete o PDF anterior?]
+function fArquivosDoMes(c) {
+  const lista = [];
+  if (c.geral) lista.push([[c.comp], c.geral.titulo + '.pdf', [c.geral.parte]]);
+  for (const g of c.grupos) {
+    const pasta = [c.comp, fArquivo(g.cliente)];
+    if (g.unificado) lista.push([pasta, g.unificado.titulo + '.pdf', [g.unificado.parte]]);
+    for (const l of g.lojas) lista.push([pasta, l.titulo + '.pdf', [l.parte]]);
+  }
+  if (c.acumulado) {
+    lista.push([[c.comp], c.acumulado.titulo + '.pdf', [c.acumulado.parte]]);
+    // como antes: Fechamento_Acumulado.pdf na raiz é sempre o do último mês processado
+    if (c.comp === FECH.meses[FECH.meses.length - 1]) lista.push([[], 'Fechamento_Acumulado.pdf', [c.acumulado.parte], true]);
+  }
+  return lista;
+}
+async function fGravarArquivo(raiz, pastas, nome, blob) {
+  let dir = raiz;
+  for (const p of pastas) dir = await dir.getDirectoryHandle(p, { create: true });
+  const arq = await dir.getFileHandle(nome, { create: true });
+  const w = await arq.createWritable();
+  await w.write(blob); await w.close();
+}
+// desenha cada página A4 (.page) dos relatórios como imagem e monta um PDF por relatório
+async function fGerarPdfs(lista, aoAvancar) {
+  if (!window.jspdf) await fScript(document, FC_LIBS.jspdf);
+  const f = document.createElement('iframe');
+  f.title = 'Geração dos PDFs';
+  f.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;height:1123px;border:0';
+  document.body.append(f);
+  try {
+    const partes = lista.filter(x => !x[3]).flatMap(x => x[2]);
+    await new Promise(ok => { f.onload = ok; f.srcdoc = fHtmlDoc({ titulo: 'PDFs', partes }); });
+    const doc = f.contentDocument, win = f.contentWindow;
+    await fScript(doc, FC_LIBS.html2canvas);
+    try { await Promise.race([doc.fonts.ready, new Promise(r => setTimeout(r, 4000))]); } catch (e) { }
+    await Promise.all([...doc.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+    fPaginar(doc);
+    const rels = [...doc.querySelectorAll('body > .rel')];
+    const total = rels.reduce((s, r) => s + r.querySelectorAll('.page').length, 0);
+    const blobs = [];
+    let feitas = 0;
+    for (const rel of rels) {
+      doc.body.replaceChildren(rel);   // o html2canvas copia o documento inteiro a cada página: deixa só este relatório
+      const pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', compress: true });
+      const paginas = [...rel.querySelectorAll('.page')];
+      for (let i = 0; i < paginas.length; i++) {
+        const cv = await win.html2canvas(paginas[i], { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' });
+        if (i) pdf.addPage('a4');
+        pdf.addImage(cv.toDataURL('image/jpeg', 0.9), 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+        cv.width = cv.height = 0;
+        aoAvancar(++feitas, total);
+      }
+      blobs.push(pdf.output('blob'));
+    }
+    return blobs;
+  } finally { f.remove(); }
+}
+function fMsgOcupado(msg) { FECH.ocupado = msg; const el = $('.fc-ocupado span:last-child'); if (el) el.textContent = msg; else if (ui.aba === 'fechamento') render(); }
+async function fSalvarNaPasta(trocar = false) {
+  const c = fCalcAtual(); if (!c) return;
+  if (!fPodePasta()) { avisar('Este navegador não deixa gravar numa pasta do computador. Use o <b>Google Chrome</b> ou o <b>Microsoft Edge</b> no computador.', 'Salvar na pasta'); return; }
+  if (FECH.salvando) return;
+  let raiz = trocar ? null : await fPastaGuardada();
+  if (!raiz) raiz = await fEscolherPasta();
+  if (!raiz) return;
+  const lista = fArquivosDoMes(c);
+  if (!await confirmar(`Gravar <b>${lista.length} PDFs</b> de <b>${fNomeMes(c.comp)}</b> (${fPl(c.relLojas.length, 'loja', 'lojas')}, gerais e acumulado) na pasta <b>${esc(raiz.name)}</b>, dentro de <b>${c.comp}\\&lt;Cliente&gt;</b>.<br><br>Arquivos com o mesmo nome são substituídos. Se a pasta for do OneDrive, ele envia sozinho para a pasta compartilhada.`,
+    { titulo: 'Salvar PDFs na pasta', ok: 'Gravar PDFs' })) return;
+  try {
+    if ((await raiz.queryPermission({ mode: 'readwrite' })) !== 'granted' && (await raiz.requestPermission({ mode: 'readwrite' })) !== 'granted') {
+      avisar('Sem permissão para gravar na pasta. Clique de novo e permita o acesso, ou escolha outra pasta.', 'Salvar na pasta'); return;
+    }
+    await raiz.getDirectoryHandle(c.comp, { create: true });   // confere se a pasta ainda existe
+  } catch (e) {
+    console.error(e);
+    FECH.pasta = null; try { await fIdb('apagar'); } catch (x) { }
+    avisar('A pasta escolhida antes não está mais disponível (foi apagada, renomeada ou o OneDrive está fechado). Clique de novo para escolher a pasta.', 'Salvar na pasta'); render(); return;
+  }
+  FECH.salvando = true;
+  try {
+    fMsgOcupado('Preparando os PDFs…');
+    const blobs = await fGerarPdfs(lista, (n, t) => fMsgOcupado(`Gerando os PDFs… página ${n} de ${t}`));
+    let k = 0;
+    for (const [pastas, nome, , repete] of lista) {
+      fMsgOcupado(`Gravando ${nome}…`);
+      await fGravarArquivo(raiz, pastas, nome, repete ? blobs[k - 1] : blobs[k++]);
+    }
+    toast(`${lista.length} PDFs de ${fNomeMes(c.comp)} gravados em ${raiz.name}\\${c.comp}`, 'ok');
+  } catch (e) {
+    console.error(e);
+    avisar(esc(e.message || String(e)), 'Não foi possível gravar os PDFs');
+  } finally { FECH.salvando = false; fOcupado(''); }
+}
+
 /* ---------- tela ---------- */
 const fBtnRel = (ref, rotulo = '') => `<span class="fc-bts"><button class="btn btn-sec btn-sm" data-acao="fc-ver" data-ref="${esc(ref)}">${ICO.tela} Ver${rotulo}</button><button class="btn btn-sec btn-sm" data-acao="fc-pdf" data-ref="${esc(ref)}">${ICO.pdf} PDF</button></span>`;
+const fNomeLimpo = n => String(n).replace(/\(\s+/g, '(').replace(/\s+\)/g, ')').replace(/\s{2,}/g, ' ').trim();   // "Loja ( contrato )" -> "Loja (contrato)"
 const fPctCor = (exe, con) => { const x = con ? exe / con : 0; return `<b style="color:${x > 1 ? 'var(--vermelho)' : x >= 0.8 ? '#9A6B00' : '#00731C'}">${fPct(x, 0)}</b>`; };
 function htmlFechamento() {
   if (!FECH.carregado) {
@@ -4849,7 +5093,7 @@ function htmlFechamento() {
     return `<section class="card">${FECH.erro ? `<div class="info-box erro">Não foi possível carregar o fechamento: ${esc(FECH.erro)}</div><div class="linha-acoes" style="margin-top:10px"><button class="btn btn-sec" data-acao="fc-recarregar">Tentar de novo</button></div>` : '<p style="margin:0;color:var(--cinza)">Carregando o fechamento mensal…</p>'}</section>`;
   }
   const abas = [['relatorios', 'Relatórios do mês'], ['cadastro', 'Cadastro dos contratos'], ['historico', 'Histórico de horas']];
-  return `${FECH.ocupado ? `<div class="fc-ocupado"><span class="fc-giro"></span>${esc(FECH.ocupado)}</div>` : ''}
+  return `${FECH.ocupado ? `<div class="fc-ocupado" role="status"><span class="fc-giro"></span><span>${esc(FECH.ocupado)}</span></div>` : ''}
   ${fLocal() ? '<div class="info-box" style="margin-bottom:12px;background:var(--amarelo-claro);color:#6B4E00"><b>Sem login no banco de dados:</b> o que você fizer aqui fica só nesta aba e se perde ao recarregar. Entre com seu e-mail e senha para salvar e ver os meses já processados.</div>' : ''}
   <div class="fc-abas" role="tablist">${abas.map(([id, nome]) => `<button role="tab" aria-selected="${FECH.vista === id}" data-acao="fc-vista" data-vista="${id}">${nome}${id === 'cadastro' && FECH.cadSujo ? ' •' : ''}</button>`).join('')}</div>
   ${FECH.vista === 'cadastro' ? fHtmlCadastro() : FECH.vista === 'historico' ? fHtmlHistorico() : fHtmlRelatorios()}`;
@@ -4882,18 +5126,18 @@ function fHtmlRelatorios() {
   const T_CON = fSoma(R, r => r.contratadas), T_EXE = fSoma(R, r => r.executadas), acima = R.filter(r => r.executadas > r.contratadas).length;
   const av = c.avisos;
   const avisos = [
-    av.naoCadastrados.length ? `<li><b>Clientes da exportação que não estão no cadastro</b> (${av.naoCadastrados.length}): ${esc(av.naoCadastrados.join(', '))}. Inclua no cadastro se tiverem contrato.</li>` : '',
-    av.semFranquia.length ? `<li><b>Lojas sem franquia preenchida</b> (fora dos relatórios): ${esc(av.semFranquia.join(', '))}.</li>` : '',
-    av.semHoras.length ? `<li><b>Lojas sem tarefas na exportação</b> (relatório sai com 0 h executadas): ${esc(av.semHoras.join(', '))}.</li>` : ''
+    av.naoCadastrados.length ? `<li><b>Clientes da exportação que não estão no cadastro</b> (${av.naoCadastrados.length}): ${esc(av.naoCadastrados.map(fNomeLimpo).join(', '))}. Inclua no cadastro se tiverem contrato.</li>` : '',
+    av.semFranquia.length ? `<li><b>Lojas sem franquia preenchida</b> (fora dos relatórios): ${esc(av.semFranquia.map(fNomeLimpo).join(', '))}.</li>` : '',
+    av.semHoras.length ? `<li><b>Lojas sem tarefas na exportação</b> (relatório sai com 0 h executadas): ${esc(av.semHoras.map(fNomeLimpo).join(', '))}.</li>` : ''
   ].join('');
-  const linhaLoja = l => { const r = l.resumo; return `<tr><td>${esc(l.loja)}</td><td class="num">${fHm(r.contratadas)}</td><td class="num">${fHm(r.executadas)}</td><td class="num">${fPctCor(r.executadas, r.contratadas)}</td><td class="num">${r.n}</td><td class="acoes">${fBtnRel('loja:' + l.codigo)}</td></tr>`; };
+  const linhaLoja = l => { const r = l.resumo; return `<tr><td>${esc(l.loja)}</td><td class="num">${fHm(r.contratadas)}</td><td class="num">${fHm(r.executadas)}</td><td class="num">${fPctCor(r.executadas, r.contratadas)}</td><td class="num">${r.n}</td><td class="acoes"><div class="fc-acoes">${fBtnRel('loja:' + l.codigo)}</div></td></tr>`; };
   const grupos = c.grupos.map(g => {
     const con = fSoma(g.lojas, l => l.resumo.contratadas), exe = fSoma(g.lojas, l => l.resumo.executadas);
-    return `<tbody class="fc-grupo"><tr class="fc-gcab"><td><b>${esc(g.cliente)}</b> <span class="cinza">· ${g.lojas.length} loja(s)</span></td><td class="num">${fHm(con)}</td><td class="num">${fHm(exe)}</td><td class="num">${fPctCor(exe, con)}</td><td class="num">${fSoma(g.lojas, l => l.resumo.n)}</td>
-      <td class="acoes">${g.unificado ? fBtnRel('grupo:' + g.cliente, ' geral') : ''}${g.lojas.length > 1 || g.unificado ? `<button class="btn btn-texto btn-sm" data-acao="fc-pdf" data-ref="${esc('grupo-todo:' + g.cliente)}" title="Relatório geral do grupo e de todas as lojas num PDF só">${ICO.pdf} PDF do grupo inteiro</button>` : ''}</td></tr>
+    return `<tbody class="fc-grupo"><tr class="fc-gcab"><td><b>${esc(g.cliente)}</b> <span class="cinza">· ${fPl(g.lojas.length, 'loja', 'lojas')}</span></td><td class="num">${fHm(con)}</td><td class="num">${fHm(exe)}</td><td class="num">${fPctCor(exe, con)}</td><td class="num">${fSoma(g.lojas, l => l.resumo.n)}</td>
+      <td class="acoes"><div class="fc-acoes">${g.unificado ? fBtnRel('grupo:' + g.cliente, ' geral') : ''}${g.lojas.length > 1 || g.unificado ? `<button class="btn btn-texto btn-sm" data-acao="fc-pdf" data-ref="${esc('grupo-todo:' + g.cliente)}" title="Relatório geral do grupo e de todas as lojas num PDF só">${ICO.pdf} PDF do grupo inteiro</button>` : ''}</div></td></tr>
       ${g.lojas.map(linhaLoja).join('')}</tbody>`;
   }).join('');
-  return topo + `<section class="card"><div class="sec-titulo"><h2>${fNomeMes(c.comp)}</h2><span class="sub">${R.length} loja(s) no fechamento</span></div>
+  return topo + `<section class="card"><div class="sec-titulo"><h2>${fNomeMes(c.comp)}</h2><span class="sub">${fPl(R.length, 'loja', 'lojas')} no fechamento</span></div>
     <div class="fc-kpis"><div><span>Franquia total</span><b>${fHm(T_CON)} h</b></div><div><span>Executado</span><b>${fHm(T_EXE)} h · ${fPct(T_CON ? T_EXE / T_CON : 0, 0)}</b></div>
       <div><span>Lojas acima da franquia</span><b style="color:${acima ? 'var(--vermelho)' : 'inherit'}">${acima}</b></div><div><span>Serviços no mês</span><b>${fSoma(R, r => r.n)}</b></div></div>
     ${avisos ? `<div class="info-box" style="margin-top:12px;background:var(--amarelo-claro);color:#6B4E00"><ul class="fc-avisos">${avisos}</ul></div>` : ''}
@@ -4901,9 +5145,18 @@ function fHtmlRelatorios() {
       ${c.geral ? `<div><b>Resumo geral — todas as lojas</b><span>Tabela das lojas, horas por grupo e totais dos contratos</span>${fBtnRel('geral')}</div>` : ''}
       ${c.acumulado ? `<div><b>Fechamento acumulado</b><span>Todos os meses do histórico até ${fNomeMes(c.comp)} (até 12)</span>${fBtnRel('acum')}</div>` : ''}
       <div><b>Tudo do mês num PDF só</b><span>Resumo geral, gerais dos grupos e todas as lojas</span><span class="fc-bts"><button class="btn btn-sec btn-sm" data-acao="fc-pdf" data-ref="tudo">${ICO.pdf} PDF</button></span></div>
-    </div></section>
+    </div>
+    ${fHtmlSalvarPasta(c)}</section>
   <section class="card"><div class="sec-titulo"><h2>Relatórios por cliente e loja</h2></div>
     <div class="tabela-wrap"><table class="tab fc-tab"><thead><tr><th>Cliente · loja</th><th class="num">Franquia</th><th class="num">Executadas</th><th class="num">Consumo</th><th class="num">Serviços</th><th></th></tr></thead>${grupos}</table></div></section>`;
+}
+function fHtmlSalvarPasta(c) {
+  if (!fPodePasta()) return `<p class="fc-nota" style="margin-top:14px">Para gravar todos os PDFs do mês direto na pasta do OneDrive, abra a agenda no <b>Google Chrome</b> ou no <b>Microsoft Edge</b> do computador.</p>`;
+  if (FECH.pasta === undefined && !FECH.lendoPasta) FECH.lendoPasta = fPastaGuardada().then(() => { FECH.lendoPasta = null; if (ui.aba === 'fechamento' && !$('.modal-fundo')) render(); });
+  const p = FECH.pasta;
+  return `<div class="fc-pasta">${ICO.disco}<div><b>Salvar todos os PDFs de ${fNomeMes(c.comp)} na pasta</b>
+      <span>${p ? `Pasta escolhida: <b>${esc(p.name)}</b>. Os PDFs vão para a subpasta ${c.comp}, separados por cliente; o OneDrive envia sozinho.` : 'Escolha uma vez a pasta <b>“03 - Fechamentos Mensais”</b> do OneDrive. Os PDFs ficam em subpastas por mês e por cliente, como antes.'}</span></div>
+      <span class="fc-bts"><button class="btn btn-prim btn-sm" data-acao="fc-salvar-pasta" ${FECH.salvando ? 'disabled' : ''}>${ICO.pdf} ${p ? 'Salvar PDFs na pasta' : 'Escolher pasta e salvar'}</button>${p ? '<button class="btn btn-texto btn-sm" data-acao="fc-trocar-pasta">Trocar pasta</button>' : ''}</span></div>`;
 }
 function fHtmlCadastro() {
   const cad = FECH.cad, op = cad.opcoes;
@@ -4918,7 +5171,7 @@ function fHtmlCadastro() {
     <td>${inp('anteriores', i, 'ate', a.ate, 'placeholder="mm/aaaa" style="width:82px"')}</td><td>${inp('anteriores', i, 'franquia', a.franquia, 'inputmode="decimal" style="width:62px"')}</td><td>${del('anteriores', i)}</td></tr>`).join('');
   const regras = cad.regras.map((r, i) => `<tr><td>${inp('regras', i, 'tipo', r.tipo)}</td><td><select data-fc-c="regras.${i}.classe">${F_CLASSES.map(k => `<option ${r.classe === k ? 'selected' : ''}>${k}</option>`).join('')}</select></td><td>${del('regras', i)}</td></tr>`).join('');
   const lista = k => esc((op[k] || []).join(', '));
-  return `<section class="card"><div class="sec-titulo"><h2>Cadastro dos contratos</h2><span class="sub">${cad.contratos.length} loja(s)${FECH.cadSujo ? ' · <b class="txt-vermelho">alterações não salvas</b>' : ''}</span></div>
+  return `<section class="card"><div class="sec-titulo"><h2>Cadastro dos contratos</h2><span class="sub">${fPl(cad.contratos.length, 'loja', 'lojas')}${FECH.cadSujo ? ' · <b class="txt-vermelho">alterações não salvas</b>' : ''}</span></div>
     <div class="barra"><input type="search" id="fcBusca" placeholder="Buscar por código, cliente ou loja…" style="max-width:320px" aria-label="Buscar contratos"><div class="esp"></div>
       <button class="btn btn-sec" data-acao="fc-imp-cad">${ICO.planilha} Importar cadastro_contratos.xlsx</button>
       ${FECH.cadSujo ? `<button class="btn btn-texto" data-acao="fc-descartar">Descartar alterações</button>` : ''}
@@ -4949,15 +5202,15 @@ function fHtmlHistorico() {
   const nomes = new Map(FECH.cad.contratos.map(c => [String(c.codigo), c]));
   const linhas = meses.map(m => {
     const v = Object.entries(FECH.hist[m]), con = fSoma(v, x => +x[1][0]), exe = fSoma(v, x => +x[1][1] + +x[1][2]);
-    const fontes = [...new Set(v.map(x => String(x[1][3] || '').startsWith('planilha') ? 'planilhas antigas' : x[1][3] || '–'))].join(', ');
+    const fontes = [...new Set(v.map(x => String(x[1][3] || '').startsWith('planilha') ? 'planilhas antigas' : x[1][3] === 'auvo' ? 'Auvo' : x[1][3] || '–'))].join(', ');
     return `<tr><td><b>${fNomeMes(m)}</b></td><td class="num">${v.length}</td><td class="num">${fHm(con)}</td><td class="num">${fHm(exe)}</td><td class="num">${fPctCor(exe, con)}</td><td>${esc(fontes)}</td><td>${FECH.meses.includes(m) ? '<span class="pill st-concluida">exportação processada</span>' : ''}</td></tr>`;
   }).join('');
   const semCad = [...new Set(meses.flatMap(m => Object.keys(FECH.hist[m])))].filter(c => !nomes.has(c));
-  return `<section class="card"><div class="sec-titulo"><h2>Histórico de horas</h2><span class="sub">${meses.length} mês(es) · usado nos gráficos de histórico, nos totais dos contratos e no acumulado</span></div>
+  return `<section class="card"><div class="sec-titulo"><h2>Histórico de horas</h2><span class="sub">${fPl(meses.length, 'mês', 'meses')} · usado nos gráficos de histórico, nos totais dos contratos e no acumulado</span></div>
     <div class="barra"><div class="esp"></div>
       <button class="btn btn-sec" data-acao="fc-exp-hist" ${meses.length ? '' : 'disabled'}>${ICO.planilha} Exportar historico.csv</button>
       <button class="btn btn-prim" data-acao="fc-imp-hist">${ICO.upload} Importar historico.csv</button></div>
-    <p class="fc-nota">Cada exportação processada grava as horas do mês de cada loja aqui. Meses antigos podem vir do historico.csv do fechamento feito no computador (as lojas e meses do arquivo substituem os daqui).${semCad.length ? ` Há ${semCad.length} código(s) no histórico que não estão no cadastro (ignorados nos relatórios).` : ''}</p>
+    <p class="fc-nota">Cada exportação processada grava as horas do mês de cada loja aqui. Meses antigos podem vir do historico.csv do fechamento feito no computador (as lojas e meses do arquivo substituem os daqui).${semCad.length ? ` Há ${fPl(semCad.length, 'código', 'códigos')} no histórico que não estão no cadastro (ignorados nos relatórios).` : ''}</p>
     ${meses.length ? `<div class="tabela-wrap"><table class="tab"><thead><tr><th>Mês</th><th class="num">Lojas</th><th class="num">Contratadas</th><th class="num">Executadas</th><th class="num">Consumo</th><th>Origem</th><th></th></tr></thead><tbody>${linhas}</tbody></table></div>` : '<p style="margin:0;color:var(--cinza)">Histórico vazio.</p>'}
   </section>`;
 }
@@ -4972,6 +5225,8 @@ Object.assign(acoes, {
   'fc-exp-hist': () => fBaixarArquivo('historico.csv', fHistParaCsv(), 'text/csv;charset=utf-8'),
   'fc-ver': el => fVer(el.dataset.ref),
   'fc-pdf': el => fPdf(el.dataset.ref),
+  'fc-salvar-pasta': () => fSalvarNaPasta(),
+  'fc-trocar-pasta': () => fSalvarNaPasta(true),
   'fc-salvar-cad': () => fSalvarCadastro(),
   'fc-descartar': async () => {
     if (!await confirmar('Descartar as alterações do cadastro que ainda não foram salvas?', { titulo: 'Descartar', ok: 'Descartar', perigo: true })) return;
@@ -5033,15 +5288,20 @@ FECH.local = fLocal();
 .fc-bts .btn svg, .fc-tab .btn svg { width:14px; height:14px; }
 .fc-tab tbody.fc-grupo tr.fc-gcab td { background:var(--azul-claro) !important; border-top:2px solid #fff; }
 .fc-tab tbody.fc-grupo tr:not(.fc-gcab) td:first-child { padding-left:26px; }
-.fc-tab .acoes { display:flex; gap:6px; justify-content:flex-end; flex-wrap:wrap; }
+.fc-tab td.acoes { width:240px; } .fc-acoes .fc-bts { flex-wrap:nowrap; } .fc-acoes { display:flex; gap:6px; justify-content:flex-end; flex-wrap:wrap; }
+.fc-tab tr.fc-gcab td:first-child { white-space:nowrap; }
 .fc-cad td { padding:4px 5px; } .fc-cad input[type=text], .fc-cad select { padding:5px 7px; font-size:12.5px; width:100%; min-width:70px; }
 .fc-cad .c { text-align:center; }
+.fc-pasta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:12px; padding:12px 14px; border-radius:10px; background:var(--azul-claro); }
+.fc-pasta > svg { width:22px; height:22px; color:var(--navy); flex:none; }
+.fc-pasta > div { flex:1; min-width:220px; display:flex; flex-direction:column; gap:2px; } .fc-pasta > div span { font-size:12px; color:var(--cinza); }
+.fc-pasta .btn svg { width:14px; height:14px; }
 .fc-frame { width:100%; height:74vh; border:0; border-radius:8px; background:#d9dee5; display:block; }
 .fc-ocupado { position:fixed; left:50%; top:16px; transform:translateX(-50%); z-index:90; background:var(--navy); color:#fff; padding:10px 18px; border-radius:999px; font-size:13.5px; display:flex; align-items:center; gap:10px; box-shadow:0 6px 18px rgba(0,30,70,.3); }
 .fc-giro { width:15px; height:15px; border-radius:50%; border:2.5px solid rgba(255,255,255,.35); border-top-color:#fff; animation:fcGiro .8s linear infinite; }
 @keyframes fcGiro { to { transform:rotate(360deg); } }
 @media (max-width: 900px) { .fc-kpis, .fc-gerais { grid-template-columns:1fr 1fr; } }
-@media (max-width: 560px) { .fc-kpis, .fc-gerais { grid-template-columns:1fr; } }
+@media (max-width: 560px) { .fc-gerais { grid-template-columns:1fr; } .fc-kpis { gap:8px; } .fc-kpis b { font-size:15px; } }
 `;
   document.head.append(s);
 })();
