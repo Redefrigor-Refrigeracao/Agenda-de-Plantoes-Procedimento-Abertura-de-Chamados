@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="versao-agenda" content="2026-11-06T17:02:02.542Z">
+<meta name="versao-agenda" content="2026-11-06T17:18:24.910Z">
 <title>Agenda Semanal | Redefrigor</title>
 <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAABC2lDQ1BJQ0MgUHJvZmlsZQAAeJyVkLFOwlAUhr+LJILBOMjAwNCBgUWCDsaBCYaGzRRJKE5tKV2gbW5rfAHZGFjZiItvIK/ghomJg5OPQEh0NtdqysLAmb785885/zkgXgCydRj7sTT0ptYz+9rhJwKhOmA5UcjuEvD9nnjfzti/8gM3coA1UJE9sw+iCBS9hKuK7YQbiu/jMAZxrVjeGC0QA6DqbbG9xU4olX8KNMajO7XrLzcF1+92gBxQJsJAp6nuTyzBI1x9wcEs1ew5LCdQ+ki1ygJOHuB5lWrpT0JLWr9SFsgMh7B5gmMTTl/h6Pb/ETuyqXlldAICPEa4aLTxcaihcUGdcy5/AKbWPz8bOFjoAAAAYFBMVEW4uLgnpCdro3Gf3KV/f39x73FDskSoqHb/AP8zzDPMzMxCqzwAAAAkpCRTqVMA/wAqpioyqDMAfwAvpzAtpy02qDcnsSc+vj46qTpDr0MAqgBDq0NWtVb///8/fz9Hs0d/oYKHAAAAIHRSTlMDDAcEAhBIBQEFBS4A/QcB0W0CjbBR/gQ2RgMoEwEELakLhgYAAAMoSURBVHjalVfXdqMwEBXY3mwZ1GVYkMP//2VGIIMaAs8DOQ7SZcqdRiAT1lN8zkZp3i3CtTKze9Oz/DTJro/4oMLf3YUr8wIY2RkAftwKAQN/dplwQZcDFQDJgCo8qgmoriSKApPHAN8Awn9sAFNE6MRyrAwwwrSbbmDSRQQ9gSwCoGoiPDhB/DtUQrIcAFFjsxU0YHjZE8BYCsDYTSeObxGBFs14arIhkLf+2f2uAUkPzEAEYCEA2p/ddwCOVgMvI8gQoAeVE6f1r9oSJZ5CNjsALSmqfLxR1RIlTOADCVPhxMTuW4BobqA1A9w9wPjipS/QAkN3OoHmMK4AJQOQymHWSJlSwtzQDe4MhoPRnK40zbo+oQR1frHIBoInVSFh0qyFmBIGtPczYWBT9f8V6sZSaaZ3lTD+EiY36VMPqK84X8Ns/yu0q02Yj8ar2hNGeBrfBxyII5+1+Gi82Ryvw5B4T0JFvt3bfoTWnx/QiSGJ03JTEJeG9M3NpwISkAiDLyVcELkFjr/IzmJtMdrXpN2+OhNTC35ZaOA3Q7wyfCoG/yCcO/UU0f7vZfVRbrvf9MoCA82fq9+PLEAmrMFf28I16aPkIYv3BiGMBWAfW4AAronxtx/YpxYgwO9NoaduJfvUgo4EjRyJecEPLC6AJErFGe7nFszRlTiZxTkbsH6EFZqTqNLxczcmFmgSF8TpzIZH0kMUMd1HNqQV0JAYkIM8KwVxBZxI0pWGOkLaBbGgJH35xIbEAlfSYmKe2ZC6AItqWtabKkIC4Mp6ilm3IcmkpbEkrU2feLENFbbY2rLmaqsINBxXFP7M2/tJHEIEurT3dMDQW05LWpIGBv3+FC2OOHbNKFax5NYPKMs5B3CP6WUWG1ANO/36XxL87zw//MxNMs+sNoybogeCgyI9GjTRBno0qQcRGA9HXePm9Pr15+bqbdgmOwJy6Yuf3H9JVhn3bZJhF8b9ZfJQuw3ixP584YhWHl0HKK880dL1qPjwcOkKh2pjK58/Xvu2xRMr1QGLlK0unutI7BZnKoqrrz1bff3y/RqozZfv4dLyvaz/7jldXP9/AOWF1y/D1JejAAAAAElFTkSuQmCC">
 <style>
@@ -4110,6 +4110,8 @@ const F_ICON_OK = fIcon(FC.GREEN, '<path d="M5 12l5 5 9-10"/>');
 const F_LEG = `<span class="lg"><i style="background:${FC.GREEN}"></i>Preventiva</span><span class="lg"><i style="background:${FC.BLUE}"></i>Corretiva</span>`;
 
 /* ---------- estilo dos relatórios (A4) ---------- */
+// marca de "ok" desenhada (o caractere ✓ não existe na fonte Poppins e pode sair como quadrado no PDF)
+const F_CHECK = '<svg viewBox="0 0 12 12" width="0.95em" height="0.95em" style="vertical-align:-0.12em" aria-hidden="true"><path d="M2.2 6.4l2.5 2.5 5.1-5.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const F_CSS = `
 @page { size:A4; margin:0; }
 * { box-sizing:border-box; }
@@ -4295,11 +4297,63 @@ function fPaginar(doc) {
       nova.querySelector('.body').append(...mover);
       pg.after(nova); mudou = true;
     }
+    if (fPuxarContinuacoes(rel, estoura, nota)) mudou = true;
     if (mudou) {
       const pags = [...rel.querySelectorAll('.page')];
       pags.forEach((p, k) => p.querySelectorAll('.foot span').forEach(s => { if (/^Página \d+ de \d+$/.test(s.textContent)) s.textContent = `Página ${k + 1} de ${pags.length}`; }));
     }
   }
+}
+// Segunda passada: tabela que continua na página seguinte, mas ainda cabe mais aqui (ex.: 3 serviços numa página e 2 na outra).
+// Puxa as linhas de volta enquanto couberem; se a continuação acabar, traz o total e as notas e apaga a página que sobrou.
+function fPuxarContinuacoes(rel, estoura, nota) {
+  const titulo = x => (x?.querySelector(':scope > .ct')?.textContent || '').replace('(continuação)', '').trim();
+  const tabelaDe = card => { const tw = card?.querySelector(':scope > .tw, :scope > table'); return tw ? (tw.matches('table') ? tw : tw.querySelector(':scope > table')) : null; };
+  const cabec = t => t?.tHead?.textContent.trim() || '';
+  let mudou = false;
+  for (let pg = rel.querySelector('.page'), voltas = 0; pg && voltas < 300; voltas++) {
+    const prox = pg.nextElementSibling;
+    if (!prox || !prox.classList.contains('page')) break;
+    const body = pg.querySelector(':scope > .body'), bodyP = prox.querySelector(':scope > .body');
+    const a = body?.lastElementChild, b = bodyP?.firstElementChild, ta = tabelaDe(a), tb = tabelaDe(b);
+    if (!ta || !tb || !ta.tBodies[0] || !tb.tBodies[0] || titulo(a) !== titulo(b) || cabec(ta) !== cabec(tb) || estoura(pg)) { pg = prox; continue; }
+    const tba = ta.tBodies[0], tbb = tb.tBodies[0], grupo = [...tba.rows, ...tbb.rows].some(tr => tr.cells.length > 1 && !tr.cells[0].textContent.trim());
+    let puxou = 0;
+    while (tbb.rows.length) {
+      const tr = tbb.rows[0], c0 = tr.cells[0], antes = c0 ? c0.innerHTML : '';
+      // coluna de grupo (ex.: Cliente) repetida no começo da continuação: some se o grupo já vem de cima
+      if (grupo && c0 && tba.rows.length) { const ult = [...tba.rows].reverse().find(r => r.cells[0]?.textContent.trim()); if (ult && ult.cells[0].textContent.trim() === c0.textContent.trim()) c0.textContent = ''; }
+      tba.append(tr);
+      if (estoura(pg)) { c0 && (c0.innerHTML = antes); tbb.prepend(tr); break; }
+      puxou++;
+    }
+    if (tbb.rows.length) {
+      // a continuação começa agora em outra linha: repete o grupo na primeira linha dela
+      const c0 = tbb.rows[0].cells[0];
+      if (puxou && grupo && c0 && !c0.textContent.trim()) { const ult = [...tba.rows].reverse().find(r => r.cells[0]?.textContent.trim()); if (ult) c0.innerHTML = ult.cells[0].innerHTML; }
+      if (puxou) mudou = true;
+      pg = prox; continue;
+    }
+    // todas as linhas couberam: o total e as notas da continuação vêm para cá, sem o "Continua na próxima página"
+    const twb = tb.closest('.tw') || tb, extras = [];
+    for (let x = twb.nextSibling; x; x = x.nextSibling) extras.push(x);
+    const avisoCont = [...a.querySelectorAll(':scope > .note')].filter(n => n.textContent.includes('Continua na próxima'));
+    const tf = tb.tFoot;
+    avisoCont.forEach(n => n.remove()); if (tf) ta.append(tf); a.append(...extras);
+    const jaCompacta = pg.classList.contains('compacta');
+    if (estoura(pg) && !jaCompacta) { pg.classList.add('compacta'); if (estoura(pg)) pg.classList.remove('compacta'); }   // um pouco mais junta, para acabar a tabela aqui
+    if (estoura(pg)) {   // não coube com o total: desfaz e devolve linhas até caber com o aviso
+      if (tf) tb.append(tf); twb.after(...extras); avisoCont.forEach(n => a.append(n)); if (!avisoCont.length) a.append(nota());
+      while (estoura(pg) && tba.rows.length > 1) tbb.prepend(tba.rows[tba.rows.length - 1]);
+      if (puxou) mudou = true;
+      pg = prox; continue;
+    }
+    b.remove(); mudou = true;
+    // a página seguinte ficou sem a tabela: o que vem depois também sobe, se couber
+    while (bodyP.firstElementChild) { const c = bodyP.firstElementChild; body.append(c); if (estoura(pg)) { bodyP.prepend(c); break; } }
+    if (!bodyP.children.length) prox.remove(); else pg = prox;
+  }
+  return mudou;
 }
 function fFaixa(consumo) {
   const f = consumo > 1 ? 'vermelho' : consumo >= 0.8 ? 'amarelo' : 'verde';
@@ -4337,7 +4391,7 @@ function fCardsMes({ CONTRATADAS, PREV_S, CORR_S, QTD_PREV, QTD_CORR, servicos, 
       <div class="dn">${fDonut(PREV_S, CORR_S, EXECUTADAS ? fPct(CORR_S / EXECUTADAS, 0) : '–', 'corretiva')}${horas}</div>
       <div class="dn">${fDonut(QTD_PREV, QTD_CORR, servicos.length ? fPct(QTD_CORR / tot, 0) : '–', 'corretiva')}${qtd}</div></div></div>`;
   return `<div class="card">
-      <div class="ct"><span class="bar"></span>Franquia de horas<span class="sp"></span><span class="status"><span class="d">${faixa !== 'verde' ? '!' : '✓'}</span>${FTXT}</span></div>
+      <div class="ct"><span class="bar"></span>Franquia de horas<span class="sp"></span><span class="status"><span class="d">${faixa !== 'verde' ? '!' : F_CHECK}</span>${FTXT}</span></div>
       <div class="row hero">
         <div>${fGauge(consumo, FCOR)}
           <div class="faixas">
@@ -4420,7 +4474,7 @@ function fRelLoja(ctx, cfg, tarefasLoja) {
   const npag = 1 + blocos.length;
   const notaFora = fora.length ? ` Não incluídos na franquia: ${fPl(fora.length, 'serviço', 'serviços')} fora do contrato (${[...new Set(fora.map(t => t.tipo))].sort().join(', ')}), somando ${fHms(fSoma(fora, t => t.dur))}.` : '';
   const linha = t => `<tr><td>${fDia(t.data)}</td><td class='mut'>${esc(t.cod)}</td><td class='nw'>${esc(t.tec)}</td>`
-    + `<td class='nw'><span class='pill ${t.classe === 'Preventiva' ? 'pv' : 'cr'}'>${esc(t.tipo)}</span></td><td class='r b'>${fHms(t.dur)}</td><td class='c ok'>✓ Concluída</td></tr>`;
+    + `<td class='nw'><span class='pill ${t.classe === 'Preventiva' ? 'pv' : 'cr'}'>${esc(t.tipo)}</span></td><td class='r b'>${fHms(t.dur)}</td><td class='c ok'>${F_CHECK} Concluída</td></tr>`;
   const tabela = (rows, ultimo, cont) => `<div class="card" style="padding-bottom:3mm;margin-bottom:0"><div class="ct"><span class="bar"></span>Serviços do contrato${cont ? ' (continuação)' : ''}</div>`
     + `<div class="tw"><table><thead><tr><th>Data</th><th>Tarefa</th><th>Técnico</th><th>Tipo</th><th class="r">Duração</th><th class="c">Status</th></tr></thead>`
     + `<tbody>${rows.map(linha).join('') || '<tr><td colspan=6 class=mut>Nenhum serviço executado no mês.</td></tr>'}</tbody>`
@@ -4945,19 +4999,9 @@ function fPdf(ref) {
 
 /* ---------- salvar todos os PDFs do mês numa pasta do computador (OneDrive) ---------- */
 // mesma organização do fechamento_auvo.py: <pasta>/<AAAA-MM>/<Cliente>/Fechamento_<Cliente>_<Loja>_<AAAA-MM>.pdf
-const FC_LIBS = {
-  html2canvas: ['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', 'sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H'],
-  jspdf: ['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', 'sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk']
-};
+// os PDFs são gerados pelo Chrome no servidor da agenda (api/pdf): vetoriais, iguais à impressão do navegador
+const FC_PDF_URL = location.protocol === 'file:' ? 'https://agenda-plantao.vercel.app/api/pdf' : '/api/pdf';   // agenda aberta do computador: usa o site
 const fPodePasta = () => typeof window.showDirectoryPicker === 'function';
-function fScript(doc, [src, sri]) {
-  return new Promise((ok, falha) => {
-    const s = doc.createElement('script');
-    s.src = src; s.integrity = sri; s.crossOrigin = 'anonymous';
-    s.onload = ok; s.onerror = () => falha(new Error('Não foi possível carregar o gerador de PDF (sem internet?).'));
-    doc.head.append(s);
-  });
-}
 // a pasta escolhida fica guardada neste navegador (IndexedDB), para não perguntar toda vez
 function fIdb(modo, valor) {
   return new Promise((ok, falha) => {
@@ -5011,46 +5055,52 @@ async function fGravarArquivo(raiz, pastas, nome, blob) {
   const w = await arq.createWritable();
   await w.write(blob); await w.close();
 }
-// desenha cada página A4 (.page) dos relatórios como imagem e monta um PDF por relatório
+async function fPdfServidor(html, token) {
+  for (let tentativa = 0; ; tentativa++) {
+    let r = null, msg = '';
+    try { r = await fetch(FC_PDF_URL, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }, body: JSON.stringify({ html }) }); }
+    catch (e) { msg = 'Sem conexão com o servidor da agenda.'; }
+    if (r && r.ok) return await r.blob();
+    if (r) { try { msg = (await r.json()).erro || ''; } catch (e) { } }
+    if (r && r.status === 401) throw Object.assign(new Error(msg || 'Sessão encerrada.'), { status: 401 });
+    if (tentativa >= 2 || (r && r.status === 400)) throw new Error(msg || `Erro ${r ? r.status : ''} ao gerar o PDF.`);
+    await new Promise(ok => setTimeout(ok, 1500 * (tentativa + 1)));   // tenta de novo (servidor ocupado ou iniciando)
+  }
+}
+// monta o HTML de cada relatório já paginado (fPaginar) e pede o PDF ao servidor, 4 de cada vez
 async function fGerarPdfs(lista, aoAvancar) {
-  if (!window.jspdf) await fScript(document, FC_LIBS.jspdf);
+  const token = await tokenValido();
+  if (!token) throw new Error('Entre com seu login na agenda para gerar os PDFs.');
+  const itens = lista.filter(x => !x[3]);
   const f = document.createElement('iframe');
   f.title = 'Geração dos PDFs';
   f.style.cssText = 'position:fixed;left:-10000px;top:0;width:794px;height:1123px;border:0';
   document.body.append(f);
+  let htmls;
   try {
-    const partes = lista.filter(x => !x[3]).flatMap(x => x[2]);
-    await new Promise(ok => { f.onload = ok; f.srcdoc = fHtmlDoc({ titulo: 'PDFs', partes }); });
-    const doc = f.contentDocument, win = f.contentWindow;
-    await fScript(doc, FC_LIBS.html2canvas);
+    await new Promise(ok => { f.onload = ok; f.srcdoc = fHtmlDoc({ titulo: 'PDFs', partes: itens.flatMap(x => x[2]) }); });
+    const doc = f.contentDocument;
     try { await Promise.race([doc.fonts.ready, new Promise(r => setTimeout(r, 4000))]); } catch (e) { }
     await Promise.all([...doc.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
     fPaginar(doc);
-    const rels = [...doc.querySelectorAll('body > .rel')];
-    const total = rels.reduce((s, r) => s + r.querySelectorAll('.page').length, 0);
-    const blobs = [];
-    let feitas = 0;
-    for (const rel of rels) {
-      doc.body.replaceChildren(rel);   // o html2canvas copia o documento inteiro a cada página: deixa só este relatório
-      const pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', compress: true });
-      const paginas = [...rel.querySelectorAll('.page')];
-      for (let i = 0; i < paginas.length; i++) {
-        const cv = await win.html2canvas(paginas[i], { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' });
-        if (i) pdf.addPage('a4');
-        pdf.addImage(cv.toDataURL('image/jpeg', 0.9), 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
-        cv.width = cv.height = 0;
-        aoAvancar(++feitas, total);
-      }
-      blobs.push(pdf.output('blob'));
-    }
-    return blobs;
+    const cab = doc.head.innerHTML.replace(/<title>[\s\S]*?<\/title>/, '');
+    htmls = [...doc.querySelectorAll('body > .rel')].map((rel, k) =>
+      `<!doctype html><html lang="pt-BR"><head><title>${esc(itens[k][1].replace(/\.pdf$/, ''))}</title>${cab}</head><body>${rel.outerHTML}</body></html>`);
   } finally { f.remove(); }
+  const blobs = new Array(htmls.length);
+  let proximo = 0, feitos = 0;
+  const trabalhar = async () => {
+    while (proximo < htmls.length) { const k = proximo++; blobs[k] = await fPdfServidor(htmls[k], token); aoAvancar(++feitos, htmls.length); }
+  };
+  await Promise.all([trabalhar(), trabalhar(), trabalhar(), trabalhar()]);
+  return blobs;
 }
 function fMsgOcupado(msg) { FECH.ocupado = msg; const el = $('.fc-ocupado span:last-child'); if (el) el.textContent = msg; else if (ui.aba === 'fechamento') render(); }
 async function fSalvarNaPasta(trocar = false) {
   const c = fCalcAtual(); if (!c) return;
   if (!fPodePasta()) { avisar('Este navegador não deixa gravar numa pasta do computador. Use o <b>Google Chrome</b> ou o <b>Microsoft Edge</b> no computador.', 'Salvar na pasta'); return; }
   if (FECH.salvando) return;
+  if (fLocal()) { avisar('Entre com seu login na agenda para gerar e salvar os PDFs.', 'Salvar na pasta'); return; }
   let raiz = trocar ? null : await fPastaGuardada();
   if (!raiz) raiz = await fEscolherPasta();
   if (!raiz) return;
@@ -5070,7 +5120,7 @@ async function fSalvarNaPasta(trocar = false) {
   FECH.salvando = true;
   try {
     fMsgOcupado('Preparando os PDFs…');
-    const blobs = await fGerarPdfs(lista, (n, t) => fMsgOcupado(`Gerando os PDFs… página ${n} de ${t}`));
+    const blobs = await fGerarPdfs(lista, (n, t) => fMsgOcupado(`Gerando os PDFs… ${n} de ${t}`));
     let k = 0;
     for (const [pastas, nome, , repete] of lista) {
       fMsgOcupado(`Gravando ${nome}…`);
@@ -5079,6 +5129,7 @@ async function fSalvarNaPasta(trocar = false) {
     toast(`${lista.length} PDFs de ${fNomeMes(c.comp)} gravados em ${raiz.name}\\${c.comp}`, 'ok');
   } catch (e) {
     console.error(e);
+    if (e.status === 401) { sessaoEncerrada(); return; }
     avisar(esc(e.message || String(e)), 'Não foi possível gravar os PDFs');
   } finally { FECH.salvando = false; fOcupado(''); }
 }

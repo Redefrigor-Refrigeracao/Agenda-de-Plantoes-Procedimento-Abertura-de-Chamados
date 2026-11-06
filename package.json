@@ -1,0 +1,10 @@
+{
+  "name": "agenda-plantao-site",
+  "private": true,
+  "description": "Site do plantão e agenda Redefrigor. A função api/pdf gera os PDFs do Fechamento mensal.",
+  "engines": { "node": ">=22.17" },
+  "dependencies": {
+    "@sparticuz/chromium": "153.0.0",
+    "puppeteer-core": "25.16.0"
+  }
+}
